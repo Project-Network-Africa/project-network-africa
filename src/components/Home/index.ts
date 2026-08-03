@@ -1,0 +1,14 @@
+export { default as Hero } from "./Hero";
+export { default as TrustedPartners } from "./TrustedPartners";
+export { default as ChoosePath } from "./ChoosePath";
+export { default as WhyPNAfrica } from "./WhyPNAfrica";
+export { default as ProgramsOverview } from "./ProgramsOverview";
+export { default as Programs } from "./ProgramsOverview";
+export { default as HowItWorks } from "./HowItWorks";
+export { default as RealProjectExperience } from "./RealProjectExperience";
+export { default as MentorshipNetwork } from "./MentorshipNetwork";
+export { default as Testimonials } from "./Testimonials";
+export { default as Impact } from "./Impact";
+export { default as EmployerPartnership } from "./EmployerPatnership";
+export { default as Faq } from "./Faq";
+export { default as CTA } from "./CTA";
