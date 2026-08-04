@@ -1,16 +1,32 @@
 export default function NotificationChip() {
   return (
-    <div className="flex items-center gap-[10px] rounded-[14px] bg-white px-4 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.2)]">
-      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#4DD9E8] text-sm font-bold">
+    <div
+      className="
+        flex
+        items-center
+        gap-2
+        rounded-xl
+        bg-white
+        px-3
+        py-2
+        shadow-lg
+
+        sm:px-4
+        sm:py-3
+      "
+    >
+      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#4DD9E8] text-xs font-bold sm:h-7 sm:w-7 sm:text-sm">
         ✓
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-[#1F1F25]">
+        <p className="text-[11px] font-semibold text-[#1F1F25] sm:text-xs">
           Mentor session confirmed
         </p>
 
-        <p className="text-[11px] text-[#5D5D61]">Tomorrow, 10:00 AM</p>
+        <p className="text-[10px] text-[#5D5D61] sm:text-[11px]">
+          Tomorrow, 10:00 AM
+        </p>
       </div>
     </div>
   );

@@ -2,20 +2,27 @@ import Image from "next/image";
 
 export default function ProgressCard() {
   return (
-    <div className="flex w-[420px] flex-col gap-4 rounded-[18px] bg-white px-6 py-[22px] shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+    <div className="flex w-full flex-col gap-4 rounded-[18px] bg-white  p-4 shadow-[0_20px_40px_rgba(0,0,0,0.25)] sm:p-5 lg:p-6">
       {/* Profile */}
 
       <div className="flex items-center gap-3">
-        <Image
+        {/* <Image
           src="/images/avatars/avatar-1.jpg"
           alt="Student"
           width={44}
           height={44}
           className="h-11 w-11 rounded-full object-cover"
+        /> */}
+        <Image
+          src="/images/avatars/avatar-1.jpg"
+          alt="Student"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-full object-cover sm:h-11 sm:w-11"
         />
 
         <div>
-          <h4 className="font-[family:var(--font-body)] text-[15px] font-semibold text-[#1F1F25]">
+          <h4 className="text-sm font-semibold text-[#1F1F25] sm:text-[15px]">
             Amara Okafor
           </h4>
 
@@ -43,7 +50,7 @@ export default function ProgressCard() {
 
       {/* Stats */}
 
-      <div className="flex justify-between">
+      <div className="grid grid-cols-3 gap-4 text-center">
         <div>
           <h3 className="text-[20px] font-bold text-[#1F1F25]">4</h3>
           <p className="text-[10px] text-[#5D5D61]">Team Members</p>
@@ -63,13 +70,13 @@ export default function ProgressCard() {
       {/* Mini Bar Chart */}
 
       <div className="flex items-end gap-[6px]">
-        <div className="h-[14px] w-10 rounded bg-[#5D5D61]" />
-        <div className="h-[22px] w-10 rounded bg-[#1F1F25]" />
-        <div className="h-[18px] w-10 rounded bg-[#00B6CE]" />
-        <div className="h-[30px] w-10 rounded bg-[#1F1F25]" />
-        <div className="h-[24px] w-10 rounded bg-[#5D5D61]" />
-        <div className="h-[36px] w-10 rounded bg-[#00B6CE]" />
-        <div className="h-[28px] w-10 rounded bg-[#00B6CE]" />
+        <div className="h-[14px] flex-1 rounded bg-[#5D5D61]" />
+        <div className="h-[22px] flex-1 rounded bg-[#1F1F25]" />
+        <div className="h-[18px] flex-1 rounded bg-[#00B6CE]" />
+        <div className="h-[30px] flex-1 rounded bg-[#1F1F25]" />
+        <div className="h-[24px] flex-1 rounded bg-[#5D5D61]" />
+        <div className="h-[36px] flex-1 rounded bg-[#00B6CE]" />
+        <div className="h-[28px] flex-1 rounded bg-[#00B6CE]" />
       </div>
     </div>
   );

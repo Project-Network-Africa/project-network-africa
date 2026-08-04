@@ -1,18 +1,30 @@
-export const navigation = [
+export const navLinks = [
   {
-    title: "Programs",
+    name: "Programs",
     href: "/programs",
   },
   {
-    title: "How It Works",
-    href: "/how-it-works",
+    name: "Cohorts",
+    href: "/cohorts",
   },
   {
-    title: "For Employers",
+    name: "Mentorship",
+    href: "/mentorship",
+  },
+  {
+    name: "Employers",
     href: "/employers",
   },
   {
-    title: "About",
+    name: "Resources",
+    href: "/resources",
+  },
+  {
+    name: "Success Stories",
+    href: "/success-stories",
+  },
+  {
+    name: "About",
     href: "/about",
   },
 ];

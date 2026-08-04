@@ -5,28 +5,39 @@ import DotGrid from "./DotGrid";
 
 export default function HeroIllustration() {
   return (
-    <div className="relative h-[440px] w-full overflow-hidden rounded-[28px] bg-[linear-gradient(45deg,#00B6CE_14.29%,#007585_85.71%)]">
-      {/* Top Right Circle */}
-      <div className="absolute -right-20 -top-24 h-[300px] w-[300px] rounded-full bg-white/10" />
+    <div
+      className="
+        relative
+        h-[320px]
+        w-full
+        overflow-hidden
+        rounded-[24px]
+        bg-[linear-gradient(45deg,#00B6CE_14.29%,#007585_85.71%)]
 
-      {/* Bottom Left Circle */}
-      <div className="absolute -bottom-24 -left-20 h-[300px] w-[300px] rounded-full bg-white/10" />
+        sm:h-[380px]
+        lg:h-[440px]
+      "
+    >
+      {/* Top Circle */}
+      <div className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-white/10 sm:h-56 sm:w-56 lg:-right-20 lg:-top-24 lg:h-[300px] lg:w-[300px]" />
 
-      {/* Dot Grid */}
+      {/* Bottom Circle */}
+      <div className="absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-white/10 sm:h-56 sm:w-56 lg:-bottom-24 lg:-left-20 lg:h-[300px] lg:w-[300px]" />
+
       <DotGrid />
 
-      {/* Dashboard Card */}
-      <div className="absolute left-[120px] top-[90px] z-10">
+      {/* Dashboard */}
+      <div className="absolute left-[8%] top-[20%] z-10 w-[65%] max-w-[420px]">
         <ProgressCard />
       </div>
 
       {/* Notification */}
-      <div className="absolute left-[610px] top-[60px] z-10">
+      <div className="absolute right-[6%] top-[10%] z-20">
         <NotificationChip />
       </div>
 
-      {/* Stat */}
-      <div className="absolute left-[640px] top-[300px] z-10">
+      {/* Stats */}
+      <div className="absolute bottom-[10%] right-[8%] z-20">
         <StatChip />
       </div>
     </div>

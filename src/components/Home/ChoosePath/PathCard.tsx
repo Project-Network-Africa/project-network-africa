@@ -17,32 +17,22 @@ export default function PathCard({
   href,
 }: PathCardProps) {
   return (
-    <div className="flex h-[215px] w-[404px] flex-col gap-[14px] rounded-2xl border border-[#E5E5EB] bg-white px-[26px] py-7 shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
-      {/* Image */}
-      <div className="flex h-12 w-12 items-center justify-center  ">
-        <Image
-          src={image}
-          alt={title}
-          width={28}
-          height={28}
-          className="object-contain"
-        />
+    <div className="flex h-full flex-col rounded-2xl border border-[#E5E1DC] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div className="relative mb-5 h-[110px] w-[110px] sm:h-[120px] sm:w-[120px]">
+        <Image src={image} alt={title} fill className="object-contain" />
       </div>
 
-      {/* Title */}
-      <h3 className="font-[family:var(--font-body)] text-[17px] font-semibold text-[#1F1F25]">
+      <h3 className="font-body text-[20px] font-semibold text-[#1F1F25] sm:text-lg">
         {title}
       </h3>
 
-      {/* Description */}
-      <p className="font-[family:var(--font-body)] text-[13px] leading-6 text-[#5D5D61]">
+      <p className="mt-3 flex-1 text-[14px] leading-6 text-[#5D5D61]">
         {description}
       </p>
 
-      {/* Link */}
       <Link
         href={href}
-        className="mt-auto font-[family:var(--font-body)] text-[13px] font-semibold text-[#00B6CE]"
+        className="mt-6 text-[14px] font-semibold text-[#00B6CE] transition hover:text-[#009CB2]"
       >
         {linkText}
       </Link>

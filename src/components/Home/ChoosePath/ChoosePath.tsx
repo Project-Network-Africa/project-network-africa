@@ -28,20 +28,17 @@ const paths = [
 
 export default function ChoosePath() {
   return (
-    <section className="flex w-full justify-center bg-[#F8F8F8] px-20 py-[72px]">
-      <div className="flex w-full max-w-[1280px] flex-col gap-7">
-        {/* Section Label */}
-        <span className="font-[family:var(--font-body)] text-base font-semibold uppercase text-[#00B6CE]">
+    <section className="w-full bg-[#F8F8F8] px-4 py-8 sm:px-6 md:px-8 lg:px-20 lg:py-[72px]">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-6 lg:gap-7">
+        <span className="font-body text-[11px] font-semibold uppercase tracking-[1px] text-[#00B6CE] sm:text-xs md:text-sm lg:text-base">
           GET STARTED
         </span>
 
-        {/* Heading */}
-        <h2 className="font-[family:var(--font-body)] text-[30px] font-bold leading-[118%] text-[#1F1F25]">
+        <h2 className="font-body text-[24px] font-bold leading-[118%] text-[#1F1F25] sm:text-[28px] md:text-[30px] lg:text-[30px]">
           Choose your path
         </h2>
 
-        {/* Cards */}
-        <div className="flex flex-wrap gap-6 pt-[10px]">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {paths.map((path) => (
             <PathCard
               key={path.title}

@@ -34,7 +34,6 @@ export default function HomePage() {
       <EmployerPartnership />
       <Faq />
       <CTA />
-      {/* Other sections */}
       <Footer />
     </>
   );

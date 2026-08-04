@@ -13,7 +13,22 @@ export default function Section({
   containerClassName = "",
 }: SectionProps) {
   return (
-    <section className={`w-full px-20 py-[88px] ${className}`}>
+    <section
+      className={`
+        w-full
+        px-3
+        py-6
+        md:py-8
+        lg:py-14
+        sm:px-8
+        md:px-10
+        lg:px-20
+
+        lg:py-[88px]
+
+        ${className}
+      `}
+    >
       <Container className={containerClassName}>{children}</Container>
     </section>
   );

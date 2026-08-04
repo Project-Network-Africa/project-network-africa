@@ -9,8 +9,8 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="w-full bg-white px-20 py-[88px]">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-9">
+    <section className="w-full bg-white px-4 py-10 sm:px-6 md:px-8 lg:px-20 lg:py-[88px]">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-8 lg:gap-9">
         <SectionHeader label="FAQ" title="Common questions" />
 
         <div className="flex flex-col gap-4">
