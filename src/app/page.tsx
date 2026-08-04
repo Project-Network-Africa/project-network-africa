@@ -33,7 +33,13 @@ export default function HomePage() {
       <Impact />
       <EmployerPartnership />
       <Faq />
-      <CTA />
+      <CTA
+        title="Ready to start your journey with PN Africa?"
+        primaryText="Apply Now"
+        primaryHref="/apply"
+        secondaryText="Talk to an Advisor"
+        secondaryHref="/contact"
+      />
       <Footer />
     </>
   );
