@@ -1,4 +1,4 @@
-import Programs from "../../components/Programs/index";
+import Programs from "../../components/Programs";
 
 export default function Page() {
   return (

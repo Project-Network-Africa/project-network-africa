@@ -12,7 +12,7 @@ export default function RealProjectExperience() {
         {/* Left - Content */}
         <FeatureContent
           label="REAL PROJECT EXPERIENCE"
-          title="Work on live products, not toy assignments"
+          title="Gain experience by working on live projects - not simulated exercises."
           description="Applicants join collaborative teams to build real features for real partner products — guided by mentors and validated by industry reviewers."
           buttonText="See Project Examples"
           buttonHref="/projects"
