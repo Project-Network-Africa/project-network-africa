@@ -1,8 +1,11 @@
 export interface SectionHeaderProps {
-  label: string;
+  label?: string;
   title: string;
-}
-export interface SectionHeaderProps {
-  label: string;
-  title: string;
+  description?: string;
+
+  centered?: boolean;
+
+  titleClassName?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
 }

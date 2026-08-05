@@ -9,13 +9,16 @@ import {
   ProgramsOverview,
   HowItWorks,
   RealProjectExperience,
-  MentorshipNetwork,
   Testimonials,
-  Impact,
   EmployerPartnership,
   Faq,
   CTA,
 } from "../components/Home";
+import PeopleSection from "./../components/Shared/People";
+import StatsSection from "./../components/Shared/StatsSection";
+import { mentors } from "../components/Home/MentorshipNetwork/mentor-card.data";
+import { faqData } from "../components/Home/Faq/faq.data";
+import { impactData } from "../components/Home/Impact/impact-card.data";
 
 export default function HomePage() {
   return (
@@ -28,11 +31,20 @@ export default function HomePage() {
       <ProgramsOverview />
       <HowItWorks />
       <RealProjectExperience />
-      <MentorshipNetwork />
+      <PeopleSection
+        label="FEATURED MENTORS"
+        title="Meet some of our mentors"
+        people={mentors}
+        columns={4}
+      />
       <Testimonials />
-      <Impact />
+      <StatsSection
+        label="OUR IMPACT"
+        title="Numbers that speak for the network"
+        stats={impactData}
+      />
       <EmployerPartnership />
-      <Faq />
+      <Faq items={faqData} />
       <CTA
         title="Ready to start your journey with PN Africa?"
         primaryText="Apply Now"

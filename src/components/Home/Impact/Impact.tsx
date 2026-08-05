@@ -3,7 +3,7 @@ import { impactData } from "./impact-card.data";
 
 export default function Impact() {
   return (
-    <section className="w-full bg-[#F8F8F8] px-5 py-10 sm:px-8 lg:px-20 lg:py-[88px]">
+    <section className="w-full bg-[#FFFFFF] px-5 py-10 sm:px-8 lg:px-20 lg:py-[88px]">
       <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-10 lg:gap-[50px]">
         {/* Heading */}
         <div className="flex flex-col items-center gap-2 text-center">
