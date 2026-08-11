@@ -1,3 +1,8 @@
+export interface FeatureDetail {
+  label: string;
+  value: string;
+}
+
 export interface FeatureContentProps {
   label: string;
   title: string;
@@ -5,10 +10,15 @@ export interface FeatureContentProps {
   buttonText: string;
   buttonHref: string;
   buttonClassName?: string;
+  details?: FeatureDetail[];
 }
 
+import { ReactNode } from "react";
+
 export interface FeatureVisualProps {
-  children: React.ReactNode;
+  children?: ReactNode;
+  image?: string;
+  imageAlt?: string;
 }
 export interface FeatureCardProps {
   icon: string;

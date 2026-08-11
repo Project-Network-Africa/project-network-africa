@@ -11,14 +11,15 @@ import {
   RealProjectExperience,
   Testimonials,
   EmployerPartnership,
-  Faq,
   CTA,
 } from "../components/Home";
 import PeopleSection from "./../components/Shared/People";
 import StatsSection from "./../components/Shared/StatsSection";
 import { mentors } from "../components/Home/MentorshipNetwork/mentor-card.data";
-import { faqData } from "../components/Home/Faq/faq.data";
+
 import { impactData } from "../components/Home/Impact/impact-card.data";
+import FAQ from "../components/Home/Faq";
+import { homeFaqData } from "../data/faq/faq";
 
 export default function HomePage() {
   return (
@@ -44,7 +45,11 @@ export default function HomePage() {
         stats={impactData}
       />
       <EmployerPartnership />
-      <Faq items={faqData} />
+      <FAQ
+        label="COHORT SELECTION"
+        title="Common questions about choosing a cohort"
+        items={homeFaqData}
+      />
       <CTA
         title="Ready to start your journey with PN Africa?"
         primaryText="Apply Now"

@@ -5,9 +5,9 @@ import LearningResources from "./LearningResources";
 import Download from "./Download";
 import Events from "./Events";
 import FAQ from "../Home/Faq";
-import { resourcesFaq } from "./FAQ/resources-faq.data";
 import ContentSection from "../Shared/ContentCard";
 import { blogPosts } from "./Blog/blog.data";
+import { resourcesFaqData } from "@/src/data/faq/faq";
 export default function ProgramsPage() {
   return (
     <>
@@ -23,7 +23,7 @@ export default function ProgramsPage() {
         <LearningResources />
         <Download />
         <Events />
-        <FAQ label="FAQ" title="Common questions" items={resourcesFaq} />
+        <FAQ label="FAQ" title="Common questions" items={resourcesFaqData} />
       </main>
 
       <Footer />

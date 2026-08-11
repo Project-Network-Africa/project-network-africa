@@ -7,8 +7,7 @@ export default function PeopleSection({
   title,
   people,
   columns = 3,
-  backgroundClass = "bg-[#F8F8F8]",
-
+  backgroundClass = "bg-[#FFFFFF]",
   buttonText,
   buttonHref,
 }: PeopleSectionProps) {

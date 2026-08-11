@@ -1,21 +1,36 @@
+import { FeatureContent, FeatureVisual } from "../../Shared/feature-section";
+
 export default function ProgramPreview() {
   return (
-    <div className="relative h-[220px] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#1F1F25] to-[#0F0F14] sm:h-[260px] md:h-[290px] lg:h-[320px]">
-      {/* Dot Grid */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 8 }).map((_, row) =>
-          Array.from({ length: 7 }).map((_, col) => (
-            <div
-              key={`${row}-${col}`}
-              className="absolute h-[2px] w-[2px] rounded-full bg-white/20"
-              style={{
-                left: `${20 + col * 60}px`,
-                top: `${18 + row * 34}px`,
-              }}
-            />
-          )),
-        )}
+    <section className="w-full bg-[#F8F8F8] px-5 py-10 sm:px-8 lg:px-20 lg:py-[88px]">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-8 lg:flex-row lg:items-center lg:gap-10 xl:gap-16">
+        <FeatureVisual
+          image="/images/programs/product-design.jpg"
+          imageAlt="Product design capstone project"
+        />
+        <FeatureContent
+          label="PRODUCT DESIGN BOOTCAMP"
+          title="Become a job-ready product designer in 12 weeks"
+          description="A cohort-based program covering UX research, UI design, prototyping and a real-world capstone project reviewed by mentors and employer partners."
+          buttonText="Apply to this Program"
+          buttonHref="/apply"
+          buttonClassName="bg-[#00B6CE] hover:bg-[#009CB2]"
+          details={[
+            {
+              label: "Duration",
+              value: "12 Weeks",
+            },
+            {
+              label: "Format",
+              value: "Hybrid, cohort-based",
+            },
+            {
+              label: "Eligibility",
+              value: "Open, no experience",
+            },
+          ]}
+        />
       </div>
-    </div>
+    </section>
   );
 }

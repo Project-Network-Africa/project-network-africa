@@ -13,9 +13,10 @@ export const programCategories = [
 export const programs = [
   {
     id: 1,
+    slug: "software-engineering",
     title: "Software Engineering Bootcamp",
     category: "Engineering",
-    image: "/images/programsoverview/software-engineering.png",
+    image: "/images/programs/software-engineering.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "SOFTWARE ENGINEERING BOOTCAMP",
@@ -30,9 +31,10 @@ export const programs = [
   },
   {
     id: 2,
+    slug: "product-management",
     title: "Product Management Bootcamp",
     category: "Product",
-    image: "/images/programsoverview/product-management.png",
+    image: "/images/programs/product-management.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "PRODUCT MANAGEMENT BOOTCAMP",
@@ -47,9 +49,10 @@ export const programs = [
   },
   {
     id: 3,
+    slug: "data-analytics",
     title: "Data Analytics Bootcamp",
     category: "Data",
-    image: "/images/programsoverview/data-analytics.png",
+    image: "/images/programs/data-analytics.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "DATA ANALYSIS BOOTCAMP",
@@ -64,9 +67,10 @@ export const programs = [
   },
   {
     id: 4,
+    slug: "product-design",
     title: "Product Design Bootcamp",
     category: "Design",
-    image: "/images/programsoverview/product-design.png",
+    image: "/images/programs/product-design.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "PRODUCT DESIGN BOOTCAMP",
@@ -81,9 +85,10 @@ export const programs = [
   },
   {
     id: 5,
+    slug: "software-engineering",
     title: "Software Engineering Bootcamp",
     category: "Engineering",
-    image: "/images/programsoverview/software-engineering.png",
+    image: "/images/programs/software-engineering.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "SOFTWARE ENGINEERING BOOTCAMP",
@@ -98,9 +103,10 @@ export const programs = [
   },
   {
     id: 6,
+    slug: "product-management",
     title: "Product Management Bootcamp",
     category: "Product",
-    image: "/images/programsoverview/product-management.png",
+    image: "/images/programs/product-management.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "PRODUCT MANAGEMENT BOOTCAMP",
@@ -115,9 +121,10 @@ export const programs = [
   },
   {
     id: 7,
+    slug: "data-analytics",
     title: "Data Analytics Bootcamp",
     category: "Data",
-    image: "/images/programsoverview/data-analytics.png",
+    image: "/images/programs/data-analytics.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "DATA ANALYSIS BOOTCAMP",
@@ -132,9 +139,10 @@ export const programs = [
   },
   {
     id: 8,
+    slug: "product-design",
     title: "Product Design Bootcamp",
     category: "Design",
-    image: "/images/programsoverview/product-design.png",
+    image: "/images/programs/product-design.jpg",
     description:
       "12-week cohort-based program with mentorship and a capstone project.",
     label: "PRODUCT DESIGN BOOTCAMP",

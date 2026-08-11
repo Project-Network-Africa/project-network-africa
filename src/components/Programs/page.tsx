@@ -2,15 +2,12 @@
 
 import { useMemo, useState } from "react";
 
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
-
 import SectionHeader from "../ui/SectionHeader";
 import ProgramFilter from "../Programs/program-filter";
 import ProgramGrid from "../Shared/program-grid";
-import ProgramDetails from "../Programs/program-details";
 
 import { programCategories, programs } from "../../constants/programs";
+import ProgramPreview from "./program-preview/program-preview";
 
 export default function ProgramsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -25,8 +22,6 @@ export default function ProgramsPage() {
 
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         {/* Program Listing */}
         <section className="px-4 py-12 sm:px-6 md:px-8 lg:px-20 lg:py-[72px]">
@@ -43,16 +38,10 @@ export default function ProgramsPage() {
             />
 
             <ProgramGrid programs={filteredPrograms} />
+            <ProgramPreview />
           </div>
         </section>
-
-        {/* Featured Program */}
-        {filteredPrograms.length > 0 && (
-          <ProgramDetails program={filteredPrograms[0]} />
-        )}
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -4,6 +4,10 @@ export const navLinks = [
   { name: "Mentorship", href: "/mentorship" },
   { name: "Employers", href: "/employers" },
   { name: "Resources", href: "/resources" },
-  { name: "Success Stories", href: "/success-stories" },
+];
+export const moreLinks = [
   { name: "About", href: "/about" },
+  { name: "Success Stories", href: "/success-stories" },
+  { name: "Contact Us", href: "/contact" },
+  { name: "Blog", href: "/blog" },
 ];

@@ -1,16 +1,6 @@
-// export interface FaqItemProps {
-//   question: string;
-//   answer: string;
-//   isOpen: boolean;
-//   onToggle: () => void;
-// }
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
+import { FAQItem } from "@/src/types/faq";
 
-export interface FAQProps {
-  label?: string;
-  title?: string;
-  items: FAQItem[];
+export interface FaqItemProps extends FAQItem {
+  isOpen: boolean;
+  onToggle: () => void;
 }
