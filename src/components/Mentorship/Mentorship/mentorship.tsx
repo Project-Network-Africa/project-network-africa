@@ -10,7 +10,7 @@ export default function Mentorship() {
       title={mentor.heroTitle}
       description={mentor.description}
       buttonText="Apply to Mentor"
-      buttonHref="/mentor/apply"
+      buttonHref="/apply"
     >
       <ProgramPreview />
     </ProgramHero>

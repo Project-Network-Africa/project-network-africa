@@ -1,7 +1,7 @@
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import BecomeAmentor from "./BecomeAMentor";
-import Mentorship from "./Mentorship";
+
 import Testimonials from "./Testimonials";
 import PeopleSection from "../Shared/People";
 import Timeline from "../Shared/timeline";
@@ -15,7 +15,7 @@ export default function ProgramsPage() {
 
       <main className="bg-[#F8F8F8]">
         <BecomeAmentor />
-        <Mentorship />
+        {/* <Mentorship /> */}
         <Timeline
           label="MENTOR PROCESS"
           title="How mentor matching works"

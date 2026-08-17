@@ -4,7 +4,7 @@ import CohortMeta from "./CohortMeta";
 import SeatProgress from "./SeatProgress";
 
 import { CohortCardProps } from "./cohort-list.types";
-
+import { toProgramSlug } from "@/src/lib/toProgramSlug";
 export default function CohortCard({ cohort }: CohortCardProps) {
   const statusStyles = {
     Open: "bg-[#E0F7ED] text-[#1A804D]",
@@ -13,6 +13,7 @@ export default function CohortCard({ cohort }: CohortCardProps) {
     "Starting Soon": "bg-[#E8F0FE] text-[#2457A6]",
     Closed: "bg-[#EBEBF0] text-[#5D5D61]",
   };
+  const programSlug = toProgramSlug(cohort.program);
   return (
     <div className="flex flex-col gap-[14px] rounded-[14px] border border-[#E5E5EB] bg-white p-6">
       {/* Header */}
@@ -35,15 +36,11 @@ export default function CohortCard({ cohort }: CohortCardProps) {
         <div className="flex gap-3">
           <Button
             variant="light"
-            href={`/programs/${cohort.slug}`}
+            href={`/programs/${programSlug}`}
             className="text-[12px]"
           >
             View Details
           </Button>
-
-          {/* <Button href={`/programs/${cohort.programId}`} className="text-[12px]">
-  View Details
-</Button> */}
 
           <Button href={`/apply`} className="text-[12px]">
             Apply Now

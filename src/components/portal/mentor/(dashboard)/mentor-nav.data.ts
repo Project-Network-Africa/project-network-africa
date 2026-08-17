@@ -1,0 +1,18 @@
+import { SidebarNavItem } from "../../shared/Sidebar/portalsidebar";
+
+export const mentorNavItems: SidebarNavItem[] = [
+  { label: "Dashboard", href: "/mentor/dashboard" },
+  { label: "Assigned Mentees", href: "/mentor/assigned-mentees" },
+  { label: "Mentee Analytics", href: "/mentor/mentee-analytics" },
+  { label: "Reviews", href: "/mentor/reviews" },
+  { label: "Project Validation", href: "/mentor/project-validation" },
+  { label: "Feedback", href: "/mentor/feedback" },
+  { label: "Calendar", href: "/mentor/calendar" },
+  { label: "Availability Manager", href: "/mentor/availability-manager" },
+  { label: "Messages", href: "/mentor/messages" },
+  { label: "Cohort Broadcast", href: "/mentor/cohort-broadcast" },
+  { label: "Mentor Community", href: "/mentor/mentor-community" },
+  { label: "Resource Library", href: "/mentor/resource-library" },
+  { label: "Payouts", href: "/mentor/payouts" },
+  { label: "Settings", href: "/mentor/settings" },
+];
