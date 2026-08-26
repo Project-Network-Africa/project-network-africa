@@ -1,11 +1,10 @@
-import Calendar from "@/src/components/portal/applicant/(calendar)/Calendar";
+import AgendaCalendar from "@/src/components/portal/shared/Calendar/AgendaCalendar";
+import { applicantCalendarEvents } from "@/src/data/applicant/calendar";
 
-export default function CalendarPage() {
+export default function ApplicantCalendarPage() {
   return (
-    <div className="flex w-full flex-col gap-5">
-      {/* Header */}
-
-      <Calendar />
+    <div className="w-full space-y-[20px]">
+      <AgendaCalendar events={applicantCalendarEvents} />
     </div>
   );
 }

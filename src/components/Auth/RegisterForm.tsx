@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
-import AuthButton from "./AuthButton";
+
 import AuthCheckbox from "./AuthCheckbox";
+import { Button } from "../ui";
 
 type Role = "Applicant" | "Mentor" | "Employer" | "";
 
@@ -128,7 +129,14 @@ export default function RegisterForm() {
           I agree to the Privacy Policy and Terms of Service
         </AuthCheckbox>
 
-        <AuthButton disabled={!isFormValid}>Create Account</AuthButton>
+        {/* <AuthButton disabled={!isFormValid}>Create Account</AuthButton> */}
+        <Button
+          variant="dark"
+          disabled={!isFormValid}
+          className="h-[44px] w-full rounded-[8px] text-[12px] font-semibold"
+        >
+          Create Account
+        </Button>
       </form>
     </AuthCard>
   );

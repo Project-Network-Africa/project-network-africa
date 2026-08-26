@@ -261,47 +261,6 @@ export default function ExperiencePortfolio({
           "
         />
       </div>
-
-      {/* Buttons */}
-      {/* <div className="flex justify-end gap-3">
-        <button
-          type="button"
-          onClick={onBack}
-          className="
-            rounded-[10px]
-            border
-            border-[#E5E5EB]
-            bg-white
-            px-[22px]
-            py-[13px]
-            text-[14px]
-            font-semibold
-            text-[#1F1F25]
-            transition-colors
-            hover:bg-[#F6F6F7]
-          "
-        >
-          Back
-        </button>
-
-        <button
-          type="button"
-          onClick={onContinue}
-          className="
-            rounded-[10px]
-            bg-[#00B6CE]
-            px-[22px]
-            py-[13px]
-            text-[14px]
-            font-semibold
-            text-white
-            transition-colors
-            hover:bg-[#009DB3]
-          "
-        >
-          Continue
-        </button>
-      </div> */}
     </div>
   );
 }

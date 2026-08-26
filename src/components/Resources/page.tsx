@@ -1,6 +1,3 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
-
 import LearningResources from "./LearningResources";
 import Download from "./Download";
 import Events from "./Events";
@@ -11,8 +8,6 @@ import { resourcesFaqData } from "@/src/data/faq/faq";
 export default function ProgramsPage() {
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <ContentSection
           label="BLOG"
@@ -25,8 +20,6 @@ export default function ProgramsPage() {
         <Events />
         <FAQ label="FAQ" title="Common questions" items={resourcesFaqData} />
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -3,37 +3,18 @@ import Image from "next/image";
 export default function ProjectVisual() {
   return (
     <>
-      {/* Ellipse */}
-      <div className="absolute -left-8 bottom-0 h-32 w-32 rounded-full bg-white/10 sm:-left-10 sm:h-40 sm:w-40 lg:-left-[78px] lg:top-[158px] lg:h-[260px] lg:w-[260px]" />
-
-      {/* Dot Grid */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 8 }).map((_, row) =>
-          Array.from({ length: 7 }).map((_, col) => (
-            <div
-              key={`${row}-${col}`}
-              className="absolute h-[2px] w-[2px] rounded-full bg-white/20"
-              style={{
-                left: `${10 + col * 13}%`,
-                top: `${10 + row * 12}%`,
-              }}
-            />
-          )),
-        )}
-      </div>
-
       {/* Sprint Board */}
       <div
         className="
           absolute
-          left-[6%]
-          top-[8%]
-          z-10
-          w-[42%]
+          left-[0%]
+          top-[0%]
+          z-0
+          w-[20%]
           max-w-[180px]
-          rounded-xl
+          rounded-[12.6px]
           bg-white
-          p-3
+          p-2
           shadow-xl
         "
       >
@@ -52,14 +33,14 @@ export default function ProjectVisual() {
       <div
         className="
           absolute
-          bottom-[8%]
-          right-[6%]
+          bottom-[0%]
+          right-[0%]
           z-10
-          w-[38%]
+          w-[25%]
           max-w-[160px]
-          rounded-xl
+          rounded-[12.6px]
           bg-white
-          p-3
+          p-2
           shadow-xl
         "
       >

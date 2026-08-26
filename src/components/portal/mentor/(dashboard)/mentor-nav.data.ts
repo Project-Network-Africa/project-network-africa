@@ -5,7 +5,7 @@ export const mentorNavItems: SidebarNavItem[] = [
   { label: "Assigned Mentees", href: "/mentor/assigned-mentees" },
   { label: "Mentee Analytics", href: "/mentor/mentee-analytics" },
   { label: "Reviews", href: "/mentor/reviews" },
-  { label: "Project Validation", href: "/mentor/project-validation" },
+
   { label: "Feedback", href: "/mentor/feedback" },
   { label: "Calendar", href: "/mentor/calendar" },
   { label: "Availability Manager", href: "/mentor/availability-manager" },

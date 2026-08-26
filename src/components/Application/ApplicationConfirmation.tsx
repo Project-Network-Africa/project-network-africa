@@ -93,7 +93,6 @@ export default function ApplicationConfirmation({
           </button>
 
           <button
-            type="button"
             onClick={onLogin}
             className="
               h-[43px]

@@ -30,7 +30,7 @@ export default function FeatureSection({
         )}
 
         <div
-          className={`grid grid-cols-1 gap-6 sm:grid-cols-2 ${gridCols[columns]}`}
+          className={`grid grid-cols-1 gap-6 sm:grid-cols-2  ${gridCols[columns]}`}
         >
           {features.map((feature) => (
             <FeatureCard key={feature.title} {...feature} />

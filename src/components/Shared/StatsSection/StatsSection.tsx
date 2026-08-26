@@ -21,24 +21,24 @@ export default function StatsSection({
     >
       <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-10">
         <SectionHeader
-          label={label}
           title={title}
+          label={label}
           centered
           labelClassName="
-    text-[10px]
-    sm:text-[11px]
-    md:text-[12px]
-    lg:text-[12px]
+    text-[22px] text-[#00B6CE]
+    
+    md:text-[27px]
+    lg:text-[32px]
   "
           titleClassName="
-    text-[22px]
-    sm:text-[24px]
-    md:text-[28px]
-    lg:text-[32px]
+    text-[14px] 
+    md:text-[16px]
+    lg:text-[18px] lg:font-bold
+    font-body
   "
         />
         <div
-          className={`grid w-full grid-cols-1 gap-10 sm:grid-cols-2 ${gridCols[columns]}`}
+          className={`grid w-full grid-cols-1 lg:gap-10  gap-[20px] sm:grid-cols-2 ${gridCols[columns]}`}
         >
           {stats.slice(0, columns).map((stat) => (
             <StatCard key={stat.label} {...stat} />

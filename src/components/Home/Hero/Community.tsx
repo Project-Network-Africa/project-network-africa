@@ -9,12 +9,12 @@ const avatars = [
 
 export default function Community() {
   return (
-    <div className="flex max-w-[380px] flex-col items-center gap-3 text-center sm:flex-row sm:text-left">
+    <div className="flex max-w-[380px] flex-row items-center lg:gap-3  text-center sm:flex-row sm:text-left ">
       <div className="flex -space-x-2">
         {avatars.map((avatar, index) => (
           <div
             key={index}
-            className="h-7 w-7 overflow-hidden rounded-full border-2 border-white"
+            className="lg:h-7 lg:w-7 h-5 w-5 overflow-hidden rounded-full border-2 border-white"
           >
             <Image
               src={avatar}
@@ -27,7 +27,7 @@ export default function Community() {
         ))}
       </div>
 
-      <p className="text-[13px] font-medium text-[#5D5D61] sm:text-sm">
+      <p className="text-[10px]  lg: text-[14px]  font-medium text-[#5D5D61] sm:text-sm">
         Joined by 2,400+ graduates across Africa
       </p>
     </div>

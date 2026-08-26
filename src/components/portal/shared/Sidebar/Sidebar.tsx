@@ -31,7 +31,7 @@ export default function Sidebar({
         className={`
           fixed left-0 top-0 z-50
           flex h-screen w-[248px] flex-col
-          border-r border-[#E5E5EB] bg-white
+          border-r border-[#E5E5EB] bg-[#F8F8F8]
           px-4 py-6
           transition-transform duration-300
           

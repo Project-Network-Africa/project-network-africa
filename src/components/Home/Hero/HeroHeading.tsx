@@ -2,36 +2,18 @@ export default function HeroHeading() {
   return (
     <>
       {/* Badge */}
-      <div className="rounded-full border border-[#E5E1DC] bg-white px-4 py-2">
-        <span className="text-[11px] font-medium uppercase tracking-wide text-[#1F1F25] sm:text-xs lg:text-sm">
-          Applications Open for Cohort 7
+      <div className="flex h-[30px] w-full items-center gap-[6px] rounded-[14px] border border-[#E0F8FA] bg-[#E0F8FA] px-3 py-[6px] md:h-[34px] md:w-[294px] md:gap-2 md:rounded-[20px] md:border-[#E5E1DC] md:bg-white md:px-[14px] md:py-[7px]">
+        <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-[#00B6CE]" />
+
+        <span className="text-[12px] font-normal leading-[18px] tracking-[1px] text-[#006D7C] md:text-[14px] md:font-medium md:leading-[20px] md:tracking-normal md:text-[#5D5D61] ">
+          APPLICATIONS OPEN FOR COHORT 7
         </span>
       </div>
 
       {/* Heading */}
       <div className="max-w-[936px]">
-        <h1
-          className="
-            text-center
-            font-heading
-            font-bold
-            text-[34px]
-            leading-[42px]
-
-            sm:text-[44px]
-            sm:leading-[52px]
-
-            md:text-[50px]
-            md:leading-[58px]
-
-            lg:text-[56px]
-            lg:leading-[64px]
-            lg:tracking-[-1px]
-
-            text-[#1F1F25]
-          "
-        >
-          Build Your Career in Tech — With Real Mentors and Real Projects
+        <h1 className="w-full text-center font-heading text-[30px] font-semibold leading-[38px] tracking-normal text-[#1F1F25] lg:w-[936px] lg:text-[64px] lg:font-bold lg:leading-[72px] lg:tracking-[-2px]">
+          Build Your Career in Tech, With Real Mentors and Real Projects
         </h1>
       </div>
 

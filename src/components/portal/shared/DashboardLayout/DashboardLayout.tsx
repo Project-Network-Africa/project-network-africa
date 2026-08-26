@@ -40,7 +40,7 @@ export default function DashboardLayout({
   const title = getPageTitle(pathname, pageTitle);
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-[#F8F8F8]">
       <Sidebar
         navItems={navItems}
         isOpen={sidebarOpen}
@@ -48,7 +48,7 @@ export default function DashboardLayout({
       />
 
       <main className="min-h-screen lg:ml-[248px]">
-        <div className="flex min-h-screen flex-col gap-5 bg-white px-4 py-5 sm:px-6 lg:px-9 lg:py-8">
+        <div className="flex min-h-screen flex-col gap-5 bg-[#F8F8F8] px-4 py-5 sm:px-6 lg:px-9 lg:py-8">
           <Topbar
             title={title}
             userInitials={userInitials}

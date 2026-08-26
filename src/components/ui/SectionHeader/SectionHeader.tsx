@@ -17,10 +17,10 @@ export default function SectionHeader({
     >
       {label && (
         <span
-          className={`font-body text-[11px] font-bold uppercase tracking-[1px] text-[#4DD9E8]
-            sm:text-[12px]
-            md:text-[12px]
-            lg:text-[12px]
+          className={`font-heading font-bold uppercase tracking-[1px] text-[#4DD9E8]
+            sm:text-[22px]
+            md:text-[21px]
+            lg:text-[20px]
             ${labelClassName}`}
         >
           {label}
@@ -28,11 +28,11 @@ export default function SectionHeader({
       )}
 
       <h2
-        className={`font-body font-bold leading-[118%] text-[#1F1F25]
-          text-[22px]
-          sm:text-[24px]
+        className={`font-heading leading-[118%] text-[#1F1F25]
+         font-semibold
+          sm:text-[22px]
           md:text-[28px]
-          lg:text-[30px]
+          lg:text-[40px]
           ${titleClassName}`}
       >
         {title}

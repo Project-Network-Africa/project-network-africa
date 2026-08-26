@@ -4,11 +4,11 @@ export interface FeatureDetail {
 }
 
 export interface FeatureContentProps {
-  label: string;
+  label?: string;
   title: string;
   description: string;
-  buttonText: string;
-  buttonHref: string;
+  buttonText?: string;
+  buttonHref?: string;
   buttonClassName?: string;
   details?: FeatureDetail[];
 }

@@ -13,12 +13,12 @@ export default function Container({
     <div
       className={`
         mx-auto
-        w-full
-        max-w-[1440px]
         px-5
         sm:px-8
         md:px-10
         lg:px-20
+        w-full
+       
         ${className}
       `}
     >

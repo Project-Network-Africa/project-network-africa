@@ -1,6 +1,3 @@
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
-
 import {
   Hero,
   ChoosePath,
@@ -20,36 +17,36 @@ import { mentors } from "../../components/Home/MentorshipNetwork/mentor-card.dat
 import { impactData } from "../../components/Home/Impact/impact-card.data";
 import FAQ from "../../components/Home/Faq";
 import { homeFaqData } from "../../data/faq/faq";
+import MentorshipNetwork from "@/src/components/Home/MentorshipNetwork/MentorshipNetwork";
+import Testimonial from "@/src/components/Home/Testimonials/Testimonial";
 
 export default function HomePage() {
   return (
     <>
-      <Navbar />
       <Hero />
-      <ChoosePath />
       <TrustedPartners />
+      <ChoosePath />
       <WhyPNAfrica />
       <ProgramsOverview />
       <HowItWorks />
+
       <RealProjectExperience />
-      <PeopleSection
+      <MentorshipNetwork />
+      {/* <PeopleSection
         label="FEATURED MENTORS"
         title="Meet some of our mentors"
         people={mentors}
         columns={4}
       />
-      <Testimonials />
+      <Testimonials /> */}
+      <Testimonial />
       <StatsSection
         label="OUR IMPACT"
-        title="Numbers that speak for the network"
+        title="A growing network of learners, mentors, and employers building Africa’s digital talent pipeline."
         stats={impactData}
       />
       <EmployerPartnership />
-      <FAQ
-        label="COHORT SELECTION"
-        title="Common questions about choosing a cohort"
-        items={homeFaqData}
-      />
+      <FAQ label="FAQ" title="Common questions" items={homeFaqData} />
       <CTA
         title="Ready to start your journey with PN Africa?"
         primaryText="Apply Now"
@@ -57,7 +54,6 @@ export default function HomePage() {
         secondaryText="Talk to an Advisor"
         secondaryHref="/contact"
       />
-      <Footer />
     </>
   );
 }

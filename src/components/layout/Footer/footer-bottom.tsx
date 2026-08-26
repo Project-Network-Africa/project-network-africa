@@ -16,14 +16,14 @@ export default function FooterBottom() {
 
         <div className="flex flex-wrap items-center justify-center gap-5 lg:gap-7">
           <Link
-            href="/privacy"
+            href="/privacy-policy"
             className="text-sm font-medium text-[#5D5D61] transition hover:text-white"
           >
             Privacy Policy
           </Link>
 
           <Link
-            href="/terms"
+            href="/terms-of-service"
             className="text-sm font-medium text-[#5D5D61] transition hover:text-white"
           >
             Terms of Service

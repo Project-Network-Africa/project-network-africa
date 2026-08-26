@@ -4,7 +4,6 @@
   --background: #ffffff;
   --foreground: #171717;
 
-  /* Fonts */
   --font-body: var(--font-inter);
   --font-heading: var(--font-crimson);
 }
@@ -12,10 +11,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  /* Fonts */
-  --font-body: var(--font-body);
-  --font-heading: var(--font-heading);
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-crimson);
 }
 
 @media (prefers-color-scheme: dark) {

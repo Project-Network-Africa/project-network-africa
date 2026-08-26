@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-// import { ProgramCardProps } from "./program-card.types";
+
 import { Program } from "../../../types/program";
 
 interface ProgramCardProps {
@@ -11,7 +11,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
   return (
     <div className="flex h-full w-full flex-col rounded-2xl border border-[#E5E1DC] bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-[18px]">
       {/* Image */}
-      <div className="relative mb-4 h-[180px] overflow-hidden rounded-2xl sm:h-[160px] lg:h-[140px]">
+      <div className="relative mb-4 h-[160px] overflow-hidden rounded-2xl md:h-[179px] lg:h-[179px]">
         <Image
           src={program.image}
           alt={program.title}

@@ -9,7 +9,7 @@ export default function FaqItem({
   onToggle,
 }: FaqItemProps) {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-sm transition-all">
+    <div className="overflow-hidden rounded-xl bg-white shadow-sm border border-[#5D5D61]transition-all">
       <button
         onClick={onToggle}
         className="flex w-full items-center justify-between gap-4 px-4 py-5 text-left transition-colors hover:bg-gray-50 sm:px-6"
@@ -18,8 +18,8 @@ export default function FaqItem({
           {question}
         </h3>
 
-        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#E5FAFC] sm:h-8 sm:w-8">
-          <span className="text-lg font-semibold leading-none text-[#00B6CE]">
+        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full  sm:h-8 sm:w-8">
+          <span className="text-lg font-semibold leading-none text-[#1F1F25]">
             {isOpen ? "−" : "+"}
           </span>
         </div>

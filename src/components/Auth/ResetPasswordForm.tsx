@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
-import AuthButton from "./AuthButton";
+import { Button } from "../ui";
 
 export default function ResetPasswordForm() {
   const router = useRouter();
@@ -64,7 +64,12 @@ export default function ResetPasswordForm() {
 
         {error && <p className="text-[12px] text-red-500">{error}</p>}
 
-        <AuthButton>Reset Password</AuthButton>
+        <Button
+          variant="dark"
+          className="h-[45px] w-full rounded-[10px] text-[14px] font-semibold"
+        >
+          Reset Password
+        </Button>
       </form>
     </AuthCard>
   );

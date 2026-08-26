@@ -1,5 +1,3 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
 import BecomeAmentor from "./BecomeAMentor";
 
 import Testimonials from "./Testimonials";
@@ -11,8 +9,6 @@ import { featuredMentors } from "./featuredMentors.data";
 export default function ProgramsPage() {
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <BecomeAmentor />
         {/* <Mentorship /> */}
@@ -32,8 +28,6 @@ export default function ProgramsPage() {
         />
         <Testimonials />
       </main>
-
-      <Footer />
     </>
   );
 }

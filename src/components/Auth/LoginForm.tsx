@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
-import AuthButton from "./AuthButton";
+
 import AuthCheckbox from "./AuthCheckbox";
+import { Button } from "../ui";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -82,7 +83,8 @@ export default function LoginForm() {
           </Link>
         </div>
 
-        <AuthButton>Log In</AuthButton>
+        {/* <AuthButton>Log In</AuthButton> */}
+        <Button variant="dark">Log In</Button>
       </form>
     </AuthCard>
   );

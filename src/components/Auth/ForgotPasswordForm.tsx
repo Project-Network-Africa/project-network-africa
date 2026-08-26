@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
-import AuthButton from "./AuthButton";
+import { Button } from "../ui";
 
 export default function ForgotPasswordForm() {
   const router = useRouter();
@@ -39,7 +39,12 @@ export default function ForgotPasswordForm() {
           onChange={setEmail}
         />
 
-        <AuthButton>Send Reset Link</AuthButton>
+        <Button
+          variant="dark"
+          className="h-[45px] w-full rounded-[10px] text-[14px] font-semibold"
+        >
+          Send Reset Link
+        </Button>
       </form>
     </AuthCard>
   );

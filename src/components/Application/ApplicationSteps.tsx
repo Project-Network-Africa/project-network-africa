@@ -98,17 +98,6 @@ export default function ApplicationSteps({
             );
           })}
         </div>
-
-        {/* Requirements */}
-        {/* <div className="rounded-[12px] bg-[#F6F6F7] p-[18px]">
-          <p className="text-[13px] font-semibold text-[#1F1F25]">
-            Requirements
-          </p>
-
-          <p className="mt-2 text-[12px] leading-[15px] text-[#5D5D61]">
-            Valid ID, portfolio link (optional), and application fee.
-          </p>
-        </div> */}
       </div>
     </aside>
   );

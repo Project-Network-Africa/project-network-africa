@@ -2,40 +2,25 @@ import { FAQItem } from "../../types/faq";
 
 export const homeFaqData: FAQItem[] = [
   {
-    question: "Who can apply to PN Africa programs?",
+    question: "What exactly is PN Africa?",
     answer:
-      "Anyone looking to build a career in tech can apply. Programs are open to graduates, career changers, and aspiring professionals across Africa.",
+      "PN Africa is an experiential learning infrastructure and workforce development platform where aspiring tech professionals work in cross-functional teams to build and launch real tech products. You don't just learn about your role. You actually work within a team and experience how the work happens.",
   },
   {
-    question: "How much does the program cost?",
+    question: "Is PN Africa a training or internship program?",
     answer:
-      "Program fees vary depending on the course. Detailed pricing, payment plans, and any available scholarships are provided on each program's application page.",
+      "It is not a traditional training where you spend weeks watching lessons.It can be described as an internship-style practical experience program because you work with a team, take on a defined role, work on project deliverables and contribute to building a product.",
   },
   {
-    question: "Do I need prior experience?",
+    question: "If I don't have any knowledge of the role, can I still join?",
     answer:
-      "Not always. Some programs are beginner-friendly, while others require foundational knowledge. Each program clearly outlines its prerequisites before you apply.",
+      "No, PN Africa is not a beginner training program where we teach you a role from scratch. You should already have some foundational knowledge or learning in the role you are applying for. You don't need to be an expert, and you don't need professional experience, but you need to understand the basics well enough to contribute to a real project. For example, if you're applying as a Project Manager, you should already understand basic project management concepts. If you're applying as a Frontend Developer, you should have some foundational frontend development skills. We provide the environment to practice, collaborate, get mentored and build experience. We don't replace the learning you need to do before joining",
   },
   {
-    question: "How are mentors matched to applicants?",
+    question: "Will I be working on a real project?",
     answer:
-      "Mentors are matched based on your chosen career path, learning goals, and experience level to ensure you receive relevant guidance throughout the program.",
+      "Yes, you will be placed in a cross-functional team working on a tech product that the team takes through the product development process. The goal is for you to experience the work, not simply complete assignments created for a classroom.",
   },
-  // {
-  //   question: "Are the programs fully online?",
-  //   answer:
-  //     "Yes. Most programs are delivered remotely, allowing participants from different African countries to learn together.",
-  // },
-  // {
-  //   question: "How long are the bootcamps?",
-  //   answer:
-  //     "Most bootcamps run for approximately 12 weeks and include mentorship, projects, and career support.",
-  // },
-  // {
-  //   question: "Do I receive job placement support?",
-  //   answer:
-  //     "Yes. Participants receive portfolio reviews, interview preparation, employer introductions, and career guidance.",
-  // },
 ];
 
 export const cohortFaqData: FAQItem[] = [

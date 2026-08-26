@@ -8,24 +8,24 @@ import { ChevronDown } from "lucide-react";
 export default function DesktopNav() {
   const [moreOpen, setMoreOpen] = useState(false);
   return (
-    <ul className="hidden items-center gap-10 lg:gap-5 lg:flex">
+    <ul className="hidden items-center gap-10 lg:gap-[25px] lg:flex">
       {navLinks.map((link) => (
         <li key={link.name}>
           <Link
             href={link.href}
-            className="text-sm font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
+            className="text-[16px]font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
           >
             {link.name}
           </Link>
         </li>
       ))}
-      {/* More dropdown */}
+
       {/* More dropdown */}
       <li className="relative">
         <button
           type="button"
           onClick={() => setMoreOpen(!moreOpen)}
-          className="flex items-center gap-1 text-sm font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
+          className="flex items-center gap-1 text-[16px] font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
           aria-expanded={moreOpen}
         >
           More

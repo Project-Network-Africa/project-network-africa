@@ -9,6 +9,7 @@ const inter = Inter({
 
 const crimson = Crimson_Pro({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-crimson",
 });
 

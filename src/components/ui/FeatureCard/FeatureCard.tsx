@@ -7,24 +7,27 @@ export default function FeatureCard({
   description,
 }: FeatureCardProps) {
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-[0_4px_16px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-7">
+    <div className="flex h-full flex-row items-start gap-[14px] rounded-none bg-transparent p-0 text-left md:text-left  lg:text-center shadow-none sm:p-7 sm:shadow-[0_4px_16px_rgba(0,0,0,0.05)] lg:flex-col lg:items-center lg:rounded-2xl lg:bg-white lg:p-6 lg:shadow-[0_4px_16px_rgba(0,0,0,0.05)]">
       {/* Icon */}
       <div
-        className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-bold text-white sm:h-11 sm:w-11 sm:text-lg"
+        className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-[6px] text-[18px] font-bold text-white sm:h-11 sm:w-11 sm:text-lg lg:h-10 lg:w-10 lg:rounded-xl"
         style={{ backgroundColor: iconBg }}
       >
         {icon}
       </div>
 
-      {/* Title */}
-      <h3 className="mt-4 font-body text-[18px] font-semibold text-[#1F1F25] sm:text-[17px] lg:text-[18px]">
-        {title}
-      </h3>
+      {/* Content */}
+      <div className="flex min-w-0 flex-1 flex-col gap-[3px] lg:w-full">
+        {/* Title */}
+        <h3 className="font-heading text-[18px] font-semibold leading-[26px] text-[#1F1F25] lg:mt-4 lg:font-body lg:text-[18px] lg:font-semibold lg:leading-normal">
+          {title}
+        </h3>
 
-      {/* Description */}
-      <p className="mt-3 flex-1 font-body text-[14px] leading-6 text-[#5D5D61] sm:text-[13px] sm:leading-5 lg:text-[14px] lg:leading-6">
-        {description}
-      </p>
+        {/* Description */}
+        <p className="font-body text-[12px] font-normal leading-[18px] tracking-[1px] text-[#5D5D61] lg:mt-3 lg:flex-1 lg:text-[14px] lg:leading-6 lg:tracking-normal">
+          {description}
+        </p>
+      </div>
     </div>
   );
 }

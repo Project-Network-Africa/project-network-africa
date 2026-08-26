@@ -8,7 +8,8 @@ export interface ButtonProps {
     | "light"
     | "dark"
     | "link"
-    | "danger";
+    | "danger"
+    | "linkBlack";
   href?: string;
   onClick?: () => void;
   className?: string;

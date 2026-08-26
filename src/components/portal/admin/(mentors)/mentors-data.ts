@@ -1,0 +1,87 @@
+import { Mentor } from "./mentors.types";
+
+export const mentorStats = [
+  {
+    value: "42",
+    label: "Active mentors",
+    change: "6 available now",
+  },
+  {
+    value: "34",
+    label: "Unassigned applicants",
+    change: "Needs matching",
+  },
+  {
+    value: "12",
+    label: "Overdue reviews",
+    change: "Oldest 4 days",
+  },
+  {
+    value: "4.6/5",
+    label: "Average rating",
+    change: "Across 318 reviews",
+  },
+];
+
+export const mentors: Mentor[] = [
+  {
+    id: 1,
+    name: "Amara Okafor",
+    expertise: "Product Design",
+    availability: "Available",
+    mentees: 6,
+    capacity: 8,
+    verification: "Verified",
+    rating: 4.8,
+    overdue: 0,
+    lastActive: "12 min ago",
+  },
+  {
+    id: 2,
+    name: "Kwame Asante",
+    expertise: "Product Design",
+    availability: "Limited",
+    mentees: 7,
+    capacity: 8,
+    verification: "Verified",
+    rating: 4.7,
+    overdue: 2,
+    lastActive: "1 hr ago",
+  },
+  {
+    id: 3,
+    name: "Tunde Bello",
+    expertise: "Engineering",
+    availability: "Full",
+    mentees: 8,
+    capacity: 8,
+    verification: "Verified",
+    rating: 4.5,
+    overdue: 4,
+    lastActive: "Yesterday",
+  },
+  {
+    id: 4,
+    name: "Zainab Musa",
+    expertise: "Product Design",
+    availability: "Available",
+    mentees: 4,
+    capacity: 8,
+    verification: "Pending",
+    rating: null,
+    overdue: 1,
+    lastActive: "2 days ago",
+  },
+  {
+    id: 5,
+    name: "Nana Boateng",
+    expertise: "UX Research",
+    availability: "Inactive",
+    mentees: 0,
+    capacity: 6,
+    verification: "Verified",
+    rating: 4.4,
+    overdue: 5,
+    lastActive: "8 days ago",
+  },
+];

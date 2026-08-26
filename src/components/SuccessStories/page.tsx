@@ -1,6 +1,3 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
-
 import PeopleSection from "../Shared/People";
 import StatsSection from "../Shared/StatsSection";
 import { successStories } from "./SuccessStories/success-stories.data";
@@ -13,8 +10,6 @@ import { caseStudies } from "./caseStudies/case-studies.data";
 export default function ProgramsPage() {
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <PeopleSection
           label="SUCCESS STORIES"
@@ -42,8 +37,6 @@ export default function ProgramsPage() {
           columns={3}
         />
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -1,5 +1,3 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
 import MissionVision from "./MissionVision";
 import CoreValues from "./CoreValues";
 import History from "./History";
@@ -11,8 +9,6 @@ import { impactData } from "../Home/Impact/impact-card.data";
 export default function ProgramsPage() {
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <MissionVision />
         <CoreValues />
@@ -37,8 +33,6 @@ export default function ProgramsPage() {
           primaryHref="/apply"
         />
       </main>
-
-      <Footer />
     </>
   );
 }

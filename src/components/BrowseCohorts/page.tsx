@@ -2,8 +2,6 @@
 
 import { useMemo, useState } from "react";
 
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
 import DiscoveryHero from "./DiscoveryHero";
 import { browseCohortsHero } from "./DiscoveryHero/discovery-hero.data";
 import CohortFilters from "./CohortFilters/CohortFilters";
@@ -99,8 +97,6 @@ export default function ProgramsPage() {
 
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <DiscoveryHero
           {...browseCohortsHero}
@@ -132,8 +128,6 @@ export default function ProgramsPage() {
           items={cohortFaqData}
         />
       </main>
-
-      <Footer />
     </>
   );
 }

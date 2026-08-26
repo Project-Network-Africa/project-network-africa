@@ -1,5 +1,3 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
 import CurrentCohorts from "./CurrentCohort";
 import PastCohorts from "./PastCohorts";
 import CTA from "../Home/CTA";
@@ -8,8 +6,6 @@ import { timelineSteps } from "./Timeline/timeline.data";
 export default function ProgramsPage() {
   return (
     <>
-      <Navbar />
-
       <main className="bg-[#F8F8F8]">
         <CurrentCohorts />
         <Timeline
@@ -26,8 +22,6 @@ export default function ProgramsPage() {
           primaryHref="/apply"
         />
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "../../ui";
 
 type PaymentMethod = "Stripe" | "PayPal" | "Paystack" | "Debit Card";
 
@@ -43,7 +44,7 @@ export default function ReviewPayment({
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Stripe");
 
   return (
-    <div className="flex w-full gap-16 px-5 py-10 lg:px-20 lg:py-14">
+    <div className="flex w-full gap-16 ">
       {/* Main content */}
       <div className="flex-1">
         <div className="mx-auto max-w-[936px]">
@@ -174,22 +175,23 @@ export default function ReviewPayment({
           </div>
 
           {/* Buttons */}
+
           <div className="mt-6 flex justify-end gap-3">
-            <button
-              type="button"
+            <Button
+              variant="light"
               onClick={onBack}
-              className="h-[43px] rounded-[10px] border border-[#E5E5EB] bg-white px-[22px] text-[14px] font-semibold text-[#1F1F25]"
+              className="h-[43px] rounded-[10px] border border-[#E5E5EB] px-[22px] text-[14px] font-semibold"
             >
               Back
-            </button>
+            </Button>
 
-            <button
-              type="button"
+            <Button
+              variant="dark"
               onClick={onSubmit}
-              className="h-[43px] rounded-[10px] bg-[#00B6CE] px-[22px] text-[14px] font-semibold text-white transition hover:bg-[#00A5BB]"
+              className="h-[43px] rounded-[10px] px-[22px] text-[14px] font-semibold"
             >
               Pay & Submit Application
-            </button>
+            </Button>
           </div>
         </div>
       </div>
