@@ -22,13 +22,13 @@ export default function Sidebar({
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/30 lg:hidden "
           onClick={onClose}
         />
       )}
 
       <aside
-        className={`
+        className={` 
           fixed left-0 top-0 z-50
           flex h-screen w-[248px] flex-col
           border-r border-[#E5E5EB] bg-[#F8F8F8]
@@ -50,7 +50,7 @@ export default function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-[2px] text-red-300 ">
+        <nav className="flex flex-col gap-[2px] ">
           {navItems.map((item) => {
             const active = pathname === item.href;
 

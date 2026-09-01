@@ -15,7 +15,7 @@ export default function Topbar({
         <button
           type="button"
           onClick={onMenuClick}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F6F6F7] text-lg lg:hidden"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F6F6F7] text-lg lg:hidden text-black"
           aria-label="Open navigation"
         >
           ☰
