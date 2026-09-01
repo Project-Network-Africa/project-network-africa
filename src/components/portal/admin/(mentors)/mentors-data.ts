@@ -1,25 +1,44 @@
-import { Mentor } from "./mentors.types";
+import { Mentor, MentorStat, MentorFilter } from "./mentors.types";
 
-export const mentorStats = [
+export const mentorStats: MentorStat[] = [
   {
-    value: "42",
     label: "Active mentors",
-    change: "6 available now",
+    value: "42",
+    helper: "6 available now",
+    helperColor: "text-[#00B6CE]",
   },
   {
-    value: "34",
     label: "Unassigned applicants",
-    change: "Needs matching",
+    value: "34",
+    helper: "Needs matching",
+    helperColor: "text-[#00B6CE]",
   },
   {
-    value: "12",
     label: "Overdue reviews",
-    change: "Oldest 4 days",
+    value: "12",
+    helper: "Oldest 4 days",
+    helperColor: "text-[#00B6CE]",
   },
   {
-    value: "4.6/5",
     label: "Average rating",
-    change: "Across 318 reviews",
+    value: "4.6/5",
+    helper: "Across 318 reviews",
+    helperColor: "text-[#00B6CE]",
+  },
+];
+
+export const mentorFilters: MentorFilter[] = [
+  {
+    label: "All expertise",
+    value: "all",
+  },
+  {
+    label: "Availability",
+    value: "all",
+  },
+  {
+    label: "Verification",
+    value: "all",
   },
 ];
 
@@ -32,9 +51,32 @@ export const mentors: Mentor[] = [
     mentees: 6,
     capacity: 8,
     verification: "Verified",
-    rating: 4.8,
+    rating: "4.8",
     overdue: 0,
     lastActive: "12 min ago",
+    action: "View",
+
+    location: "Lagos, Nigeria",
+    joined: "14 May 2026",
+
+    yearsExperience: "8 years industry experience",
+    availabilityHours: "6 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Product Design Cohort 6",
+    feedbackTurnaround: "Average feedback turnaround: 18 hours",
+    attendance: "96% session attendance",
+    completionRate: "Mentee completion rate: 88%",
+    nextCapacityReview: "Next capacity review: 1 Sep 2026",
+
+    activities: [
+      { text: "Completed feedback for Team Alpha", time: "1 hr ago" },
+      { text: "Held cohort office hours", time: "Yesterday" },
+      { text: "Accepted new mentee assignment", time: "3 days ago" },
+      { text: "Rating updated from 4.7 to 4.8", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "14 May" },
+    ],
   },
   {
     id: 2,
@@ -44,9 +86,32 @@ export const mentors: Mentor[] = [
     mentees: 7,
     capacity: 8,
     verification: "Verified",
-    rating: 4.7,
+    rating: "4.7",
     overdue: 2,
     lastActive: "1 hr ago",
+    action: "Review",
+
+    location: "Accra, Ghana",
+    joined: "2 Feb 2026",
+
+    yearsExperience: "6 years industry experience",
+    availabilityHours: "5 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Product Design Cohort 6",
+    feedbackTurnaround: "Average feedback turnaround: 36 hours",
+    attendance: "89% session attendance",
+    completionRate: "Mentee completion rate: 82%",
+    nextCapacityReview: "Next capacity review: 5 Sep 2026",
+
+    activities: [
+      { text: "2 feedback items overdue", time: "1 hr ago" },
+      { text: "Completed feedback for Team Bravo", time: "Yesterday" },
+      { text: "Accepted new mentee assignment", time: "4 days ago" },
+      { text: "Rescheduled office hours", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "2 Feb" },
+    ],
   },
   {
     id: 3,
@@ -56,9 +121,32 @@ export const mentors: Mentor[] = [
     mentees: 8,
     capacity: 8,
     verification: "Verified",
-    rating: 4.5,
+    rating: "4.5",
     overdue: 4,
     lastActive: "Yesterday",
+    action: "View",
+
+    location: "Abuja, Nigeria",
+    joined: "20 Nov 2025",
+
+    yearsExperience: "10 years industry experience",
+    availabilityHours: "8 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Frontend Engineering Cohort 4",
+    feedbackTurnaround: "Average feedback turnaround: 52 hours",
+    attendance: "78% session attendance",
+    completionRate: "Mentee completion rate: 74%",
+    nextCapacityReview: "Next capacity review: 30 Aug 2026",
+
+    activities: [
+      { text: "4 feedback items overdue", time: "Yesterday" },
+      { text: "Missed scheduled office hours", time: "2 days ago" },
+      { text: "Flagged for capacity review", time: "3 days ago" },
+      { text: "Completed feedback for Team Delta", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "20 Nov" },
+    ],
   },
   {
     id: 4,
@@ -68,9 +156,31 @@ export const mentors: Mentor[] = [
     mentees: 4,
     capacity: 8,
     verification: "Pending",
-    rating: null,
+    rating: "—",
     overdue: 1,
     lastActive: "2 days ago",
+    action: "Verify",
+
+    location: "Kano, Nigeria",
+    joined: "18 Aug 2026",
+
+    yearsExperience: "4 years industry experience",
+    availabilityHours: "6 hours per week",
+    profileVerified: "LinkedIn verified · portfolio pending review",
+    documents: "Documents: CV · ID submitted · Reference pending",
+
+    assignedCohort: "Assigned to Product Design Cohort 6",
+    feedbackTurnaround: "Average feedback turnaround: 24 hours",
+    attendance: "91% session attendance",
+    completionRate: "Mentee completion rate: —",
+    nextCapacityReview: "Next capacity review: 10 Sep 2026",
+
+    activities: [
+      { text: "Submitted verification documents", time: "2 days ago" },
+      { text: "Accepted new mentee assignment", time: "3 days ago" },
+      { text: "Completed onboarding training", time: "5 days ago" },
+      { text: "Profile created", time: "18 Aug" },
+    ],
   },
   {
     id: 5,
@@ -80,8 +190,273 @@ export const mentors: Mentor[] = [
     mentees: 0,
     capacity: 6,
     verification: "Verified",
-    rating: 4.4,
+    rating: "4.4",
     overdue: 5,
     lastActive: "8 days ago",
+    action: "Contact",
+
+    location: "Kumasi, Ghana",
+    joined: "3 Jan 2026",
+
+    yearsExperience: "5 years industry experience",
+    availabilityHours: "0 hours per week (inactive)",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Unassigned — mentees reassigned",
+    feedbackTurnaround: "Average feedback turnaround: — (no recent activity)",
+    attendance: "0% session attendance (last 2 weeks)",
+    completionRate: "Mentee completion rate: 71%",
+    nextCapacityReview: "Next capacity review: 29 Aug 2026",
+
+    activities: [
+      { text: "5 feedback items overdue", time: "8 days ago" },
+      { text: "Missed cohort office hours", time: "8 days ago" },
+      { text: "Mentees reassigned to backup mentor", time: "6 days ago" },
+      { text: "Flagged as inactive", time: "5 days ago" },
+      { text: "Outreach email sent by admin", time: "2 days ago" },
+    ],
+  },
+  {
+    id: 6,
+    name: "David Mensah",
+    expertise: "Engineering",
+    availability: "Available",
+    mentees: 5,
+    capacity: 8,
+    verification: "Verified",
+    rating: "4.6",
+    overdue: 0,
+    lastActive: "15 min ago",
+    action: "View",
+
+    location: "Lagos, Nigeria",
+    joined: "9 Mar 2026",
+
+    yearsExperience: "7 years industry experience",
+    availabilityHours: "6 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Frontend Engineering Cohort 4",
+    feedbackTurnaround: "Average feedback turnaround: 14 hours",
+    attendance: "97% session attendance",
+    completionRate: "Mentee completion rate: 90%",
+    nextCapacityReview: "Next capacity review: 3 Sep 2026",
+
+    activities: [
+      { text: "Completed feedback for Team Gamma", time: "15 min ago" },
+      { text: "Held cohort office hours", time: "Yesterday" },
+      { text: "Accepted new mentee assignment", time: "4 days ago" },
+      { text: "Rating updated from 4.5 to 4.6", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "9 Mar" },
+    ],
+  },
+  {
+    id: 7,
+    name: "Ifeoma Chukwu",
+    expertise: "Data Science",
+    availability: "Limited",
+    mentees: 6,
+    capacity: 8,
+    verification: "Verified",
+    rating: "4.9",
+    overdue: 1,
+    lastActive: "2 hrs ago",
+    action: "Review",
+
+    location: "Port Harcourt, Nigeria",
+    joined: "27 Apr 2026",
+
+    yearsExperience: "9 years industry experience",
+    availabilityHours: "5 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Data Analytics Cohort 3",
+    feedbackTurnaround: "Average feedback turnaround: 20 hours",
+    attendance: "94% session attendance",
+    completionRate: "Mentee completion rate: 93%",
+    nextCapacityReview: "Next capacity review: 6 Sep 2026",
+
+    activities: [
+      { text: "1 feedback item overdue", time: "2 hrs ago" },
+      { text: "Completed feedback for Team Epsilon", time: "Yesterday" },
+      { text: "Rating updated from 4.8 to 4.9", time: "5 days ago" },
+      { text: "Held cohort office hours", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "27 Apr" },
+    ],
+  },
+  {
+    id: 8,
+    name: "Bayo Ogundele",
+    expertise: "Product Management",
+    availability: "Available",
+    mentees: 3,
+    capacity: 6,
+    verification: "Pending",
+    rating: "4.3",
+    overdue: 0,
+    lastActive: "3 hrs ago",
+    action: "Verify",
+
+    location: "Ibadan, Nigeria",
+    joined: "20 Aug 2026",
+
+    yearsExperience: "6 years industry experience",
+    availabilityHours: "5 hours per week",
+    profileVerified: "LinkedIn verified · portfolio pending review",
+    documents: "Documents: CV · ID submitted · Reference pending",
+
+    assignedCohort: "Assigned to Product Management Cohort 2",
+    feedbackTurnaround: "Average feedback turnaround: 22 hours",
+    attendance: "90% session attendance",
+    completionRate: "Mentee completion rate: 85%",
+    nextCapacityReview: "Next capacity review: 12 Sep 2026",
+
+    activities: [
+      { text: "Completed feedback for Team Zeta", time: "3 hrs ago" },
+      { text: "Submitted verification documents", time: "1 day ago" },
+      { text: "Accepted new mentee assignment", time: "3 days ago" },
+      { text: "Profile created", time: "20 Aug" },
+    ],
+  },
+  {
+    id: 9,
+    name: "Aisha Kareem",
+    expertise: "UX Research",
+    availability: "Full",
+    mentees: 8,
+    capacity: 8,
+    verification: "Verified",
+    rating: "4.7",
+    overdue: 3,
+    lastActive: "Yesterday",
+    action: "Review",
+
+    location: "Lagos, Nigeria",
+    joined: "12 Dec 2025",
+
+    yearsExperience: "8 years industry experience",
+    availabilityHours: "7 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to UX Research Cohort 1",
+    feedbackTurnaround: "Average feedback turnaround: 40 hours",
+    attendance: "85% session attendance",
+    completionRate: "Mentee completion rate: 80%",
+    nextCapacityReview: "Next capacity review: 28 Aug 2026",
+
+    activities: [
+      { text: "3 feedback items overdue", time: "Yesterday" },
+      { text: "At full mentee capacity", time: "2 days ago" },
+      { text: "Completed feedback for Team Theta", time: "4 days ago" },
+      { text: "Held cohort office hours", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "12 Dec" },
+    ],
+  },
+  {
+    id: 10,
+    name: "Chinedu Okoro",
+    expertise: "Engineering",
+    availability: "Available",
+    mentees: 4,
+    capacity: 8,
+    verification: "Verified",
+    rating: "4.5",
+    overdue: 0,
+    lastActive: "5 hrs ago",
+    action: "View",
+
+    location: "Enugu, Nigeria",
+    joined: "6 Jun 2026",
+
+    yearsExperience: "5 years industry experience",
+    availabilityHours: "6 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Frontend Engineering Cohort 4",
+    feedbackTurnaround: "Average feedback turnaround: 16 hours",
+    attendance: "95% session attendance",
+    completionRate: "Mentee completion rate: 87%",
+    nextCapacityReview: "Next capacity review: 4 Sep 2026",
+
+    activities: [
+      { text: "Completed feedback for Team Iota", time: "5 hrs ago" },
+      { text: "Held cohort office hours", time: "2 days ago" },
+      { text: "Accepted new mentee assignment", time: "5 days ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "6 Jun" },
+    ],
+  },
+  {
+    id: 11,
+    name: "Sarah Adeyemi",
+    expertise: "Product Design",
+    availability: "Limited",
+    mentees: 7,
+    capacity: 8,
+    verification: "Verified",
+    rating: "4.8",
+    overdue: 2,
+    lastActive: "Yesterday",
+    action: "Review",
+
+    location: "Lagos, Nigeria",
+    joined: "15 Feb 2026",
+
+    yearsExperience: "9 years industry experience",
+    availabilityHours: "5 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Product Design Cohort 6",
+    feedbackTurnaround: "Average feedback turnaround: 30 hours",
+    attendance: "92% session attendance",
+    completionRate: "Mentee completion rate: 89%",
+    nextCapacityReview: "Next capacity review: 7 Sep 2026",
+
+    activities: [
+      { text: "2 feedback items overdue", time: "Yesterday" },
+      { text: "Completed feedback for Team Kappa", time: "3 days ago" },
+      { text: "Accepted new mentee assignment", time: "5 days ago" },
+      { text: "Rating updated from 4.7 to 4.8", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "15 Feb" },
+    ],
+  },
+  {
+    id: 12,
+    name: "Emeka Nwosu",
+    expertise: "Data Science",
+    availability: "Available",
+    mentees: 2,
+    capacity: 6,
+    verification: "Verified",
+    rating: "4.6",
+    overdue: 0,
+    lastActive: "1 day ago",
+    action: "View",
+
+    location: "Owerri, Nigeria",
+    joined: "30 Jul 2026",
+
+    yearsExperience: "4 years industry experience",
+    availabilityHours: "5 hours per week",
+    profileVerified: "LinkedIn and portfolio verified",
+    documents: "Documents: CV · ID · Reference checked",
+
+    assignedCohort: "Assigned to Data Analytics Cohort 3",
+    feedbackTurnaround: "Average feedback turnaround: 12 hours",
+    attendance: "98% session attendance",
+    completionRate: "Mentee completion rate: 91%",
+    nextCapacityReview: "Next capacity review: 13 Sep 2026",
+
+    activities: [
+      { text: "Completed feedback for Team Lambda", time: "1 day ago" },
+      { text: "Held cohort office hours", time: "3 days ago" },
+      { text: "Accepted new mentee assignment", time: "1 week ago" },
+      { text: "Verification approved by Chidi Nwosu", time: "30 Jul" },
+    ],
   },
 ];

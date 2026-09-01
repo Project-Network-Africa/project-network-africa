@@ -4,7 +4,6 @@ export const adminNavItems: SidebarNavItem[] = [
   { label: "Dashboard", href: "/admin/dashboard" },
   { label: "Applicants", href: "/admin/applicants" },
   { label: "Mentors", href: "/admin/mentors" },
-  { label: "Employers", href: "/admin/employers" },
   { label: "Users", href: "/admin/users" },
   { label: "Projects", href: "/admin/projects" },
   { label: "Cohorts", href: "/admin/cohorts" },

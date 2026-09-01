@@ -50,7 +50,7 @@ export default function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-[2px]">
+        <nav className="flex flex-col gap-[2px] text-red-300 ">
           {navItems.map((item) => {
             const active = pathname === item.href;
 

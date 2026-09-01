@@ -14,7 +14,7 @@ export default function MobileMenu() {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="lg:hidden"
+        className="lg:hidden text-black"
         aria-label="Toggle menu"
       >
         {open ? <X size={26} /> : <Menu size={26} />}

@@ -6,13 +6,11 @@ import {
   ProgramsOverview,
   HowItWorks,
   RealProjectExperience,
-  Testimonials,
   EmployerPartnership,
   CTA,
 } from "../../components/Home";
-import PeopleSection from "../../components/Shared/People";
+
 import StatsSection from "../../components/Shared/StatsSection";
-import { mentors } from "../../components/Home/MentorshipNetwork/mentor-card.data";
 
 import { impactData } from "../../components/Home/Impact/impact-card.data";
 import FAQ from "../../components/Home/Faq";

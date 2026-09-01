@@ -18,8 +18,10 @@ export default function PlatformOverview() {
         <DashboardHeader />
 
         {/* KPI Cards */}
-        <StatCards stats={stats} />
 
+        <div className="w-full mt-5">
+          <StatCards stats={stats} columns={5} />
+        </div>
         {/* Application Funnel + Urgent Actions */}
         <section className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,2fr)_minmax(320px,0.9fr)]">
           <ApplicationFunnel />
