@@ -45,7 +45,7 @@ export default function DesktopNav() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMoreOpen(false)}
-                  className="rounded-md px-2.5 py-2 text-[16px] font-medium leading-6 text-[#1F1F25] transition hover:bg-[#F6F6F7] hover:text-[#00B6CE]"
+                  className="rounded-md px-2.5 py-1 text-[12px] font-normal leading-6 text-[#1F1F25] transition hover:bg-[#F6F6F7] hover:text-[#00B6CE]"
                 >
                   {link.name}
                 </Link>

@@ -8,8 +8,8 @@ const communityRoles = [
 
 export default function CommunityRoles() {
   return (
-    <section className="w-full bg-[#1F1F25] sm:px-8 py-2 lg:px-20 lg:py-[50px] md:h-[110px] h-[78px] lg:h-[184px]">
-      <div className="mx-auto flex max-w-[1280px] flex-col items-center md:py-6 py-3 gap-2">
+    <section className="w-full bg-[#1F1F25] sm:px-8 py-5 lg:px-20 md:py-[38px]  h-[78px] md:h-[184px] ">
+      <div className="mx-auto flex max-w-[1280px] flex-col items-center md:py-6  md:gap-5 gap-2">
         {/* Heading */}
         <h2 className="text-center  uppercase text-[#FFFFFF] lg:text-[18px] text-[10px] font-bold md:font-semibold">
           BUILT THROUGH COMMUNITY AND COLLABORATION

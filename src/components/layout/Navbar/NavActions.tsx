@@ -11,10 +11,10 @@ export default function NavActions() {
       </Link>
 
       <Link
-        href="/apply"
+        href="/register"
         className="rounded-lg bg-[#00B6CE] px-[26px] py-3 text-sm lg:text-[16px] font-semibold text-white transition hover:bg-[#009CB2]"
       >
-        Apply Now
+        Get started
       </Link>
     </div>
   );
