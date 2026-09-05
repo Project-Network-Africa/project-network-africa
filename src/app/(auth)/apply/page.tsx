@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 
-import ApplicationSteps from "@/src/components/Application/ApplicationSteps";
-import RequirementsCard from "@/src/components/Application/RequirementsCard";
-import PersonalInformation from "@/src/components/Application/steps/PersonalInformation";
-import FormActions from "@/src/components/Application/fields/FormActions";
-import ProgramSelection from "@/src/components/Application/steps/ProgramSelection";
-import { applicationPrograms } from "@/src/components/Application/application.data";
-import ExperiencePortfolio from "@/src/components/Application/steps/ExperiencePortfolio";
-import ReviewPayment from "@/src/components/Application/steps/ReviewPayment";
-import ApplicationConfirmation from "@/src/components/Application/ApplicationConfirmation";
+import ApplicationSteps from "@/src/components/Application/applicant/ApplicationSteps";
+import RequirementsCard from "@/src/components/Application/applicant/RequirementsCard";
+import PersonalInformation from "@/src/components/Application/applicant/steps/PersonalInformation";
+import FormActions from "@/src/components/Application/applicant/fields/FormActions";
+import ProgramSelection from "@/src/components/Application/applicant/steps/ProgramSelection";
+import { applicationPrograms } from "@/src/components/Application/applicant/application.data";
+import ExperiencePortfolio from "@/src/components/Application/applicant/steps/ExperiencePortfolio";
+import ReviewPayment from "@/src/components/Application/applicant/steps/ReviewPayment";
+import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
 import Image from "next/image";
 import Link from "next/link";
 export default function ApplyPage() {
@@ -36,6 +36,18 @@ export default function ApplyPage() {
     resume: null as File | null,
     motivation: "",
   });
+  const [errors, setErrors] = useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    country?: string;
+    agreedToTerms?: string;
+    program?: string;
+    preferredCohortStart?: string;
+    experienceLevel?: string;
+    motivation?: string;
+  }>({});
 
   const updateField = (
     field: "firstName" | "lastName" | "email" | "phone" | "country",
@@ -50,18 +62,6 @@ export default function ApplyPage() {
   const handleSave = () => {
     console.log("Saving application...", formData);
   };
-
-  // const handleContinue = () => {
-  //   const isValid = validateCurrentStep();
-
-  //   if (!isValid) {
-  //     return;
-  //   }
-
-  //   if (currentStep < 4) {
-  //     setCurrentStep((previous) => (previous + 1) as 1 | 2 | 3 | 4);
-  //   }
-  // };
 
   const handleContinue = () => {
     if (!validateCurrentStep()) {
@@ -78,64 +78,120 @@ export default function ApplyPage() {
     }
   };
 
+  // const validateCurrentStep = () => {
+  //   if (currentStep === 1) {
+  //     if (!formData.firstName.trim()) {
+  //       alert("Please enter your first name.");
+  //       return false;
+  //     }
+
+  //     if (!formData.lastName.trim()) {
+  //       alert("Please enter your last name.");
+  //       return false;
+  //     }
+
+  //     if (!formData.email.trim()) {
+  //       alert("Please enter your email address.");
+  //       return false;
+  //     }
+
+  //     if (!formData.phone.trim()) {
+  //       alert("Please enter your phone number.");
+  //       return false;
+  //     }
+
+  //     if (!formData.country) {
+  //       alert("Please select your country.");
+  //       return false;
+  //     }
+
+  //     if (!formData.agreedToTerms) {
+  //       alert("Please agree to the terms before continuing.");
+  //       return false;
+  //     }
+  //   }
+
+  //   if (currentStep === 2) {
+  //     if (!formData.program) {
+  //       alert("Please select a program.");
+  //       return false;
+  //     }
+
+  //     if (!formData.preferredCohortStart) {
+  //       alert("Please select your preferred cohort.");
+  //       return false;
+  //     }
+  //   }
+
+  //   if (currentStep === 3) {
+  //     if (!formData.experienceLevel) {
+  //       alert("Please select your experience level.");
+  //       return false;
+  //     }
+
+  //     if (!formData.motivation.trim()) {
+  //       alert("Please tell us why you want to join the program.");
+  //       return false;
+  //     }
+  //   }
+
+  //   return true;
+  // };
+
   const validateCurrentStep = () => {
+    const newErrors: typeof errors = {};
+
     if (currentStep === 1) {
       if (!formData.firstName.trim()) {
-        alert("Please enter your first name.");
-        return false;
+        newErrors.firstName = "First name is required.";
       }
 
       if (!formData.lastName.trim()) {
-        alert("Please enter your last name.");
-        return false;
+        newErrors.lastName = "Last name is required.";
       }
 
       if (!formData.email.trim()) {
-        alert("Please enter your email address.");
-        return false;
+        newErrors.email = "Email address is required.";
       }
 
       if (!formData.phone.trim()) {
-        alert("Please enter your phone number.");
-        return false;
+        newErrors.phone = "Phone number is required.";
       }
 
       if (!formData.country) {
-        alert("Please select your country.");
-        return false;
+        newErrors.country = "Please select your country.";
       }
 
       if (!formData.agreedToTerms) {
-        alert("Please agree to the terms before continuing.");
-        return false;
+        newErrors.agreedToTerms =
+          "Please agree to the Privacy Policy and Terms of Service.";
       }
     }
 
     if (currentStep === 2) {
       if (!formData.program) {
-        alert("Please select a program.");
-        return false;
+        newErrors.program = "Please select a program.";
       }
 
       if (!formData.preferredCohortStart) {
-        alert("Please select your preferred cohort.");
-        return false;
+        newErrors.preferredCohortStart = "Please select your preferred cohort.";
       }
     }
 
     if (currentStep === 3) {
       if (!formData.experienceLevel) {
-        alert("Please select your experience level.");
-        return false;
+        newErrors.experienceLevel = "Please select your experience level.";
       }
 
       if (!formData.motivation.trim()) {
-        alert("Please tell us why you want to join the program.");
-        return false;
+        newErrors.motivation =
+          "Please tell us why you want to join the program.";
       }
     }
 
-    return true;
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleBack = () => {
@@ -173,9 +229,6 @@ export default function ApplyPage() {
       {/* Application Header */}
 
       <header className="flex h-[74px] items-center justify-between border-b border-[#E5E5EB] px-5 sm:px-8 lg:px-20">
-        {/* <div>
-          <span className="text-xl font-bold text-[#1F1F25]">PN Africa</span>
-        </div> */}
         <Link href="/" className="flex h-[34px] w-[144px] items-center">
           <Image
             src="/images/logo.svg"
@@ -192,11 +245,14 @@ export default function ApplyPage() {
 
       {/* Application Content */}
 
-      <main className="px-5 py-10 sm:px-8 lg:px-20 lg:py-14">
-        <div className="mx-auto flex max-w-[1280px] gap-10 lg:gap-16">
+      <main className="px-5 py-4 sm:px-8 lg:px-20 lg:py-14">
+        {/* Mobile top progress bar */}
+        <div className="h-1 w-full mb-5 bg-[#00B6CE] lg:hidden" />
+
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-8 lg:flex-row lg:gap-16">
           {/* Sidebar */}
 
-          <aside className="hidden w-[280px] flex-shrink-0 lg:block">
+          <aside className="w-full flex-shrink-0 lg:w-[280px] font-body">
             <ApplicationSteps
               currentStep={currentStep}
               onStepChange={goToStep}
@@ -209,7 +265,8 @@ export default function ApplyPage() {
 
           {/* Form */}
 
-          <section className="w-full max-w-[936px]">
+          {/* <section className="w-full max-w-[936px]"> */}
+          <section className="w-full lg:max-w-[936px]">
             {currentStep === 1 && (
               <PersonalInformation
                 firstName={formData.firstName}
@@ -219,6 +276,7 @@ export default function ApplyPage() {
                 country={formData.country}
                 agreedToTerms={formData.agreedToTerms}
                 onChange={updateField}
+                errors={errors}
                 onTermsChange={(checked) =>
                   setFormData((previous) => ({
                     ...previous,
@@ -245,6 +303,7 @@ export default function ApplyPage() {
                     preferredCohortStart,
                   }))
                 }
+                errors={errors}
               />
             )}
 
@@ -285,13 +344,23 @@ export default function ApplyPage() {
                     motivation,
                   }))
                 }
+                errors={errors}
               />
             )}
 
             {currentStep === 4 && (
+              // <ReviewPayment
+              //   onBack={() => setCurrentStep(3)}
+              //   onSubmit={handleSubmit}
+              //   errors={errors}
+              // />
               <ReviewPayment
-                onBack={() => setCurrentStep(3)}
-                onSubmit={handleSubmit}
+                onBack={handleBack}
+                onSubmit={(paymentMethod) => {
+                  console.log("Selected payment method:", paymentMethod);
+
+                  // Submit application / initiate payment here
+                }}
               />
             )}
 

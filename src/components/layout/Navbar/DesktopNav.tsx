@@ -13,7 +13,7 @@ export default function DesktopNav() {
         <li key={link.name}>
           <Link
             href={link.href}
-            className="text-[16px]font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
+            className="text-[16px] font-medium text-[#1F1F25] transition hover:text-[#00B6CE]"
           >
             {link.name}
           </Link>

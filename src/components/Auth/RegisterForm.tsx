@@ -9,6 +9,8 @@ import AuthInput from "./AuthInput";
 
 import AuthCheckbox from "./AuthCheckbox";
 import { Button } from "../ui";
+import api from "@/src/services/api";
+import axios from "axios";
 
 type Role = "Applicant" | "Mentor" | "Employer" | "";
 
@@ -20,6 +22,8 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<Role>("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const isFormValid =
     fullName.trim() !== "" &&
@@ -28,23 +32,37 @@ export default function RegisterForm() {
     role !== "" &&
     agreedToTerms;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!isFormValid) {
       return;
     }
 
-    console.log({
-      fullName,
-      email,
-      password,
-      role,
-      agreedToTerms,
-    });
+    setLoading(true);
+    setError("");
 
-    // Later connect to backend.
-    router.push("/verify-email");
+    try {
+      await api.post("/api/auth/register", {
+        fullName,
+        email,
+        password,
+        role,
+      });
+
+      router.push("/verify-email");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.message ||
+            "Unable to create account. Please try again.",
+        );
+      } else {
+        setError("Unable to create account. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -130,12 +148,13 @@ export default function RegisterForm() {
         </AuthCheckbox>
 
         {/* <AuthButton disabled={!isFormValid}>Create Account</AuthButton> */}
+        {error && <p className="text-[12px] text-red-500">{error}</p>}
         <Button
           variant="dark"
-          disabled={!isFormValid}
+          disabled={!isFormValid || loading}
           className="h-[44px] w-full rounded-[8px] text-[12px] font-semibold"
         >
-          Create Account
+          {loading ? "Creating Account..." : "Create Account"}
         </Button>
       </form>
     </AuthCard>

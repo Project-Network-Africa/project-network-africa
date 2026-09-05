@@ -1,11 +1,12 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Topbar from "../Topbar/PortalHeader";
 import { DashboardLayoutProps } from "./dashboard-layout";
+
+import { checkAuth } from "@/src/services/auth";
 
 function getPageTitle(pathname: string, defaultTitle: string) {
   if (pathname === "/applicant/projects") {
@@ -35,9 +36,62 @@ export default function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  const router = useRouter();
   const pathname = usePathname();
 
+  useEffect(() => {
+    const verifyAuth = async () => {
+      try {
+        // awai t checkAuth();
+        const response = await checkAuth();
+        console.log("DASHBOARD AUTH:", response);
+        setCheckingAuth(false);
+      } catch (error) {
+        console.log("DASHBOARD AUTH FAILED:", error);
+        router.replace("/login");
+      }
+    };
+
+    verifyAuth();
+  }, [router]);
+
+  //use this for the final production
+
+  // useEffect(() => {
+  //   const verifyAuth = async () => {
+  //     try {
+  //       const response = await checkAuth();
+  //       const role = response.user.role;
+
+  //       if (pathname.startsWith("/applicant") && role !== "Applicant") {
+  //         router.replace("/login");
+  //         return;
+  //       }
+
+  //       if (pathname.startsWith("/mentor") && role !== "Mentor") {
+  //         router.replace("/login");
+  //         return;
+  //       }
+
+  //       if (pathname.startsWith("/admin") && role !== "Admin") {
+  //         router.replace("/login");
+  //         return;
+  //       }
+
+  //       setCheckingAuth(false);
+  //     } catch {
+  //       router.replace("/login");
+  //     }
+  //   };
+
+  //   verifyAuth();
+  // }, [router, pathname]);
   const title = getPageTitle(pathname, pageTitle);
+  if (checkingAuth) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen w-full bg-[#F8F8F8]">

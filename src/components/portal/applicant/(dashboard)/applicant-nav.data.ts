@@ -8,8 +8,8 @@ export const applicantNavItems: SidebarNavItem[] = [
   { label: "Projects", href: "/applicant/projects" },
   { label: "Team Workspace", href: "/applicant/team-workspace" },
   { label: "Mentorship", href: "/applicant/mentorship" },
-  // { label: "Schedule Session", href: "/applicant/mentorship/schedule-session" },
-  { label: "Messages", href: "/applicant/messages" },
+
+  // { label: "Messages", href: "/applicant/messages" },
   { label: "Calendar", href: "/applicant/calendar" },
   { label: "Payments", href: "/applicant/payments" },
   {
@@ -24,4 +24,5 @@ export const applicantNavItems: SidebarNavItem[] = [
   { label: "Help & Support", href: "/applicant/help-support" },
   { label: "Settings", href: "/applicant/settings" },
   { label: "Confirm Deactivation", href: "/applicant/settings/deactivate" },
+  { label: "Logout", href: "/applicant/logout" },
 ];

@@ -15,11 +15,7 @@ export default function Hero() {
 
         <Community />
 
-        {/* <HeroIllustration /> */}
-        {/* Dashboard visual */}
-        {/* <div className="mt-10 lg:mt-16"> */}
         <HeroVisual />
-        {/* </div> */}
       </Container>
     </section>
   );

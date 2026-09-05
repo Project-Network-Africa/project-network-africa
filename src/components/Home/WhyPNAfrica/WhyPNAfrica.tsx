@@ -7,7 +7,7 @@ export default function WhyPNAfrica() {
       label="WHY PN AFRICA"
       title="Everything you need to launch a tech career, in one place"
       features={whyPNAfricaData}
-      columns={4}
+      columns={3}
     />
   );
 }

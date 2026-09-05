@@ -1,5 +1,3 @@
-// import { dashboardData } from "./applicant-dashboard.data";
-
 import WelcomeBanner from "./WelcomeBanner";
 import CourseProgress from "./CourseProgress";
 import AssignedMentor from "./AssignedMentor";

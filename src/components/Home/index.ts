@@ -1,5 +1,5 @@
 export { default as Hero } from "./Hero";
-export { default as TrustedPartners } from "./TrustedPartners";
+export { default as TrustedPartners } from "./CommunityRoles";
 export { default as ChoosePath } from "./ChoosePath";
 export { default as WhyPNAfrica } from "./WhyPNAfrica";
 export { default as ProgramsOverview } from "./ProgramsOverview";

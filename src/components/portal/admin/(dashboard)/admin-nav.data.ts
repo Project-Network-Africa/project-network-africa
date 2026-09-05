@@ -13,4 +13,5 @@ export const adminNavItems: SidebarNavItem[] = [
   { label: "Reports", href: "/admin/reports" },
   { label: "Notifications", href: "/admin/notifications" },
   { label: "Settings", href: "/admin/settings" },
+  { label: "Logout", href: "/admin/logout" },
 ];

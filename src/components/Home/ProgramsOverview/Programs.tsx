@@ -10,7 +10,7 @@ export default function ProgramOverview() {
           labelClassName="text-[#FFFFFF]"
           titleClassName="text-[#FFFFFF]"
           label="PROGRAMS"
-          title="Choose the path that fits your goals"
+          title="Choose the craft you want to master."
         />
 
         <ProgramGrid programs={programs.slice(0, 4)} />

@@ -17,12 +17,13 @@ import FAQ from "../../components/Home/Faq";
 import { homeFaqData } from "../../data/faq/faq";
 import MentorshipNetwork from "@/src/components/Home/MentorshipNetwork/MentorshipNetwork";
 import Testimonial from "@/src/components/Home/Testimonials/Testimonial";
+import CommunityRoles from "@/src/components/Home/CommunityRoles";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustedPartners />
+      <CommunityRoles />
       <ChoosePath />
       <WhyPNAfrica />
       <ProgramsOverview />

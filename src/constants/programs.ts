@@ -13,145 +13,73 @@ export const programCategories = [
 export const programs = [
   {
     id: 1,
-    slug: "software-engineering",
-    title: "Software Engineering Bootcamp",
+    slug: "product-design",
+    title: "Product Design",
     category: "Engineering",
     image: "/images/programs/software-engineering.jpg",
     description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "SOFTWARE ENGINEERING BOOTCAMP",
+      "Design useful, accessible digital products through research, interaction design, prototyping, and testing.",
+    label: "PRODUCT DESIGN  INTERSHIP",
 
-    heroTitle: "Become a job-ready software engineer in 12 weeks",
+    heroTitle: "Become a job-ready product designer in 12 weeks",
 
     duration: "12 Weeks",
 
-    format: "Hybrid, cohort-based",
+    format: "Online, cohort-based",
 
     eligibility: "Open, no experience",
   },
   {
     id: 2,
-    slug: "product-management",
-    title: "Product Management Bootcamp",
-    category: "Product",
+    slug: "software-engineering ",
+    title: "Software Engineering ",
+    category: "Software",
     image: "/images/programs/product-management.jpg",
     description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "PRODUCT MANAGEMENT BOOTCAMP",
-
-    heroTitle: "Become a job-ready product manager in 12 weeks",
-
-    duration: "12 Weeks",
-
-    format: "Hybrid, cohort-based",
-
-    eligibility: "Open, no experience",
-  },
-  {
-    id: 3,
-    slug: "data-analytics",
-    title: "Data Analytics Bootcamp",
-    category: "Data",
-    image: "/images/programs/data-analytics.jpg",
-    description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "DATA ANALYSIS BOOTCAMP",
-
-    heroTitle: "Become a job-ready data analyst in 12 weeks",
-
-    duration: "12 Weeks",
-
-    format: "Hybrid, cohort-based",
-
-    eligibility: "Open, no experience",
-  },
-  {
-    id: 4,
-    slug: "product-design",
-    title: "Product Design Bootcamp",
-    category: "Design",
-    image: "/images/programs/product-design.jpg",
-    description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "PRODUCT DESIGN BOOTCAMP",
-
-    heroTitle: "Become a job-ready product designer in 12 weeks",
-
-    duration: "12 Weeks",
-
-    format: "Hybrid, cohort-based",
-
-    eligibility: "Open, no experience",
-  },
-  {
-    id: 5,
-    slug: "software-engineering",
-    title: "Software Engineering Bootcamp",
-    category: "Engineering",
-    image: "/images/programs/software-engineering.jpg",
-    description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "SOFTWARE ENGINEERING BOOTCAMP",
+      "Build reliable web products, collaborate in development teams, and ship production-ready features.",
+    label: "SOFTWARE ENGINEERING INTERSHIP",
 
     heroTitle: "Become a job-ready software engineer in 12 weeks",
 
     duration: "12 Weeks",
 
-    format: "Hybrid, cohort-based",
+    format: "Online, cohort-based",
 
     eligibility: "Open, no experience",
   },
   {
-    id: 6,
-    slug: "product-management",
-    title: "Product Management Bootcamp",
+    id: 3,
+    slug: "product-management ",
+    title: "Product Management ",
     category: "Product",
-    image: "/images/programs/product-management.jpg",
-    description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "PRODUCT MANAGEMENT BOOTCAMP",
-
-    heroTitle: "Become a job-ready product manager in 12 weeks",
-
-    duration: "12 Weeks",
-
-    format: "Hybrid, cohort-based",
-
-    eligibility: "Open, no experience",
-  },
-  {
-    id: 7,
-    slug: "data-analytics",
-    title: "Data Analytics Bootcamp",
-    category: "Data",
     image: "/images/programs/data-analytics.jpg",
     description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "DATA ANALYSIS BOOTCAMP",
+      "Learn to frame problems, align teams, define product direction, and move ideas from insight to launch.",
+    label: "PRODUCT MANAGEMENT INTERSHIP",
 
-    heroTitle: "Become a job-ready data analyst in 12 weeks",
+    heroTitle: "Become a job-ready product management in 12 weeks",
 
     duration: "12 Weeks",
 
-    format: "Hybrid, cohort-based",
+    format: "Online, cohort-based",
 
     eligibility: "Open, no experience",
   },
   {
-    id: 8,
-    slug: "product-design",
-    title: "Product Design Bootcamp",
+    id: 4,
+    slug: "data-analytics",
+    title: "Data Analytics ",
     category: "Design",
     image: "/images/programs/product-design.jpg",
     description:
-      "12-week cohort-based program with mentorship and a capstone project.",
-    label: "PRODUCT DESIGN BOOTCAMP",
+      "Turn raw information into useful insights using analysis, visualisation, and business storytelling.",
+    label: "DATA ANALYSIS INTERSHIP",
 
-    heroTitle: "Become a job-ready product designer in 12 weeks",
+    heroTitle: "Become a job-ready data analytics in 12 weeks",
 
     duration: "12 Weeks",
 
-    format: "Hybrid, cohort-based",
+    format: "Online, cohort-based",
 
     eligibility: "Open, no experience",
   },

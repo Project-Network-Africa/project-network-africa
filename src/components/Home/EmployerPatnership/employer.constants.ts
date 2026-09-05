@@ -1,8 +1,8 @@
 export const employerPartnership = {
-  label: "FOR EMPLOYERS",
-  title: "Hire job-ready talent, vetted through real project work",
+  label: "COMMUNITY & ALUMNI",
+  title: "Grow with a community that stays with you",
   description:
-    "Access a pipeline of pre-vetted, mentor-reviewed graduates with portfolios built on real product work.",
-  buttonText: "Partner With Us",
+    "Join peers, mentors, and alumni who share opportunities, feedback, and support long after the cohort ends.",
+  buttonText: "Explore Community",
   buttonHref: "/employers",
 };

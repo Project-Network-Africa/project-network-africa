@@ -9,29 +9,49 @@ import AuthInput from "./AuthInput";
 
 import AuthCheckbox from "./AuthCheckbox";
 import { Button } from "../ui";
-
+import api from "@/src/services/api";
+import axios from "axios";
 export default function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!email.trim() || !password.trim()) {
+      setError("Please enter your email and password.");
       return;
     }
 
-    console.log({
-      email,
-      password,
-      rememberMe,
-    });
+    try {
+      setLoading(true);
+      setError("");
 
-    // Later connect to backend.
-    router.push("/applicant-dashboard");
+      await api.post("/api/auth/login", {
+        email,
+        password,
+      });
+
+      router.push("/applicant/dashboard");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.log("LOGIN ERROR:", error.response?.data);
+        console.log("STATUS:", error.response?.status);
+        setError(
+          error.response?.data?.message ||
+            "Unable to log in. Please try again.",
+        );
+      } else {
+        setError("Unable to log in. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,9 +102,9 @@ export default function LoginForm() {
             Forgot password?
           </Link>
         </div>
-
+        {error && <p className="text-sm text-red-500">{error}</p>}
         {/* <AuthButton>Log In</AuthButton> */}
-        <Button variant="dark">Log In</Button>
+        <Button variant="dark">{loading ? "Logging in..." : "Log In"}</Button>
       </form>
     </AuthCard>
   );

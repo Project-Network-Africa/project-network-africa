@@ -19,10 +19,10 @@ export const whyPNAfricaData: FeatureCardProps[] = [
     title: "Bootcamps",
     description: "Structured, cohort-based curriculum across disciplines.",
   },
-  {
-    icon: "▶",
-    iconBg: "#1F1F25",
-    title: "Job Placement",
-    description: "Direct pipeline to hiring employer partners.",
-  },
+  // {
+  //   icon: "▶",
+  //   iconBg: "#1F1F25",
+  //   title: "Job Placement",
+  //   description: "Direct pipeline to hiring employer partners.",
+  // },
 ];
