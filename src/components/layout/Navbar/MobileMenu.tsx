@@ -76,11 +76,11 @@ export default function MobileMenu() {
             </Link>
 
             <Link
-              href="/apply"
+              href="/register"
               className="mt-4 rounded-lg bg-[#00B6CE] py-3 text-center text-[15px] font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              Apply Now
+              Get Started
             </Link>
           </div>
         </div>

@@ -5,22 +5,22 @@ export default function EmployerVisual() {
       style={{ backgroundImage: "url('/images/community/community.jpg')" }}
     >
       {/* Candidate Match */}
-      <div className="absolute left-0 top-0 w-[150px] rounded-xl bg-white p-3 shadow-xl sm:left-6 sm:top-6 sm:w-[180px] sm:p-4 lg:left-0 lg:top-0 lg:w-[200px]">
+      <div className="absolute left-0 top-0 w-[150px] rounded-xl bg-white md:p-3    shadow-xl md:w-[180px] py-5  px-2 md:left-0 md:top-0 lg:w-[200px]">
         <p className="mb-3 text-xs font-semibold text-[#1F1F25] sm:text-sm">
           Community Network
         </p>
 
-        <div className="flex items-center gap-3">
-          <div className="h-7 w-7 rounded-full bg-[#00B6CE] sm:h-8 sm:w-8" />
+        <div className="flex items-center gap-2">
+          <div className="md:h-5 md:w-5 w-3 h-3  rounded-full bg-[#00B6CE] " />
 
-          <span className="text-lg font-bold text-[#1F1F25] sm:text-xl">
+          <span className="md:text-lg text-md font-bold text-[#1F1F25] sm:text-xl">
             Across Africa
           </span>
         </div>
       </div>
 
       {/* Employer Partners */}
-      <div className="absolute bottom-0 right-0 rounded-xl bg-white px-4 py-3 shadow-xl sm:px-5 sm:py-4 lg:bottom-0 lg:right-0 lg:px-6 lg:py-5">
+      <div className="absolute bottom-0 right-0 rounded-xl bg-white px-4 py-3 shadow-xl sm:px-5 sm:py-4 md:bottom-0 md:right-0 lg:px-6 lg:py-5">
         <p className="text-13px font-bold text-[#1F1F25] ">2,400+ Members</p>
 
         {/* <p className="text-xs font-semibold text-[#5D5D61] sm:text-sm">

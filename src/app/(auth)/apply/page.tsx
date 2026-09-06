@@ -13,6 +13,8 @@ import ReviewPayment from "@/src/components/Application/applicant/steps/ReviewPa
 import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
 import Image from "next/image";
 import Link from "next/link";
+import { submitCohortApplication } from "@/src/services/applicants";
+import axios from "axios";
 export default function ApplyPage() {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
@@ -78,66 +80,6 @@ export default function ApplyPage() {
     }
   };
 
-  // const validateCurrentStep = () => {
-  //   if (currentStep === 1) {
-  //     if (!formData.firstName.trim()) {
-  //       alert("Please enter your first name.");
-  //       return false;
-  //     }
-
-  //     if (!formData.lastName.trim()) {
-  //       alert("Please enter your last name.");
-  //       return false;
-  //     }
-
-  //     if (!formData.email.trim()) {
-  //       alert("Please enter your email address.");
-  //       return false;
-  //     }
-
-  //     if (!formData.phone.trim()) {
-  //       alert("Please enter your phone number.");
-  //       return false;
-  //     }
-
-  //     if (!formData.country) {
-  //       alert("Please select your country.");
-  //       return false;
-  //     }
-
-  //     if (!formData.agreedToTerms) {
-  //       alert("Please agree to the terms before continuing.");
-  //       return false;
-  //     }
-  //   }
-
-  //   if (currentStep === 2) {
-  //     if (!formData.program) {
-  //       alert("Please select a program.");
-  //       return false;
-  //     }
-
-  //     if (!formData.preferredCohortStart) {
-  //       alert("Please select your preferred cohort.");
-  //       return false;
-  //     }
-  //   }
-
-  //   if (currentStep === 3) {
-  //     if (!formData.experienceLevel) {
-  //       alert("Please select your experience level.");
-  //       return false;
-  //     }
-
-  //     if (!formData.motivation.trim()) {
-  //       alert("Please tell us why you want to join the program.");
-  //       return false;
-  //     }
-  //   }
-
-  //   return true;
-  // };
-
   const validateCurrentStep = () => {
     const newErrors: typeof errors = {};
 
@@ -200,29 +142,57 @@ export default function ApplyPage() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Submitting application...", formData);
-    // Later:
-    // 1. Send application to backend
-    // 2. Initialize payment
-    // 3. Redirect to payment provider
+  // const handleSubmit = () => {
+  //   console.log("Submitting application...", formData);
+  //   // Later:
+  //   // 1. Send application to backend
+  //   // 2. Initialize payment
+  //   // 3. Redirect to payment provider
 
-    setApplicationSubmitted(true);
+  //   setApplicationSubmitted(true);
+  // };
+  // if (applicationSubmitted) {
+  //   return (
+  //     <ApplicationConfirmation
+  //       reference="PNA-2026-08341"
+  //       cohort="Cohort 7"
+  //       onBackHome={() => {
+  //         window.location.href = "/";
+  //       }}
+  //       onLogin={() => {
+  //         window.location.href = "/login";
+  //       }}
+  //     />
+  //   );
+  // }
+  const handleSubmit = async () => {
+    try {
+      const response = await submitCohortApplication({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.country,
+        program: formData.program,
+        preferredCohortStart: formData.preferredCohortStart,
+        experienceLevel: formData.experienceLevel,
+        portfolioUrl: formData.portfolioUrl,
+        linkedinUrl: formData.linkedinUrl,
+        motivation: formData.motivation,
+        agreedToTerms: formData.agreedToTerms,
+      });
+
+      console.log("APPLICATION SUBMITTED:", response);
+
+      setApplicationSubmitted(true);
+    } catch (error) {
+      console.error("APPLICATION SUBMISSION FAILED:", error);
+
+      if (axios.isAxiosError(error)) {
+        console.error("BACKEND ERROR:", error.response?.data);
+      }
+    }
   };
-  if (applicationSubmitted) {
-    return (
-      <ApplicationConfirmation
-        reference="PNA-2026-08341"
-        cohort="Cohort 7"
-        onBackHome={() => {
-          window.location.href = "/";
-        }}
-        onLogin={() => {
-          window.location.href = "/login";
-        }}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -239,7 +209,7 @@ export default function ApplyPage() {
           />
         </Link>
         <p className="text-[13px] font-semibold text-[#5D5D61]">
-          Step {currentStep} of 4
+          Step {currentStep} of 3
         </p>
       </header>
 

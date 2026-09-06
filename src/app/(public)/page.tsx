@@ -1,7 +1,6 @@
 import {
   Hero,
   ChoosePath,
-  TrustedPartners,
   WhyPNAfrica,
   ProgramsOverview,
   HowItWorks,
