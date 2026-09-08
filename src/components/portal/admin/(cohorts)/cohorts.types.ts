@@ -37,17 +37,31 @@ export interface CohortActivity {
 //   activities?: CohortActivity[];
 // }
 export interface Cohort {
+  // id: string;
+  // cohort: string;
+  // programme: string;
+  // start: string;
+  // end: string;
+  // deadline: string;
+  // capacity: number;
+  // enrolled: number;
+  // completion: string;
+  // status: string;
+  // action: string;
+
   id: string;
   cohort: string;
   programme: string;
   start: string;
   end: string;
-  deadline: string;
   capacity: number;
   enrolled: number;
-  completion: string;
+  mentors?: string[];
+  applicants?: { _id: string }[];
+  isOpen: boolean;
   status: string;
-  action: string;
+  description?: string;
+  activities?: [];
 }
 
 export interface CohortStat {
