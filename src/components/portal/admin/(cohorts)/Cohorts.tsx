@@ -221,6 +221,11 @@ export default function Cohorts() {
           completion: "-",
           status: cohort.status,
           action: "View",
+          isOpen: cohort.isOpen,
+          description: cohort.description,
+          mentors: cohort.mentors,
+          applicants: cohort.applicants,
+          activities: [],
         }));
 
         setCohorts(formattedCohorts);
