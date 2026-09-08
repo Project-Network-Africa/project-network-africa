@@ -1,5 +1,6 @@
 export interface MentorApplicationData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   whatsappNumber: string;
 
@@ -25,7 +26,8 @@ export interface MentorApplicationData {
 }
 
 export interface MentorApplicationErrors {
-  fullName?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   whatsappNumber?: string;
 

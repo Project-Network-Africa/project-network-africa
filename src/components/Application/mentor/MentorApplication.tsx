@@ -23,7 +23,9 @@ import {
 } from "./MentorApplication.types";
 
 const initialFormData: MentorApplicationData = {
-  fullName: "",
+  // fullName: "",
+  firstName: "",
+  lastName: "",
   email: "",
   whatsappNumber: "",
 
@@ -72,10 +74,12 @@ export default function MentorApplication() {
   const validateForm = () => {
     const newErrors: MentorApplicationErrors = {};
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required.";
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required.";
     }
-
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required.";
+    }
     if (!formData.email.trim()) {
       newErrors.email = "Email address is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -194,10 +198,18 @@ export default function MentorApplication() {
           <MentorFormInput
             label="Full Name"
             placeholder="Enter your name"
-            value={formData.fullName}
-            error={errors.fullName}
+            value={formData.firstName}
+            error={errors.firstName}
             required
-            onChange={(value) => updateField("fullName", value)}
+            onChange={(value) => updateField("firstName", value)}
+          />
+          <MentorFormInput
+            label="Full Name"
+            placeholder="Enter your name"
+            value={formData.lastName}
+            error={errors.lastName}
+            required
+            onChange={(value) => updateField("lastName", value)}
           />
 
           <MentorFormInput

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { checkAuth } from "@/src/services/auth";
-import { getCohorts } from "@/src/services/applicants";
+import { getApplicantCohorts } from "@/src/services/applicants";
 
 export default function CohortTest() {
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function CohortTest() {
 
         console.log("AUTH:", auth);
 
-        const cohorts = await getCohorts();
+        const cohorts = await getApplicantCohorts();
 
         console.log("COHORTS:", cohorts);
       } catch (error) {

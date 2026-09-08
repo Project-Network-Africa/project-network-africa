@@ -15,4 +15,5 @@ export const mentorNavItems: SidebarNavItem[] = [
   { label: "Resource Library", href: "/mentor/resource-library" },
   { label: "Payouts", href: "/mentor/payouts" },
   { label: "Settings", href: "/mentor/settings" },
+  { label: "Logout", href: "/logout" },
 ];

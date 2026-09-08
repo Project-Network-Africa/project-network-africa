@@ -1,36 +1,73 @@
 "use client";
 
-interface Program {
-  id: string;
+import { useEffect, useMemo, useState } from "react";
+import { getApplicantCohorts } from "@/src/services/applicants";
+
+interface Cohort {
+  _id: string;
   name: string;
+  program: string;
   description: string;
+  startDate: string;
+  endDate: string;
+  capacity: number;
+  isOpen: boolean;
+  status: string;
 }
 
 interface ProgramSelectionProps {
-  programs: Program[];
   selectedProgram: string;
   onProgramChange: (program: string) => void;
-
-  preferredCohortStart: string;
-  onCohortStartChange: (value: string) => void;
-
+  selectedCohortId: string;
+  onCohortChange: (value: string) => void;
   errors?: {
     program?: string;
-    preferredCohortStart?: string;
+    cohortId?: string;
   };
 }
 
 export default function ProgramSelection({
-  programs,
   selectedProgram,
   onProgramChange,
-  preferredCohortStart,
-  onCohortStartChange,
+  selectedCohortId,
+  onCohortChange,
   errors,
 }: ProgramSelectionProps) {
+  const [cohorts, setCohorts] = useState<Cohort[]>([]);
+  const [loadingCohorts, setLoadingCohorts] = useState(true);
+
+  useEffect(() => {
+    const fetchCohorts = async () => {
+      try {
+        const response = await getApplicantCohorts();
+
+        setCohorts(response.cohorts || []);
+      } catch (error) {
+        console.error("FAILED TO GET COHORTS:", error);
+      } finally {
+        setLoadingCohorts(false);
+      }
+    };
+
+    fetchCohorts();
+  }, []);
+
+  const availableCohorts = cohorts.filter((cohort) => cohort.isOpen);
+
+  const programs = useMemo(() => {
+    const uniquePrograms = Array.from(
+      new Set(availableCohorts.map((cohort) => cohort.program)),
+    );
+
+    return uniquePrograms;
+  }, [availableCohorts]);
+
+  const selectedProgramCohorts = availableCohorts.filter(
+    (cohort) => cohort.program === selectedProgram,
+  );
+
   return (
     <div className="flex flex-col gap-6">
-      {/* Heading */}
       <div>
         <h1 className="text-[22px] font-heading font-semibold leading-none text-[#1F1F25] md:text-[24px] lg:text-[26px] lg:font-body lg:font-bold">
           Program Selection
@@ -41,74 +78,56 @@ export default function ProgramSelection({
         </p>
       </div>
 
-      {/* Programs */}
-      <div className="flex flex-col gap-[10px]">
-        {programs.map((program) => {
-          const isSelected = selectedProgram === program.id;
+      {loadingCohorts ? (
+        <p className="text-[12px] text-[#5D5D61]">
+          Loading available programs...
+        </p>
+      ) : programs.length === 0 ? (
+        <p className="text-[12px] text-[#5D5D61]">
+          No programs are currently available.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-[10px]">
+          {programs.map((program) => {
+            const isSelected = selectedProgram === program;
 
-          return (
-            <button
-              key={program.id}
-              type="button"
-              onClick={() => onProgramChange(program.id)}
-              className={`
-                flex
-                w-full
-                items-center
-                gap-4
-                rounded-[10px]
-                border
-                px-4
-                py-[13px]
-                text-left
-                transition-colors
-                ${
-                  isSelected
-                    ? "border-[#00B6CE] bg-white"
-                    : "border-[#E5E5EB] bg-white hover:border-[#CFCFD6]"
-                }
-              `}
-            >
-              {/* Radio */}
-              <span
-                className={`
-                  flex
-                  h-[18px]
-                  w-[18px]
-                  flex-shrink-0
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  ${isSelected ? "border-[#00B6CE]" : "border-[#E5E5EB]"}
-                `}
+            return (
+              <button
+                key={program}
+                type="button"
+                onClick={() => {
+                  onProgramChange(program);
+                  onCohortChange("");
+                }}
+                className={`flex w-full items-center gap-4 rounded-[10px] border px-4 py-[13px] text-left transition-colors ${isSelected ? "border-[#00B6CE] bg-white" : "border-[#E5E5EB] bg-white hover:border-[#CFCFD6]"}`}
               >
-                {isSelected && (
-                  <span className="h-[10px] w-[10px] rounded-full bg-[#00B6CE]" />
-                )}
-              </span>
-
-              {/* Program information */}
-              <span className="flex flex-col gap-1 font-body">
-                <span className="text-[12px] font-normal leading-none text-[#1F1F25] lg:text-[13.5px] lg:font-semibold">
-                  {program.name}
+                <span
+                  className={`flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center rounded-full border ${isSelected ? "border-[#00B6CE]" : "border-[#E5E5EB]"}`}
+                >
+                  {isSelected && (
+                    <span className="h-[10px] w-[10px] rounded-full bg-[#00B6CE]" />
+                  )}
                 </span>
 
-                <span className="text-[12px] font-normal leading-none text-[#5D5D61] lg:text-[11.5px]">
-                  {program.description}
-                </span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
+                <span className="flex flex-col gap-1 font-body">
+                  <span className="text-[12px] font-normal leading-none text-[#1F1F25] lg:text-[13.5px] lg:font-semibold">
+                    {program}
+                  </span>
 
-      {/* Program error */}
+                  <span className="text-[12px] font-normal leading-none text-[#5D5D61] lg:text-[11.5px]">
+                    Available program
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       {errors?.program && (
         <p className="text-xs font-medium text-red-500">{errors.program}</p>
       )}
 
-      {/* Preferred cohort */}
       <div className="flex flex-col gap-2 font-body">
         <label
           htmlFor="preferred-cohort"
@@ -119,39 +138,28 @@ export default function ProgramSelection({
 
         <select
           id="preferred-cohort"
-          value={preferredCohortStart}
-          onChange={(event) => onCohortStartChange(event.target.value)}
-          className={`
-            h-[42px]
-            w-full
-            appearance-none
-            rounded-[10px]
-            border
-            bg-white
-            px-4
-            text-[13px]
-            font-normal
-            text-[#5D5D61]
-            outline-none
-            ${
-              errors?.preferredCohortStart
-                ? "border-red-400 focus:border-red-500"
-                : "border-[#E5E5EB] focus:border-[#00B6CE]"
-            }
-          `}
+          value={selectedCohortId}
+          onChange={(event) => onCohortChange(event.target.value)}
+          disabled={loadingCohorts || !selectedProgram}
+          className={`h-[42px] w-full appearance-none rounded-[10px] border bg-white px-4 text-[13px] font-normal text-[#5D5D61] outline-none ${errors?.cohortId ? "border-red-400 focus:border-red-500" : "border-[#E5E5EB] focus:border-[#00B6CE]"}`}
         >
-          <option value="">Select preferred cohort start</option>
-          <option value="August 2026">Cohort — August 24, 2026</option>
-          <option value="September 1 2026">Cohort — September 1, 2026</option>
-          <option value="September 7 2026">Cohort — September 7, 2026</option>
-          <option value="October 2026">Cohort — October 5, 2026</option>
+          <option value="">
+            {!selectedProgram
+              ? "Select a program first"
+              : loadingCohorts
+                ? "Loading cohorts..."
+                : "Select preferred cohort"}
+          </option>
+
+          {selectedProgramCohorts.map((cohort) => (
+            <option key={cohort._id} value={cohort._id}>
+              {cohort.name} — {new Date(cohort.startDate).toLocaleDateString()}
+            </option>
+          ))}
         </select>
 
-        {/* Cohort error */}
-        {errors?.preferredCohortStart && (
-          <p className="text-xs font-medium text-red-500">
-            {errors.preferredCohortStart}
-          </p>
+        {errors?.cohortId && (
+          <p className="text-xs font-medium text-red-500">{errors.cohortId}</p>
         )}
       </div>
     </div>

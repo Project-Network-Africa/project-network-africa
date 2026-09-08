@@ -3,9 +3,9 @@ export const dashboardData = {
   notificationCount: 3,
 
   welcome: {
-    name: "Amara",
-    progressSummary:
-      "You're 68% through the Product Design Bootcamp — Cohort 6",
+    // name: "Amara",
+    // progressSummary:
+    //   "You're 68% through the Product Design Bootcamp — Cohort 6",
     buttonText: "View Cohort",
     buttonHref: "/applicant/cohort-overview",
   },

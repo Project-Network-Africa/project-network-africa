@@ -24,5 +24,5 @@ export const applicantNavItems: SidebarNavItem[] = [
   { label: "Help & Support", href: "/applicant/help-support" },
   { label: "Settings", href: "/applicant/settings" },
   { label: "Confirm Deactivation", href: "/applicant/settings/deactivate" },
-  { label: "Logout", href: "/applicant/logout" },
+  { label: "Logout", href: "/logout" },
 ];

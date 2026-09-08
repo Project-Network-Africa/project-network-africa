@@ -12,4 +12,5 @@ export const employerNavItems: SidebarNavItem[] = [
   { label: "Billing", href: "/employer/billing" },
   { label: "Company Profile", href: "/employer/company-profile" },
   { label: "Settings", href: "/employer/settings" },
+  { label: "Logout", href: "/logout" },
 ];

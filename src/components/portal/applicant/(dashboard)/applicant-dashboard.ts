@@ -1,10 +1,9 @@
 export interface WelcomeBannerProps {
   name: string;
   progressSummary: string;
-  buttonText: string;
-  buttonHref: string;
+  buttonText?: string;
+  buttonHref?: string;
 }
-
 export interface ProgressStage {
   label: string;
   complete: boolean;

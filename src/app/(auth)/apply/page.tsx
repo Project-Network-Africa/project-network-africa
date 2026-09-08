@@ -7,13 +7,16 @@ import RequirementsCard from "@/src/components/Application/applicant/Requirement
 import PersonalInformation from "@/src/components/Application/applicant/steps/PersonalInformation";
 import FormActions from "@/src/components/Application/applicant/fields/FormActions";
 import ProgramSelection from "@/src/components/Application/applicant/steps/ProgramSelection";
-import { applicationPrograms } from "@/src/components/Application/applicant/application.data";
+
 import ExperiencePortfolio from "@/src/components/Application/applicant/steps/ExperiencePortfolio";
 import ReviewPayment from "@/src/components/Application/applicant/steps/ReviewPayment";
-import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
+
 import Image from "next/image";
 import Link from "next/link";
-import { submitCohortApplication } from "@/src/services/applicants";
+import {
+  createApplicantProfile,
+  submitCohortApplication,
+} from "@/src/services/applicants";
 import axios from "axios";
 export default function ApplyPage() {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
@@ -29,7 +32,7 @@ export default function ApplyPage() {
     agreedToTerms: false,
 
     program: "",
-    preferredCohortStart: "",
+    cohortId: "",
 
     // experienceLevel: "Beginner",
     experienceLevel: "",
@@ -46,7 +49,7 @@ export default function ApplyPage() {
     country?: string;
     agreedToTerms?: string;
     program?: string;
-    preferredCohortStart?: string;
+    cohortId?: string;
     experienceLevel?: string;
     motivation?: string;
   }>({});
@@ -115,8 +118,8 @@ export default function ApplyPage() {
         newErrors.program = "Please select a program.";
       }
 
-      if (!formData.preferredCohortStart) {
-        newErrors.preferredCohortStart = "Please select your preferred cohort.";
+      if (!formData.cohortId) {
+        newErrors.cohortId = "Please select your preferred cohort.";
       }
     }
 
@@ -142,31 +145,11 @@ export default function ApplyPage() {
     }
   };
 
-  // const handleSubmit = () => {
-  //   console.log("Submitting application...", formData);
-  //   // Later:
-  //   // 1. Send application to backend
-  //   // 2. Initialize payment
-  //   // 3. Redirect to payment provider
-
-  //   setApplicationSubmitted(true);
-  // };
-  // if (applicationSubmitted) {
-  //   return (
-  //     <ApplicationConfirmation
-  //       reference="PNA-2026-08341"
-  //       cohort="Cohort 7"
-  //       onBackHome={() => {
-  //         window.location.href = "/";
-  //       }}
-  //       onLogin={() => {
-  //         window.location.href = "/login";
-  //       }}
-  //     />
-  //   );
-  // }
   const handleSubmit = async () => {
     try {
+      await createApplicantProfile({
+        program: formData.program,
+      });
       const response = await submitCohortApplication({
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -174,7 +157,7 @@ export default function ApplyPage() {
         phone: formData.phone,
         country: formData.country,
         program: formData.program,
-        preferredCohortStart: formData.preferredCohortStart,
+        cohortId: formData.cohortId,
         experienceLevel: formData.experienceLevel,
         portfolioUrl: formData.portfolioUrl,
         linkedinUrl: formData.linkedinUrl,
@@ -258,7 +241,6 @@ export default function ApplyPage() {
 
             {currentStep === 2 && (
               <ProgramSelection
-                programs={applicationPrograms}
                 selectedProgram={formData.program}
                 onProgramChange={(program) =>
                   setFormData((previous) => ({
@@ -266,11 +248,11 @@ export default function ApplyPage() {
                     program,
                   }))
                 }
-                preferredCohortStart={formData.preferredCohortStart}
-                onCohortStartChange={(preferredCohortStart) =>
+                selectedCohortId={formData.cohortId}
+                onCohortChange={(value) =>
                   setFormData((previous) => ({
                     ...previous,
-                    preferredCohortStart,
+                    cohortId: value,
                   }))
                 }
                 errors={errors}

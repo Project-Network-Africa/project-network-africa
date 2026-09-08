@@ -1,23 +1,34 @@
 "use client";
 
 import { useState } from "react";
+
 import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 
 import AuthCard from "./AuthCard";
+
 import AuthInput from "./AuthInput";
 
 import AuthCheckbox from "./AuthCheckbox";
+
 import { Button } from "../ui";
+
 import api from "@/src/services/api";
+
 import axios from "axios";
+
 export default function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
+
   const [rememberMe, setRememberMe] = useState(false);
+
   const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,18 +41,31 @@ export default function LoginForm() {
 
     try {
       setLoading(true);
+
       setError("");
 
-      await api.post("/api/auth/login", {
+      const response = await api.post("/api/auth/login", {
         email,
         password,
       });
 
-      router.push("/applicant/dashboard");
+      const role = response.data.user.role;
+
+      if (role === "Applicant") {
+        router.push("/applicant/dashboard");
+      } else if (role === "Mentor") {
+        router.push("/mentor/dashboard");
+      } else if (role === "Admin") {
+        router.push("/admin/dashboard");
+      } else {
+        setError("Invalid user role.");
+      }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.log("LOGIN ERROR:", error.response?.data);
+
         console.log("STATUS:", error.response?.status);
+
         setError(
           error.response?.data?.message ||
             "Unable to log in. Please try again.",
@@ -102,7 +126,9 @@ export default function LoginForm() {
             Forgot password?
           </Link>
         </div>
+
         {error && <p className="text-sm text-red-500">{error}</p>}
+
         {/* <AuthButton>Log In</AuthButton> */}
         <Button variant="dark">{loading ? "Logging in..." : "Log In"}</Button>
       </form>
