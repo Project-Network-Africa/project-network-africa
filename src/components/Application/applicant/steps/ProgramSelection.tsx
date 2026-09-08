@@ -7,7 +7,7 @@ interface Cohort {
   _id: string;
   name: string;
   program: string;
-  description: string;
+  description?: string;
   startDate: string;
   endDate: string;
   capacity: number;

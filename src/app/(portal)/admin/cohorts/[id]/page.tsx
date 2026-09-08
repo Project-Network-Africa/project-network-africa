@@ -13,7 +13,7 @@ export default async function CohortDetailsPage({
 }: CohortDetailsPageProps) {
   const { id } = await params;
 
-  const cohort = cohorts.find((item) => item.id === Number(id));
+  const cohort = cohorts.find((item) => item.id === id);
 
   if (!cohort) {
     notFound();
