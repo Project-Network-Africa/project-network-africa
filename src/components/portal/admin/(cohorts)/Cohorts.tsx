@@ -166,7 +166,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { cohortFilters } from "./cohorts-data";
+// import { cohortFilters } from "./cohorts-data";
 
 import { Cohort } from "./cohorts.types";
 
@@ -199,11 +199,25 @@ import { getCohorts } from "@/src/services/cohorts";
 //   createdAt: string;
 //   updatedAt: string;
 // }
+
 export default function Cohorts() {
   const [search, setSearch] = useState("");
   const [cohorts, setCohorts] = useState<Cohort[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const cohortFilters = [
+    {
+      label: "All programmes",
+      value: "all",
+    },
+    {
+      label: "Cohort status",
+      value: "all",
+    },
+    {
+      label: "Date range",
+      value: "all",
+    },
+  ];
   useEffect(() => {
     const fetchCohorts = async () => {
       try {

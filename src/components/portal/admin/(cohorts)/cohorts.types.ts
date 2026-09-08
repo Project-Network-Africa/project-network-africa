@@ -80,7 +80,10 @@ export interface Cohort {
   description?: string;
   mentors?: string[];
   applicants?: { _id: string }[];
-  activities?: [];
+  activities?: {
+    text: string;
+    time: string;
+  }[];
 }
 
 export interface CohortStat {
