@@ -13,43 +13,64 @@ import CourseProgress from "./CourseProgress";
 
 import { dashboardData } from "./applicant-dashboard-data";
 import { checkAuth } from "@/src/services/auth";
-import { getMyCohortApplication } from "@/src/services/applicants";
+import {
+  getMyApplicantProfile,
+  getMyCohortApplication,
+} from "@/src/services/applicants";
+
+type ApplicantState = "not-applied" | "pending" | "rejected" | "admitted";
 
 export default function ApplicantDashboardContent() {
   const [name, setName] = useState("");
-  const [applicationStatus, setApplicationStatus] = useState("");
-  const [progressSummary, setProgressSummary] = useState(
-    "Your application is currently being reviewed.",
-  );
+  const [applicantState, setApplicantState] =
+    useState<ApplicantState>("not-applied");
 
   const { welcome, notifications } = dashboardData;
 
   useEffect(() => {
     const getDashboardData = async () => {
       try {
-        const [userResponse, applicationResponse] = await Promise.all([
-          checkAuth(),
-          getMyCohortApplication(),
-        ]);
-
-        const application = applicationResponse.application;
-        const status = application?.applicationStatus || "";
+        const userResponse = await checkAuth();
 
         setName(userResponse.user.firstName);
-        setApplicationStatus(status);
 
-        if (status === "Pending") {
-          setProgressSummary(
-            "Your application is currently under review. We'll let you know once there's an update.",
-          );
-        } else if (status === "Accepted") {
-          setProgressSummary(
-            "You're 68% through the Product Design Bootcamp — Cohort 6",
-          );
-        } else if (status === "Rejected") {
-          setProgressSummary(
-            "Your application was not accepted. You can view your application status for more details.",
-          );
+        let applicantResponse;
+
+        try {
+          applicantResponse = await getMyApplicantProfile();
+        } catch (error) {
+          console.log("NO APPLICANT PROFILE YET:", error);
+          setApplicantState("not-applied");
+          return;
+        }
+
+        const applicant = applicantResponse.applicant;
+
+        if (!applicant) {
+          setApplicantState("not-applied");
+          return;
+        }
+
+        if (applicant.admissionStatus === "Admitted") {
+          setApplicantState("admitted");
+          return;
+        }
+
+        try {
+          const applicationResponse = await getMyCohortApplication();
+          const application = applicationResponse.application;
+          const status = application?.applicationStatus;
+
+          if (status === "Rejected") {
+            setApplicantState("rejected");
+          } else if (status === "Pending") {
+            setApplicantState("pending");
+          } else {
+            setApplicantState("not-applied");
+          }
+        } catch (error) {
+          console.log("NO COHORT APPLICATION YET:", error);
+          setApplicantState("not-applied");
         }
       } catch (error) {
         console.error("FAILED TO GET DASHBOARD DATA:", error);
@@ -59,35 +80,69 @@ export default function ApplicantDashboardContent() {
     getDashboardData();
   }, []);
 
-  const isAccepted = applicationStatus === "Accepted";
+  const progressSummary =
+    applicantState === "not-applied"
+      ? "Start your journey with PN Africa by applying to one of our programmes."
+      : applicantState === "pending"
+        ? "Your application is currently under review. We'll let you know once there's an update."
+        : applicantState === "rejected"
+          ? "Your application was not accepted. You can view your application status for more details."
+          : "You're 68% through the Product Design Bootcamp — Cohort 6";
+
+  const isAdmitted = applicantState === "admitted";
+  const hasApplied =
+    applicantState === "pending" || applicantState === "rejected";
 
   return (
     <>
       <WelcomeBanner
         name={name}
         progressSummary={progressSummary}
-        buttonText={isAccepted ? welcome.buttonText : undefined}
-        buttonHref={isAccepted ? welcome.buttonHref : undefined}
+        buttonText={
+          applicantState === "not-applied"
+            ? "Apply Now"
+            : isAdmitted
+              ? welcome.buttonText
+              : undefined
+        }
+        buttonHref={
+          applicantState === "not-applied"
+            ? "/apply"
+            : isAdmitted
+              ? welcome.buttonHref
+              : undefined
+        }
       />
 
-      {!isAccepted ? (
+      {!isAdmitted ? (
         <div className="rounded-[12px] bg-white p-6">
           <h2 className="text-[16px] font-semibold text-[#1F1F25]">
-            Application Status
+            {hasApplied ? "Application Status" : "Get Started"}
           </h2>
 
           <p className="mt-2 text-[13px] text-[#5D5D61]">
-            {applicationStatus === "Rejected"
-              ? "Your application was not accepted."
-              : "Your application is currently being reviewed."}
+            {applicantState === "not-applied"
+              ? "You haven't submitted an application yet. Apply to a programme to get started."
+              : applicantState === "rejected"
+                ? "Your application was not accepted."
+                : "Your application is currently being reviewed."}
           </p>
 
-          <a
-            href="/applicant/application-status"
-            className="mt-4 inline-block text-[13px] font-semibold text-[#00B6CE]"
-          >
-            View application status
-          </a>
+          {applicantState === "not-applied" ? (
+            <a
+              href="/apply"
+              className="mt-4 inline-block rounded-[8px] bg-[#00B6CE] px-5 py-2.5 text-[13px] font-semibold text-white"
+            >
+              Apply Now
+            </a>
+          ) : (
+            <a
+              href="/applicant/application-status"
+              className="mt-4 inline-block text-[13px] font-semibold text-[#00B6CE]"
+            >
+              View application status
+            </a>
+          )}
         </div>
       ) : (
         <>

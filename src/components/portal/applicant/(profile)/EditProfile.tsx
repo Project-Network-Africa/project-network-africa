@@ -186,14 +186,6 @@ export default function EditProfilePage() {
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <h1 className="text-[24px] font-bold text-[#1F1F25]">Edit Profile</h1>
-
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00B6CE] text-[14px] font-bold text-white">
-          {initials || "A"}
-        </div>
-      </div>
-
       <form
         onSubmit={handleSave}
         className="flex w-full flex-col gap-5 rounded-[14px] border border-[#E5E5EB] bg-white px-5 py-6 shadow-[0px_2px_8px_0px_#0000000A] sm:px-6"

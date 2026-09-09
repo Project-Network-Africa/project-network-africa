@@ -45,6 +45,7 @@ export default function HomePage() {
       />
       <EmployerPartnership />
       <FAQ label="FAQ" title="Common questions" items={homeFaqData} />
+
       <CTA
         title="Ready to start your journey with PN Africa?"
         primaryText="Apply Now"

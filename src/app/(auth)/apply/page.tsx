@@ -18,6 +18,8 @@ import {
   submitCohortApplication,
 } from "@/src/services/applicants";
 import axios from "axios";
+import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
+import router from "next/router";
 export default function ApplyPage() {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
@@ -145,11 +147,55 @@ export default function ApplyPage() {
     }
   };
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     await createApplicantProfile({
+  //       phone: formData.phone,
+  //       country: formData.country,
+  //       program: formData.program,
+  //       portfolioUrl: formData.portfolioUrl,
+  //       linkedInUrl: formData.linkedinUrl,
+  //       bio: formData.motivation,
+  //       skills: [formData.experienceLevel],
+  //     });
+  //     const response = await submitCohortApplication({
+  //       firstName: formData.firstName,
+  //       lastName: formData.lastName,
+  //       email: formData.email,
+  //       phone: formData.phone,
+  //       country: formData.country,
+  //       program: formData.program,
+  //       cohortId: formData.cohortId,
+  //       experienceLevel: formData.experienceLevel,
+  //       portfolioUrl: formData.portfolioUrl,
+  //       linkedinUrl: formData.linkedinUrl,
+  //       motivation: formData.motivation,
+  //       agreedToTerms: formData.agreedToTerms,
+  //     });
+
+  //     console.log("APPLICATION SUBMITTED:", response);
+
+  //     setApplicationSubmitted(true);
+  //   } catch (error) {
+  //     console.error("APPLICATION SUBMISSION FAILED:", error);
+
+  //     if (axios.isAxiosError(error)) {
+  //       console.error("BACKEND ERROR:", error.response?.data);
+  //     }
+  //   }
+  // };
   const handleSubmit = async () => {
     try {
       await createApplicantProfile({
+        phone: formData.phone,
+        country: formData.country,
         program: formData.program,
+        portfolioUrl: formData.portfolioUrl,
+        linkedInUrl: formData.linkedinUrl,
+        bio: formData.motivation,
+        skills: [formData.experienceLevel],
       });
+
       const response = await submitCohortApplication({
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -176,7 +222,16 @@ export default function ApplyPage() {
       }
     }
   };
-
+  if (applicationSubmitted) {
+    return (
+      <ApplicationConfirmation
+        reference="PN-AFRICA"
+        cohort={formData.cohortId}
+        onBackHome={() => router.push("/")}
+        onContinue={() => router.push("/applicant/dashboard")}
+      />
+    );
+  }
   return (
     <div className="min-h-screen bg-white">
       {/* Application Header */}

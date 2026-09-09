@@ -1,47 +1,94 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-import SectionHeader from "../ui/SectionHeader";
-import ProgramFilter from "../Programs/program-filter";
-import ProgramGrid from "../Shared/program-grid";
-
-import { programCategories, programs } from "../../constants/programs";
-import ProgramPreview from "./program-preview/program-preview";
+import ProgramsHero from "./ProgramsHero/ProgramHero";
+import ProgrammeFinder from "./ProgrammeFinder/ProgrammeFinder";
+import ProgrammeCatalogue from "./ProgrammeCatalogue/ProgrammeCatalogue";
+import { programmes } from "./programmes-data";
+import ApplicationJourney from "./ApplicationJourney/ApplicationJourney";
+import { applicationJourneySteps } from "./ApplicationJourney/application-journey-data";
+import ProgrammeBenefits from "./ProgrammeBenefits/ProgrammeBenefits";
+import { programmeBenefits } from "./ProgrammeBenefits/programme-benefits-data";
+import CareerPathHelper from "./CareerPathHelper/CareerPathHelper";
+import { careerPathOptions } from "./CareerPathHelper/career-path-helper-data";
+import LearnerOutcomes from "./LearnerOutcomes/LearnerOutcomes";
+import { learnerOutcomeStats } from "./LearnerOutcomes/learner-outcomes-data";
+import FAQ from "../Home/Faq";
+import { programmesFaq } from "@/src/data/faq/faq";
+import { CTA } from "../Home";
 
 export default function ProgramsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All programmes");
 
-  const filteredPrograms = useMemo(() => {
-    if (selectedCategory === "All") {
-      return programs;
-    }
+  const filteredProgrammes = useMemo(() => {
+    return programmes.filter((programme) => {
+      const matchesCategory =
+        category === "All programmes" ||
+        (category === "Business & Growth"
+          ? ["Business", "Growth"].includes(programme.category)
+          : programme.category.toLowerCase() === category.toLowerCase());
 
-    return programs.filter((program) => program.category === selectedCategory);
-  }, [selectedCategory]);
+      const searchTerm = search.toLowerCase().trim();
+
+      const matchesSearch =
+        !searchTerm ||
+        programme.title.toLowerCase().includes(searchTerm) ||
+        programme.description.toLowerCase().includes(searchTerm) ||
+        programme.category.toLowerCase().includes(searchTerm);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [search, category]);
 
   return (
     <>
-      <main className="bg-[#F8F8F8]">
-        {/* Program Listing */}
-        <section className="px-4 py-12 sm:px-6 md:px-8 lg:px-20 lg:py-[72px]">
-          <div className="mx-auto flex max-w-[1280px] flex-col gap-6 lg:gap-7">
-            <SectionHeader
-              label="PROGRAMS"
-              title="Choose the path that fits your goals"
-            />
+      <ProgramsHero />
 
-            <ProgramFilter
-              categories={programCategories}
-              selectedCategory={selectedCategory}
-              onSelect={setSelectedCategory}
-            />
+      <ProgrammeFinder
+        programmeCount={filteredProgrammes.length}
+        totalProgrammeCount={programmes.length}
+        categories={["Design", "Engineering", "Data", "Business & Growth"]}
+        search={search}
+        activeCategory={category}
+        onSearch={setSearch}
+        onCategoryChange={setCategory}
+      />
 
-            <ProgramGrid programs={filteredPrograms} />
-            <ProgramPreview />
-          </div>
-        </section>
-      </main>
+      <div id="programmes">
+        <ProgrammeCatalogue programmes={filteredProgrammes} />
+      </div>
+      <CareerPathHelper options={careerPathOptions} />
+      <ProgrammeBenefits benefits={programmeBenefits} />
+      <ApplicationJourney steps={applicationJourneySteps} />
+      <LearnerOutcomes stats={learnerOutcomeStats} />
+      <FAQ
+        label="PROGRAMME QUESTIONS"
+        title="What to know before choosing a programme"
+        description="Review the most common questions about eligibility, delivery, applications and joining a future cohort."
+        items={programmesFaq}
+        helper={{
+          title: "Still deciding?",
+          description:
+            "Contact the programme team for guidance on the best track for your goals.",
+          linkText: "Ask a programme question",
+          href: "/contact",
+        }}
+      />
+      <CTA
+        eyebrow="READY WHEN YOU ARE"
+        title="Your next career chapter can start here"
+        description="Choose a programme, review the next cohort and submit an application when the timing is right."
+        primaryText="Get Started"
+        primaryHref="/register"
+        secondaryText="View cohorts"
+        secondaryHref="/cohorts"
+        backgroundClassName="bg-[#00B6CE]"
+        titleClassName="text-[#1F1F25] text-[38px]"
+        descriptionClassName="text-[#1F1F25]"
+        primaryButtonClassName="bg-[#1F1F25] text-white"
+        secondaryButtonClassName="bg-white text-black"
+      />
     </>
   );
 }

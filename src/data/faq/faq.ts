@@ -58,3 +58,26 @@ export const resourcesFaqData: FAQItem[] = [
       "Yes. We welcome contributions from mentors, graduates, and members of the tech community. If you'd like to share your knowledge or experience, please contact the PN Africa team with your proposal.",
   },
 ];
+
+export const programmesFaq: FAQItem[] = [
+  {
+    question: "How do I choose the right programme?",
+    answer:
+      "Review each programme’s focus, learning format, schedule and expected outcomes. If you are still unsure, contact the programme team for guidance.",
+  },
+  {
+    question: "Are all programmes delivered live online?",
+    answer:
+      "Yes. Programme sessions and collaboration take place live online, so participants can join from different locations. You will still need to attend team meetings, complete your responsibilities and meet agreed deadlines.",
+  },
+  {
+    question: "What happens after I submit an application?",
+    answer:
+      "The PN Africa team reviews your application, confirms your role readiness and availability, then shares the next steps for payment, onboarding and team placement.",
+  },
+  {
+    question: "Can I join if the next cohort is full?",
+    answer:
+      "You can join the waitlist. PN Africa will contact you if a place becomes available or when the next cohort opens.",
+  },
+];

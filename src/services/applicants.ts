@@ -53,10 +53,10 @@ export const getApplicantCohorts = async (): Promise<{
   const response = await api.get("/api/cohorts/applicant");
   return response.data;
 };
-export const createApplicantProfile = async (data: { program: string }) => {
-  const response = await api.post("/api/applicants", data);
-  return response.data;
-};
+// export const createApplicantProfile = async (data: { program: string }) => {
+//   const response = await api.post("/api/applicants", data);
+//   return response.data;
+// };
 // export const updateApplicantProfile = async (data: {
 //   program?: string;
 //   phone?: string;
@@ -129,5 +129,17 @@ export const assignApplicantToCohort = async (
     },
   );
 
+  return response.data;
+};
+export const createApplicantProfile = async (data: {
+  phone: string;
+  country: string;
+  program: string;
+  portfolioUrl?: string;
+  linkedInUrl?: string;
+  bio: string;
+  skills: string[];
+}) => {
+  const response = await api.post("/api/applicants", data);
   return response.data;
 };

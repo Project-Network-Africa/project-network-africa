@@ -4,14 +4,14 @@ interface ApplicationConfirmationProps {
   reference: string;
   cohort: string;
   onBackHome: () => void;
-  onLogin: () => void;
+  onContinue: () => void;
 }
 
 export default function ApplicationConfirmation({
   reference,
   cohort,
   onBackHome,
-  onLogin,
+  onContinue,
 }: ApplicationConfirmationProps) {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F8F8F8] px-5 py-10">
@@ -93,7 +93,7 @@ export default function ApplicationConfirmation({
           </button>
 
           <button
-            onClick={onLogin}
+            onClick={onContinue}
             className="
               h-[43px]
               rounded-[10px]
@@ -108,7 +108,7 @@ export default function ApplicationConfirmation({
               hover:bg-[#F6F6F7]
             "
           >
-            Go to Log In
+            Continue
           </button>
         </div>
       </div>
