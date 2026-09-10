@@ -1,25 +1,58 @@
-import CurrentCohorts from "./CurrentCohort";
-import PastCohorts from "./PastCohorts";
+import { cohortFaq } from "@/src/data/faq/faq";
 import CTA from "../Home/CTA";
-import Timeline from "../Shared/timeline";
-import { timelineSteps } from "./Timeline/timeline.data";
+import FAQ from "../Home/Faq";
+import { cohortExperienceItems } from "./CohortExperience/cohort-experience-data";
+import CohortExperience from "./CohortExperience/CohortExperience";
+import { cohortFinderData } from "./CohortFinder/cohort-finder-data";
+import CohortFinder from "./CohortFinder/CohortFinder";
+import {
+  cohortOutcomeQuote,
+  cohortOutcomeStats,
+} from "./CohortOutcomes/cohort-outcomes-data";
+import CohortOutcomes from "./CohortOutcomes/CohortOutcomes";
+import {
+  cohortAvailability,
+  cohortHeroStats,
+} from "./CohortsHero/cohorts-hero-data";
+
+import CohortsHero from "./CohortsHero/CohortsHero";
+import { cohortJourneySteps } from "./HowCohortsWork/how-cohorts-work-data";
+import HowCohortsWork from "./HowCohortsWork/HowCohortsWork";
+import { upcomingCohorts } from "./UpcomingCohorts/upcoming-cohorts-data";
+import UpcomingCohorts from "./UpcomingCohorts/UpcomingCohorts";
 export default function ProgramsPage() {
   return (
     <>
       <main className="bg-[#F8F8F8]">
-        <CurrentCohorts />
-        <Timeline
-          label="TIMELINE"
-          title="How each cohort progresses"
-          items={timelineSteps}
-          columns={5}
+        <CohortsHero
+          stats={cohortHeroStats}
+          availabilityItems={cohortAvailability}
         />
-        ;
-        <PastCohorts />
+
+        <CohortFinder cohorts={cohortFinderData} />
+        <CohortExperience items={cohortExperienceItems} />
+        <HowCohortsWork steps={cohortJourneySteps} />
+
+        <UpcomingCohorts cohorts={upcomingCohorts} />
+
+        <CohortOutcomes stats={cohortOutcomeStats} quote={cohortOutcomeQuote} />
+        <FAQ
+          label="COHORT QUESTIONS"
+          title="Common questions about joining a cohort"
+          description="Answers about eligibility, practical project work, student participation, and cohort availability."
+          items={cohortFaq}
+        />
+
         <CTA
-          title="Applications for Cohort 7 open soon"
-          primaryText="Join the Waitlist"
-          primaryHref="/apply"
+          title="Ready to join the next PN Africa cohort?"
+          description="Choose your programme, check availability, and start your application today."
+          primaryText="Explore Open Cohorts"
+          primaryHref="#explore-cohorts"
+          secondaryText="Talk to an Advisor"
+          secondaryHref="/contact"
+          primaryButtonClassName="px-[2px]"
+          titleClassName="text-[#FFFFFF] font-body"
+          descriptionClassName="text-[#FFFFFF]"
         />
       </main>
     </>

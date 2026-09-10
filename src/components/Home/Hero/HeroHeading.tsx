@@ -13,7 +13,7 @@ export default function HeroHeading() {
       {/* Heading */}
       <div className="max-w-[936px]">
         <h1 className="w-full text-center font-heading text-[30px] font-semibold leading-[38px] tracking-normal text-[#1F1F25] lg:w-[936px] lg:text-[64px] lg:font-bold lg:leading-[72px] lg:tracking-[-2px]">
-          Build Your Career in Tech, With Real Mentors and Real Projects
+          Build Real Tech Experience — With Teams, Mentors and Proof of Work
         </h1>
       </div>
 
@@ -29,9 +29,8 @@ export default function HeroHeading() {
             sm:text-base
           "
         >
-          PN Africa connects aspiring digital professionals with mentorship,
-          hands-on product experience, and employers hiring across the
-          continent.
+          Work in multidisciplinary teams, solve practical problems, receive
+          feedback and finish with evidence of what you can actually do.
         </p>
       </div>
     </>

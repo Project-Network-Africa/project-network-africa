@@ -18,7 +18,7 @@ const paths = [
     description:
       "Guide the next generation of tech talent through 1:1 mentorship.",
     linkText: "Become a Mentor →",
-    href: "/mentor",
+    href: "/mentorship",
   },
   // {
   //   image: "/images/choose-path/employer.svg",

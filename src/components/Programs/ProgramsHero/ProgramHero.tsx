@@ -9,7 +9,7 @@ export default function ProgramsPage() {
         description="Choose a mentor-led programme, practise with real projects and build evidence of your skills for the next step in your career."
         primaryButton={{
           label: "Explore programmes",
-          href: "#programmes",
+          href: "#explore-programmes",
         }}
         secondaryButton={{
           label: "View next cohorts",

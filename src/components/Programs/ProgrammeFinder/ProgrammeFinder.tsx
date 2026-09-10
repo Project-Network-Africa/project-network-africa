@@ -15,8 +15,11 @@ export default function ProgrammeFinder({
   const allCategories = ["All programmes", ...categories];
 
   return (
-    <section className={`w-full ${backgroundClassName}`}>
-      <div className="mx-auto w-full max-w-[1280px] px-4 py-10 sm:px-8 lg:px-0 lg:py-[48px]">
+    <section
+      className={`w-full ${backgroundClassName}`}
+      id="explore-programmes"
+    >
+      <div className="mx-auto w-full max-w-[1280px] px-4 py-10 sm:px-8 lg:px-0 lg:py-[48px] ">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="font-body text-[24px] font-bold leading-[120%] tracking-[-0.5px] text-[#1F1F25] lg:text-[28px] lg:leading-[100%]">

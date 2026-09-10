@@ -19,7 +19,7 @@ export default function RealProjectExperience() {
 
           {/* Tablet + Desktop */}
           <Button
-            href="/projects"
+            href="/project-examples"
             variant="linkBlack"
             className="!hidden w-fit px-6 font-body text-[12px] font-semibold leading-[18px] tracking-[1px] lg:!flex"
           >

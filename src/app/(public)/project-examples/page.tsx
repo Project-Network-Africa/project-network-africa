@@ -7,8 +7,6 @@ import { ProjectCategory } from "@/src/types/project";
 import ProjectExamplesHeader from "@/src/components/ProjectExamples/ProjectExamplesHeader";
 import ProjectFilters from "@/src/components/ProjectExamples/ProjectFilters";
 import ProjectGrid from "@/src/components/ProjectExamples/ProjectGrid";
-import Navbar from "@/src/components/layout/Navbar";
-import Footer from "@/src/components/layout/Footer";
 
 export default function ProjectExamplesPage() {
   const [activeCategory, setActiveCategory] = useState<"All" | ProjectCategory>(
@@ -27,7 +25,6 @@ export default function ProjectExamplesPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
       <ProjectExamplesHeader />
 
       <ProjectFilters
@@ -40,7 +37,6 @@ export default function ProjectExamplesPage() {
           <ProjectGrid projects={filteredProjects} />
         </div>
       </section>
-      <Footer />
     </main>
   );
 }

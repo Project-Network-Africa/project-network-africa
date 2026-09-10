@@ -46,19 +46,7 @@ export default function ProgramsHero({
           </div>
 
           {/* Stats */}
-          {/* <div className="mt-7 flex flex-col gap-5 lg:mt-8 lg:flex-row lg:items-start lg:gap-16 ">
-            {stats.map((stat) => (
-              <div key={stat.value} className="flex flex-col gap-1">
-                <p className="font-body text-[14px] font-bold leading-[100%] text-white lg:text-[15px]">
-                  {stat.value}
-                </p>
 
-                <p className="font-body text-[12px] font-normal leading-[140%] text-[#AFAFB8] lg:text-[13px]">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div> */}
           <div className="mt-7 grid grid-cols-2 gap-5 md:grid-cols-2 lg:mt-8 lg:grid-cols-4 lg:gap-16">
             {stats.map((stat) => (
               <div key={stat.value} className="flex flex-col gap-1">

@@ -1,5 +1,3 @@
-// src/components/portal/admin/content/create/CreateContent.tsx
-
 "use client";
 
 import { useMemo, useState } from "react";

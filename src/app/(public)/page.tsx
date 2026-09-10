@@ -5,8 +5,8 @@ import {
   ProgramsOverview,
   HowItWorks,
   RealProjectExperience,
-  EmployerPartnership,
   CTA,
+  Community,
 } from "../../components/Home";
 
 import StatsSection from "../../components/Shared/StatsSection";
@@ -30,28 +30,24 @@ export default function HomePage() {
 
       <RealProjectExperience />
       <MentorshipNetwork />
-      {/* <PeopleSection
-        label="FEATURED MENTORS"
-        title="Meet some of our mentors"
-        people={mentors}
-        columns={4}
-      />
-      <Testimonials /> */}
+
       <Testimonial />
       <StatsSection
         label="OUR IMPACT"
         title="A growing network of learners, mentors, and employers building Africa’s digital talent pipeline."
         stats={impactData}
       />
-      <EmployerPartnership />
+      <Community />
       <FAQ label="FAQ" title="Common questions" items={homeFaqData} />
 
       <CTA
         title="Ready to start your journey with PN Africa?"
         primaryText="Apply Now"
-        primaryHref="/apply"
+        primaryHref="/cohorts"
         secondaryText="Talk to an Advisor"
         secondaryHref="/contact"
+        titleClassName="text-[#FFFFFF]"
+        secondaryButtonClassName="bg"
       />
     </>
   );

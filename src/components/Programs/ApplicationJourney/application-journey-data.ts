@@ -7,7 +7,7 @@ export const applicationJourneySteps: ApplicationJourneyStep[] = [
     description:
       "Review programme focus, requirements, format and next start date.",
     linkText: "Explore programmes",
-    href: "/programmes",
+    href: "#explore-programmes",
   },
   {
     number: "2",
@@ -15,7 +15,7 @@ export const applicationJourneySteps: ApplicationJourneyStep[] = [
     description:
       "Add your background, goals and any information required for review.",
     linkText: "Check requirements",
-    href: "/programmes",
+    href: "#explore-programmes",
   },
   {
     number: "3",
@@ -23,6 +23,6 @@ export const applicationJourneySteps: ApplicationJourneyStep[] = [
     description:
       "Choose an open cohort, submit your application and track its status.",
     linkText: "Start application",
-    href: "/apply",
+    href: "/cohorts",
   },
 ];

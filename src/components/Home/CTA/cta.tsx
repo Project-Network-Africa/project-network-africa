@@ -67,7 +67,7 @@ interface CTAProps {
 }
 
 export default function CTA({
-  eyebrow = "READY WHEN YOU ARE",
+  eyebrow,
   title,
   description,
   primaryText,
@@ -91,7 +91,7 @@ export default function CTA({
   });
   return (
     <section
-      className={`w-full px-4 py-12 sm:px-6 md:px-8 lg:px-20 lg:py-[84px] ${backgroundClassName}`}
+      className={`w-full px-4 py-10 sm:px-6 md:px-8 lg:px-20 lg:py-[54px] ${backgroundClassName}`}
     >
       <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-7 lg:gap-8">
         {showEyebrow && eyebrow && (

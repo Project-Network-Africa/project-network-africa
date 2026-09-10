@@ -81,3 +81,25 @@ export const programmesFaq: FAQItem[] = [
       "You can join the waitlist. PN Africa will contact you if a place becomes available or when the next cohort opens.",
   },
 ];
+export const cohortFaq: FAQItem[] = [
+  {
+    question: "Do I need professional experience before applying?",
+    answer:
+      "No. PN Africa is specifically designed for people who need practical experience. However, you should have at least some understanding of the role you're applying for. We are giving you an environment to practice and build experience, not starting every role from zero.",
+  },
+  {
+    question: "Will I be working on a real project?",
+    answer:
+      "Yes, you will be placed in a cross-functional team working on a tech product that the team takes through the product development process. The goal is for you to experience the work, not simply complete assignments created for a classroom.",
+  },
+  {
+    question: "Can I apply if I'm currently a student?",
+    answer:
+      "Yes, provided you can commit to the program and meet the requirements for the role you're applying for. The experience can also be useful for students looking to build practical exposure before graduation.",
+  },
+  {
+    question: "What happens if I stop participating halfway through?",
+    answer:
+      "Your team depends on you. If you repeatedly miss meetings, fail to complete your responsibilities or disappear without communication, it can affect the entire project. That's why we take commitment seriously during selection and onboarding. Additionally, if a team member fails to be consistent without any prior communication with the team or management, he/she will be suspended automatically from the project and a replacement will be provided immediately.",
+  },
+];
