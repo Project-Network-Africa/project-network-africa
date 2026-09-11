@@ -2,11 +2,11 @@ export default function HeroHeading() {
   return (
     <>
       {/* Badge */}
-      <div className="flex h-[30px] w-full items-center gap-[6px] rounded-[14px] border border-[#E0F8FA] bg-[#E0F8FA] px-3 py-[6px] md:h-[34px] md:w-[294px] md:gap-2 md:rounded-[20px] md:border-[#E5E1DC] md:bg-white md:px-[14px] md:py-[7px]">
+      <div className="flex h-[30px] w-full items-center gap-[6px] rounded-[14px] border border-[#E0F8FA]  bg-[#E5FAFC] px-3 py-[6px] md:h-[34px] md:w-[294px] md:gap-2 md:rounded-[20px] md:border-[#E5E1DC] md:bg-[#E5FAFC] md:px-[14px] md:py-[7px]">
         <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-[#00B6CE]" />
 
-        <span className="text-[12px] font-normal leading-[18px] tracking-[1px] text-[#006D7C] md:text-[14px] md:font-medium md:leading-[20px] md:tracking-normal md:text-[#5D5D61] ">
-          APPLICATIONS OPEN FOR COHORT 7
+        <span className="text-[12px] font-normal leading-[18px] tracking-[1px] text-[#006D7C] md:text-[14px]  bg-[#E5FAFC] md:font-medium md:leading-[20px] md:tracking-normal md:text-[##008EA1] ">
+          NEXT COHORT • AUGUST 29, 2026
         </span>
       </div>
 
