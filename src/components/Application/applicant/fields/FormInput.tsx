@@ -4,6 +4,7 @@ interface FormInputProps {
   type?: string;
   value: string;
   error?: string;
+  disabled?: boolean;
   onChange: (value: string) => void;
 }
 
@@ -14,6 +15,7 @@ export default function FormInput({
   value,
   error,
   onChange,
+  disabled = false,
 }: FormInputProps) {
   return (
     <div className="flex flex-col gap-2">
@@ -24,6 +26,7 @@ export default function FormInput({
       <input
         type={type}
         value={value}
+        disabled={disabled}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
         className="

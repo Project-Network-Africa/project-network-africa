@@ -17,23 +17,76 @@ interface PersonalInformationProps {
     country?: string;
     agreedToTerms?: string;
   };
-
   onChange: (
     field: "firstName" | "lastName" | "email" | "phone" | "country",
     value: string,
   ) => void;
-
   onTermsChange: (checked: boolean) => void;
 }
 
 const countries = [
-  "Nigeria",
+  // Africa
+  "Algeria",
+  "Angola",
+  "Benin",
+  "Botswana",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cameroon",
+  "Central African Republic",
+  "Chad",
+  "Comoros",
+  "Democratic Republic of the Congo",
+  "Republic of the Congo",
+  "Côte d'Ivoire",
+  "Djibouti",
+  "Egypt",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Eswatini",
+  "Ethiopia",
+  "Gabon",
+  "The Gambia",
   "Ghana",
+  "Guinea",
+  "Guinea-Bissau",
   "Kenya",
+  "Lesotho",
+  "Liberia",
+  "Libya",
+  "Madagascar",
+  "Malawi",
+  "Mali",
+  "Mauritania",
+  "Mauritius",
+  "Morocco",
+  "Mozambique",
+  "Namibia",
+  "Niger",
+  "Nigeria",
+  "Rwanda",
+  "São Tomé and Príncipe",
+  "Senegal",
+  "Seychelles",
+  "Sierra Leone",
+  "Somalia",
   "South Africa",
+  "South Sudan",
+  "Sudan",
+  "Tanzania",
+  "Togo",
+  "Tunisia",
+  "Uganda",
+  "Zambia",
+  "Zimbabwe",
+
+  // Other countries
+  "Australia",
+  "Canada",
+  "France",
   "United Kingdom",
   "United States",
-  "Canada",
 ];
 
 export default function PersonalInformation({
@@ -50,7 +103,7 @@ export default function PersonalInformation({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="lg:text-[26px] md:text-[24px] lg:font-body  lg:font-bold text-[22px] font-heading font-semibold leading-none text-[#1F1F25]">
+        <h1 className="lg:text-[26px] md:text-[24px] lg:font-body lg:font-bold text-[22px] font-heading font-semibold leading-none text-[#1F1F25]">
           Personal Information
         </h1>
 
@@ -66,6 +119,7 @@ export default function PersonalInformation({
           value={firstName}
           error={errors?.firstName}
           onChange={(value) => onChange("firstName", value)}
+          disabled
         />
 
         <FormInput
@@ -74,6 +128,7 @@ export default function PersonalInformation({
           value={lastName}
           error={errors?.lastName}
           onChange={(value) => onChange("lastName", value)}
+          disabled
         />
 
         <FormInput
@@ -83,14 +138,15 @@ export default function PersonalInformation({
           value={email}
           error={errors?.email}
           onChange={(value) => onChange("email", value)}
+          disabled
         />
 
         <FormInput
           label="Phone Number"
           placeholder="+234 000 000 0000"
-          error={errors?.phone}
           type="tel"
           value={phone}
+          error={errors?.phone}
           onChange={(value) => onChange("phone", value)}
         />
       </div>

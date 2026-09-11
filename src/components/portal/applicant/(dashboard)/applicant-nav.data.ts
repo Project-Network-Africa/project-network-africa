@@ -23,6 +23,6 @@ export const applicantNavItems: SidebarNavItem[] = [
   { label: "Notifications", href: "/applicant/notifications" },
   { label: "Help & Support", href: "/applicant/help-support" },
   { label: "Settings", href: "/applicant/settings" },
-  { label: "Confirm Deactivation", href: "/applicant/settings/deactivate" },
+  // { label: "Confirm Deactivation", href: "/applicant/settings/deactivate" },
   { label: "Logout", href: "/logout" },
 ];

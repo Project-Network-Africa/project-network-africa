@@ -1,29 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 import ApplicationSteps from "@/src/components/Application/applicant/ApplicationSteps";
 import RequirementsCard from "@/src/components/Application/applicant/RequirementsCard";
 import PersonalInformation from "@/src/components/Application/applicant/steps/PersonalInformation";
 import FormActions from "@/src/components/Application/applicant/fields/FormActions";
 import ProgramSelection from "@/src/components/Application/applicant/steps/ProgramSelection";
-
 import ExperiencePortfolio from "@/src/components/Application/applicant/steps/ExperiencePortfolio";
-import ReviewPayment from "@/src/components/Application/applicant/steps/ReviewPayment";
+import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
 
-import Image from "next/image";
-import Link from "next/link";
 import {
   createApplicantProfile,
   submitCohortApplication,
+  getApplicantCohorts,
 } from "@/src/services/applicants";
-import axios from "axios";
-import ApplicationConfirmation from "@/src/components/Application/applicant/ApplicationConfirmation";
-import router from "next/router";
-export default function ApplyPage() {
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
+import { checkAuth } from "@/src/services/auth";
+
+export default function ApplyPage() {
+  const router = useRouter();
+
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [applicationReference, setApplicationReference] = useState("");
+  const [selectedCohortName, setSelectedCohortName] = useState("");
+
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -32,17 +40,15 @@ export default function ApplyPage() {
     phone: "",
     country: "",
     agreedToTerms: false,
-
     program: "",
     cohortId: "",
-
-    // experienceLevel: "Beginner",
     experienceLevel: "",
     portfolioUrl: "",
     linkedinUrl: "",
     resume: null as File | null,
     motivation: "",
   });
+
   const [errors, setErrors] = useState<{
     firstName?: string;
     lastName?: string;
@@ -56,6 +62,25 @@ export default function ApplyPage() {
     motivation?: string;
   }>({});
 
+  useEffect(() => {
+    const loadUserInformation = async () => {
+      try {
+        const response = await checkAuth();
+
+        setFormData((previous) => ({
+          ...previous,
+          firstName: response.user.firstName || "",
+          lastName: response.user.lastName || "",
+          email: response.user.email || "",
+        }));
+      } catch (error) {
+        console.error("FAILED TO LOAD USER INFORMATION:", error);
+      }
+    };
+
+    loadUserInformation();
+  }, []);
+
   const updateField = (
     field: "firstName" | "lastName" | "email" | "phone" | "country",
     value: string,
@@ -64,25 +89,11 @@ export default function ApplyPage() {
       ...previous,
       [field]: value,
     }));
-  };
 
-  const handleSave = () => {
-    console.log("Saving application...", formData);
-  };
-
-  const handleContinue = () => {
-    if (!validateCurrentStep()) {
-      return;
-    }
-
-    if (currentStep < 4) {
-      setCurrentStep((previous) => (previous + 1) as 1 | 2 | 3 | 4);
-    }
-  };
-  const goToStep = (step: 1 | 2 | 3 | 4) => {
-    if (step <= currentStep) {
-      setCurrentStep(step);
-    }
+    setErrors((previous) => ({
+      ...previous,
+      [field]: undefined,
+    }));
   };
 
   const validateCurrentStep = () => {
@@ -141,50 +152,39 @@ export default function ApplyPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep((previous) => (previous - 1) as 1 | 2 | 3 | 4);
+  const handleContinue = () => {
+    if (!validateCurrentStep()) {
+      return;
+    }
+
+    if (currentStep < 3) {
+      setCurrentStep((previous) => (previous + 1) as 1 | 2 | 3);
     }
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     await createApplicantProfile({
-  //       phone: formData.phone,
-  //       country: formData.country,
-  //       program: formData.program,
-  //       portfolioUrl: formData.portfolioUrl,
-  //       linkedInUrl: formData.linkedinUrl,
-  //       bio: formData.motivation,
-  //       skills: [formData.experienceLevel],
-  //     });
-  //     const response = await submitCohortApplication({
-  //       firstName: formData.firstName,
-  //       lastName: formData.lastName,
-  //       email: formData.email,
-  //       phone: formData.phone,
-  //       country: formData.country,
-  //       program: formData.program,
-  //       cohortId: formData.cohortId,
-  //       experienceLevel: formData.experienceLevel,
-  //       portfolioUrl: formData.portfolioUrl,
-  //       linkedinUrl: formData.linkedinUrl,
-  //       motivation: formData.motivation,
-  //       agreedToTerms: formData.agreedToTerms,
-  //     });
+  const goToStep = (step: 1 | 2 | 3) => {
+    if (step <= currentStep) {
+      setCurrentStep(step);
+    }
+  };
 
-  //     console.log("APPLICATION SUBMITTED:", response);
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((previous) => (previous - 1) as 1 | 2 | 3);
+    }
+  };
 
-  //     setApplicationSubmitted(true);
-  //   } catch (error) {
-  //     console.error("APPLICATION SUBMISSION FAILED:", error);
-
-  //     if (axios.isAxiosError(error)) {
-  //       console.error("BACKEND ERROR:", error.response?.data);
-  //     }
-  //   }
-  // };
   const handleSubmit = async () => {
+    if (submitting) {
+      return;
+    }
+
+    if (!validateCurrentStep()) {
+      return;
+    }
+
+    setSubmitting(true);
+
     try {
       await createApplicantProfile({
         phone: formData.phone,
@@ -213,29 +213,59 @@ export default function ApplyPage() {
 
       console.log("APPLICATION SUBMITTED:", response);
 
+      // Get the real application reference from the backend
+      const reference = response?.application?._id;
+
+      if (!reference) {
+        throw new Error("Application reference was not returned.");
+      }
+
+      setApplicationReference(reference);
+
+      // Get the actual cohort name using the selected cohort ID
+      const cohortsResponse = await getApplicantCohorts();
+
+      const selectedCohort = cohortsResponse.cohorts.find(
+        (cohort) => cohort._id === formData.cohortId,
+      );
+
+      setSelectedCohortName(selectedCohort?.name || "Selected Cohort");
+
+      toast.success("Application submitted successfully!");
+
       setApplicationSubmitted(true);
     } catch (error) {
       console.error("APPLICATION SUBMISSION FAILED:", error);
 
       if (axios.isAxiosError(error)) {
-        console.error("BACKEND ERROR:", error.response?.data);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to submit application. Please try again.",
+        );
+      } else if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong. Please try again.");
       }
+    } finally {
+      setSubmitting(false);
     }
   };
+
   if (applicationSubmitted) {
     return (
       <ApplicationConfirmation
-        reference="PN-AFRICA"
-        cohort={formData.cohortId}
+        reference={applicationReference}
+        cohort={selectedCohortName}
+        program={formData.program}
         onBackHome={() => router.push("/")}
-        onContinue={() => router.push("/applicant/dashboard")}
+        onContinue={() => router.push("/applicant/application-status")}
       />
     );
   }
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Application Header */}
-
       <header className="flex h-[74px] items-center justify-between border-b border-[#E5E5EB] px-5 sm:px-8 lg:px-20">
         <Link href="/" className="flex h-[34px] w-[144px] items-center">
           <Image
@@ -246,21 +276,17 @@ export default function ApplyPage() {
             priority
           />
         </Link>
+
         <p className="text-[13px] font-semibold text-[#5D5D61]">
           Step {currentStep} of 3
         </p>
       </header>
 
-      {/* Application Content */}
-
       <main className="px-5 py-4 sm:px-8 lg:px-20 lg:py-14">
-        {/* Mobile top progress bar */}
-        <div className="h-1 w-full mb-5 bg-[#00B6CE] lg:hidden" />
+        <div className="mb-5 h-1 w-full bg-[#00B6CE] lg:hidden" />
 
         <div className="mx-auto flex max-w-[1280px] flex-col gap-8 lg:flex-row lg:gap-16">
-          {/* Sidebar */}
-
-          <aside className="w-full flex-shrink-0 lg:w-[280px] font-body">
+          <aside className="w-full flex-shrink-0 font-body lg:w-[280px]">
             <ApplicationSteps
               currentStep={currentStep}
               onStepChange={goToStep}
@@ -271,9 +297,6 @@ export default function ApplyPage() {
             </div>
           </aside>
 
-          {/* Form */}
-
-          {/* <section className="w-full max-w-[936px]"> */}
           <section className="w-full lg:max-w-[936px]">
             {currentStep === 1 && (
               <PersonalInformation
@@ -283,33 +306,41 @@ export default function ApplyPage() {
                 phone={formData.phone}
                 country={formData.country}
                 agreedToTerms={formData.agreedToTerms}
-                onChange={updateField}
                 errors={errors}
-                onTermsChange={(checked) =>
+                onChange={updateField}
+                onTermsChange={(checked) => {
                   setFormData((previous) => ({
                     ...previous,
                     agreedToTerms: checked,
-                  }))
-                }
+                  }));
+
+                  setErrors((previous) => ({
+                    ...previous,
+                    agreedToTerms: undefined,
+                  }));
+                }}
               />
             )}
 
             {currentStep === 2 && (
               <ProgramSelection
                 selectedProgram={formData.program}
-                onProgramChange={(program) =>
+                onProgramChange={(program) => {
                   setFormData((previous) => ({
                     ...previous,
                     program,
-                  }))
-                }
+                    cohortId: "",
+                  }));
+                  setSelectedCohortName("");
+                }}
                 selectedCohortId={formData.cohortId}
-                onCohortChange={(value) =>
+                onCohortChange={(value) => {
                   setFormData((previous) => ({
                     ...previous,
                     cohortId: value,
-                  }))
-                }
+                  }));
+                }}
+                onCohortNameChange={setSelectedCohortName}
                 errors={errors}
               />
             )}
@@ -321,67 +352,68 @@ export default function ApplyPage() {
                 linkedinUrl={formData.linkedinUrl}
                 resume={formData.resume}
                 motivation={formData.motivation}
-                onExperienceLevelChange={(experienceLevel) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    experienceLevel,
-                  }))
-                }
-                onPortfolioChange={(portfolioUrl) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    portfolioUrl,
-                  }))
-                }
-                onLinkedinChange={(linkedinUrl) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    linkedinUrl,
-                  }))
-                }
-                onResumeChange={(resume) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    resume,
-                  }))
-                }
-                onMotivationChange={(motivation) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    motivation,
-                  }))
-                }
                 errors={errors}
-              />
-            )}
+                onExperienceLevelChange={(value) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    experienceLevel: value,
+                  }));
 
-            {currentStep === 4 && (
-              // <ReviewPayment
-              //   onBack={() => setCurrentStep(3)}
-              //   onSubmit={handleSubmit}
-              //   errors={errors}
-              // />
-              <ReviewPayment
-                onBack={handleBack}
-                onSubmit={(paymentMethod) => {
-                  console.log("Selected payment method:", paymentMethod);
+                  setErrors((previous) => ({
+                    ...previous,
+                    experienceLevel: undefined,
+                  }));
+                }}
+                onPortfolioChange={(value) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    portfolioUrl: value,
+                  }));
 
-                  // Submit application / initiate payment here
+                  setErrors((previous) => ({
+                    ...previous,
+                    portfolioUrl: undefined,
+                  }));
+                }}
+                onLinkedinChange={(value) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    linkedinUrl: value,
+                  }));
+
+                  setErrors((previous) => ({
+                    ...previous,
+                    linkedinUrl: undefined,
+                  }));
+                }}
+                onResumeChange={(file) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    resume: file,
+                  }));
+                }}
+                onMotivationChange={(value) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    motivation: value,
+                  }));
+
+                  setErrors((previous) => ({
+                    ...previous,
+                    motivation: undefined,
+                  }));
                 }}
               />
             )}
-
-            {currentStep !== 4 && (
-              <div className="mt-8">
-                <FormActions
-                  currentStep={currentStep}
-                  onSave={handleSave}
-                  onBack={handleBack}
-                  onContinue={handleContinue}
-                  onSubmit={handleSubmit}
-                />
-              </div>
-            )}
+            <div className="mt-8">
+              <FormActions
+                currentStep={currentStep}
+                onBack={handleBack}
+                onContinue={handleContinue}
+                onSubmit={handleSubmit}
+                submitting={submitting}
+              />
+            </div>
           </section>
         </div>
       </main>

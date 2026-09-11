@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+// import { useRouter } from "next/navigation";
+import axios from "axios";
 
 import { Button } from "../../ui";
-
 import MentorFormInput from "./MentorFormInput";
 import MentorFormTextarea from "./MentorFormTextarea";
 import MentorRadioGroup from "./MentorRadioGroup";
+
+import { applyAsMentor } from "@/src/services/mentors";
+import { checkAuth } from "@/src/services/auth";
 
 import {
   expertiseAreas,
@@ -22,8 +26,9 @@ import {
   MentorApplicationErrors,
 } from "./MentorApplication.types";
 
+import MentorApplicationConfirmation from "../../portal/mentor/(application-confirmation)/MentorApplicationConfirmation";
+
 const initialFormData: MentorApplicationData = {
-  // fullName: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -36,12 +41,14 @@ const initialFormData: MentorApplicationData = {
   projectImpact: "",
   mentoringExperience: "",
   motivation: "",
+
   mentoringHours: "",
   timezone: "",
   availabilityDuration: "",
 
   comfortableCertifying: "",
   understandsModel: "",
+
   additionalInformation: "",
   readyForResponsibility: "",
 
@@ -51,10 +58,35 @@ const initialFormData: MentorApplicationData = {
 };
 
 export default function MentorApplication() {
+  // const router = useRouter();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] =
     useState<MentorApplicationData>(initialFormData);
 
   const [errors, setErrors] = useState<MentorApplicationErrors>({});
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [applicationReference, setApplicationReference] = useState("");
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const response = await checkAuth();
+        const user = response.user;
+
+        setFormData((previous) => ({
+          ...previous,
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+          email: user.email || "",
+        }));
+      } catch (error) {
+        console.error("Failed to load user information:", error);
+      }
+    };
+
+    loadUser();
+  }, []);
 
   const updateField = <K extends keyof MentorApplicationData>(
     field: K,
@@ -77,9 +109,11 @@ export default function MentorApplication() {
     if (!formData.firstName.trim()) {
       newErrors.firstName = "First name is required.";
     }
+
     if (!formData.lastName.trim()) {
       newErrors.lastName = "Last name is required.";
     }
+
     if (!formData.email.trim()) {
       newErrors.email = "Email address is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -139,6 +173,11 @@ export default function MentorApplication() {
       newErrors.understandsModel = "Please select an option.";
     }
 
+    if (!formData.additionalInformation.trim()) {
+      newErrors.additionalInformation =
+        "Please provide any additional information.";
+    }
+
     if (!formData.readyForResponsibility) {
       newErrors.readyForResponsibility = "Please select an option.";
     }
@@ -157,23 +196,71 @@ export default function MentorApplication() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const isValid = validateForm();
 
-    if (!isValid) {
-      return;
-    }
+    if (!isValid) return;
 
-    // Backend integration goes here.
-    console.log("Mentor application:", formData);
+    try {
+      setIsSubmitting(true);
+
+      console.log("MENTOR APPLICATION DATA:", formData);
+
+      const mentorData = {
+        expertise: formData.expertise,
+        phone: formData.whatsappNumber,
+        currentRole: formData.currentRole,
+        yearsOfExperience: Number(formData.yearsOfExperience),
+        program: "PN Africa Mentor Program",
+        programDesc: formData.projectImpact,
+        mentoringExperience: formData.mentoringExperience,
+        motivation: formData.motivation,
+        hoursPerWeek: Number(formData.mentoringHours),
+        timeZone: formData.timezone,
+        availableHours: formData.availabilityDuration,
+        certificateValidation:
+          formData.comfortableCertifying.toLowerCase() === "yes",
+        modelUnderstanding: formData.understandsModel.toLowerCase() === "yes",
+        anyOtherInfo: formData.additionalInformation,
+        readyForResponsibility: formData.readyForResponsibility,
+        portfolio: formData.linkedinOrPortfolio,
+      };
+
+      console.log("DATA SENT TO BACKEND:", mentorData);
+
+      const response = await applyAsMentor(mentorData);
+
+      console.log("MENTOR APPLICATION RESPONSE:", response);
+
+      const reference =
+        response?.application?.reference ||
+        response?.application?.applicationId ||
+        response?.reference ||
+        response?.application?._id ||
+        "";
+
+      setApplicationReference(reference);
+      setApplicationSubmitted(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("MENTOR APPLICATION FAILED:", error.response?.data);
+      } else {
+        console.error("MENTOR APPLICATION FAILED:", error);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (applicationSubmitted) {
+    return <MentorApplicationConfirmation reference={applicationReference} />;
+  }
 
   return (
     <main className="min-h-screen bg-[#F8F8F8] px-5 py-7 font-body sm:px-8 lg:px-10">
-      <div className="mx-auto w-full p-5 bg-white  w-full md:max-w-[500px]  lg:max-w-[550px] rounded-xl shadow-xl">
-        {/* Logo */}
+      <div className="mx-auto w-full rounded-xl bg-white p-5 shadow-xl md:max-w-[500px] lg:max-w-[550px]">
         <div className="mb-5">
           <Image
             src="/images/logo.svg"
@@ -185,9 +272,8 @@ export default function MentorApplication() {
           />
         </div>
 
-        {/* Heading */}
         <div className="mb-6">
-          <h1 className=" lg:font-bold font-semibold lg:font-body font-heading leading-tight text-[#1F1F25] text-[22px]">
+          <h1 className="text-[22px] font-semibold leading-tight text-[#1F1F25] lg:font-bold">
             Apply to Mentor
           </h1>
         </div>
@@ -196,19 +282,22 @@ export default function MentorApplication() {
           {/* PERSONAL INFORMATION */}
 
           <MentorFormInput
-            label="Full Name"
-            placeholder="Enter your name"
+            label="First Name"
+            placeholder="Enter your first name"
             value={formData.firstName}
             error={errors.firstName}
             required
+            readOnly
             onChange={(value) => updateField("firstName", value)}
           />
+
           <MentorFormInput
-            label="Full Name"
-            placeholder="Enter your name"
+            label="Last Name"
+            placeholder="Enter your last name"
             value={formData.lastName}
             error={errors.lastName}
             required
+            readOnly
             onChange={(value) => updateField("lastName", value)}
           />
 
@@ -219,6 +308,7 @@ export default function MentorApplication() {
             value={formData.email}
             error={errors.email}
             required
+            readOnly
             onChange={(value) => updateField("email", value)}
           />
 
@@ -243,9 +333,19 @@ export default function MentorApplication() {
             onChange={(value) => updateField("currentRole", value)}
           />
 
-          <MentorFormTextarea
+          {/* <MentorFormTextarea
             label="How many years of experience do you have in your field? PN Africa requires mentors with a minimum."
             placeholder="Your answer"
+            value={formData.yearsOfExperience}
+            error={errors.yearsOfExperience}
+            required
+            onChange={(value) => updateField("yearsOfExperience", value)}
+          /> */}
+          <MentorFormInput
+            label="How many years of experience do you have in your field? PN Africa requires mentors with a minimum."
+            placeholder="e.g. 5"
+            type="number"
+            min={0}
             value={formData.yearsOfExperience}
             error={errors.yearsOfExperience}
             required
@@ -291,9 +391,19 @@ export default function MentorApplication() {
 
           {/* AVAILABILITY */}
 
-          <MentorFormTextarea
+          {/* <MentorFormTextarea
             label="How many hours per week can you realistically commit to mentoring? PN Africa requires 2-3 hours / week for 8 weeks."
             placeholder="Your answer"
+            value={formData.mentoringHours}
+            error={errors.mentoringHours}
+            required
+            onChange={(value) => updateField("mentoringHours", value)}
+          /> */}
+          <MentorFormInput
+            label="How many hours per week can you realistically commit to mentoring? PN Africa requires 2-3 hours / week for 8 weeks."
+            placeholder="e.g. 3"
+            type="number"
+            min={1}
             value={formData.mentoringHours}
             error={errors.mentoringHours}
             required
@@ -343,6 +453,7 @@ export default function MentorApplication() {
             placeholder="Your answer"
             value={formData.additionalInformation}
             error={errors.additionalInformation}
+            required
             onChange={(value) => updateField("additionalInformation", value)}
           />
 
@@ -355,15 +466,6 @@ export default function MentorApplication() {
           />
 
           {/* PROFESSIONAL LINKS */}
-
-          <MentorFormInput
-            label="Years of Experience"
-            placeholder="e.g. 8 years"
-            value={formData.yearsOfExperience}
-            error={errors.yearsOfExperience}
-            required
-            onChange={(value) => updateField("yearsOfExperience", value)}
-          />
 
           <MentorFormInput
             label="LinkedIn or Portfolio URL"
@@ -403,16 +505,10 @@ export default function MentorApplication() {
                 onChange={(event) =>
                   updateField("agreedToTerms", event.target.checked)
                 }
-                className="
-                  mt-[1px]
-                  h-[12px]
-                  w-[12px]
-                  cursor-pointer
-                  accent-[#00B6CE]
-                "
+                className="mt-[1px] h-[12px] w-[12px] cursor-pointer accent-[#00B6CE]"
               />
 
-              <span className="text-[14px] lg:text-[11px] font-normal leading-tight text-[#5D5D61]">
+              <span className="text-[14px] font-normal leading-tight text-[#5D5D61] lg:text-[11px]">
                 I agree to the Privacy Policy and Terms of Service
               </span>
             </label>
@@ -428,21 +524,15 @@ export default function MentorApplication() {
 
           <Button
             variant="dark"
-            className="
-              h-[42px]
-              w-full
-              rounded-[9px]
-              text-[11px]
-              font-semibold
-            "
+            disabled={isSubmitting}
+            className="h-[42px] w-full rounded-[9px] text-[11px] font-semibold"
           >
-            Submit Application
+            {isSubmitting ? "Submitting..." : "Submit Application"}
           </Button>
         </form>
 
-        {/* Already applied */}
         <div className="mt-4 pb-8 text-center">
-          <p className="lg:text[12px]  text-[14px] font-normal text-[#7A7A80]">
+          <p className="text-[14px] font-normal text-[#7A7A80] lg:text-[12px]">
             Already applied?{" "}
             <Link
               href="/login"

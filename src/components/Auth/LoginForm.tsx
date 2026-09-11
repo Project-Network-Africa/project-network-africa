@@ -1,39 +1,33 @@
 "use client";
 
 import { useState } from "react";
-
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 import AuthCard from "./AuthCard";
-
 import AuthInput from "./AuthInput";
-
 import AuthCheckbox from "./AuthCheckbox";
-
 import { Button } from "../ui";
-
 import api from "@/src/services/api";
-
-import axios from "axios";
 
 export default function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [rememberMe, setRememberMe] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // Clear previous error
+    setError("");
+
+    // Frontend validation
     if (!email.trim() || !password.trim()) {
       setError("Please enter your email and password.");
       return;
@@ -42,15 +36,18 @@ export default function LoginForm() {
     try {
       setLoading(true);
 
-      setError("");
-
       const response = await api.post("/api/auth/login", {
         email,
         password,
+        rememberMe,
       });
 
       const role = response.data.user.role;
 
+      // Success toast
+      toast.success("Login successful!");
+
+      // Redirect based on role
       if (role === "Applicant") {
         router.push("/applicant/dashboard");
       } else if (role === "Mentor") {
@@ -59,19 +56,18 @@ export default function LoginForm() {
         router.push("/admin/dashboard");
       } else {
         setError("Invalid user role.");
+        toast.error("Invalid user role.");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log("LOGIN ERROR:", error.response?.data);
-
-        console.log("STATUS:", error.response?.status);
-
-        setError(
+        const message =
           error.response?.data?.message ||
-            "Unable to log in. Please try again.",
-        );
+          "Unable to log in. Please try again.";
+
+        setError(message);
       } else {
         setError("Unable to log in. Please try again.");
+        toast.error("Unable to log in. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -96,7 +92,11 @@ export default function LoginForm() {
         </div>
       }
     >
-      <form onSubmit={handleSubmit} className="flex flex-col gap-[22px]">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="flex flex-col gap-[22px]"
+      >
         <AuthInput
           label="Email Address"
           type="email"
@@ -113,7 +113,6 @@ export default function LoginForm() {
           onChange={setPassword}
         />
 
-        {/* Remember / Forgot */}
         <div className="flex items-center justify-between">
           <AuthCheckbox checked={rememberMe} onChange={setRememberMe}>
             Remember me
@@ -127,10 +126,15 @@ export default function LoginForm() {
           </Link>
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-[12px] text-red-500">{error}</p>}
 
-        {/* <AuthButton>Log In</AuthButton> */}
-        <Button variant="dark">{loading ? "Logging in..." : "Log In"}</Button>
+        <Button
+          variant="dark"
+          disabled={loading}
+          className="h-[44px] w-full rounded-[8px] text-[12px] font-semibold"
+        >
+          {loading ? "Logging in..." : "Log In"}
+        </Button>
       </form>
     </AuthCard>
   );

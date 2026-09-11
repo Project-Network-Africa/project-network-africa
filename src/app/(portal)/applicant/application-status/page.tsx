@@ -3,7 +3,10 @@
 // import { useEffect, useState } from "react";
 // import ApplicationTimeline from "@/src/components/portal/applicant/(application-status)/ApplicationTimeline";
 // import NextSteps from "@/src/components/portal/applicant/(application-status)/NextSteps";
-// import { getMyCohortApplication } from "@/src/services/applicants";
+// import {
+//   getMyApplicantProfile,
+//   getMyCohortApplication,
+// } from "@/src/services/applicants";
 
 // interface CohortApplication {
 //   applicationStatus?: string;
@@ -11,34 +14,52 @@
 //   cohort?: string;
 //   program?: string;
 // }
+
 // interface ApplicationResponse {
 //   success?: boolean;
 //   message?: string;
 //   application?: CohortApplication;
 // }
 
+// interface ApplicantResponse {
+//   success?: boolean;
+//   message?: string;
+//   applicant?: {
+//     admissionStatus?: "Not Applied" | "Pending" | "Admitted" | "Rejected";
+//   };
+// }
+
 // export default function ApplicationStatusPage() {
 //   const [application, setApplication] = useState<CohortApplication | null>(
 //     null,
 //   );
+//   const [admissionStatus, setAdmissionStatus] = useState("Pending");
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     const fetchApplication = async () => {
+//     const fetchApplicationStatus = async () => {
 //       try {
-//         const response: ApplicationResponse = await getMyCohortApplication();
+//         const [applicationResponse, applicantResponse] = await Promise.all([
+//           getMyCohortApplication() as Promise<ApplicationResponse>,
+//           getMyApplicantProfile() as Promise<ApplicantResponse>,
+//         ]);
 
-//         console.log("MY APPLICATION:", response);
+//         console.log("MY APPLICATION:", applicationResponse);
+//         console.log("MY APPLICANT PROFILE:", applicantResponse);
 
-//         setApplication(response.application ?? null);
+//         setApplication(applicationResponse.application ?? null);
+
+//         setAdmissionStatus(
+//           applicantResponse.applicant?.admissionStatus || "Pending",
+//         );
 //       } catch (error) {
-//         console.error("FAILED TO GET APPLICATION:", error);
+//         console.error("FAILED TO GET APPLICATION STATUS:", error);
 //       } finally {
 //         setLoading(false);
 //       }
 //     };
 
-//     fetchApplication();
+//     fetchApplicationStatus();
 //   }, []);
 
 //   if (loading) {
@@ -49,10 +70,9 @@
 //     return <div>No application found.</div>;
 //   }
 
-//   // const isReviewed =
-//   //   application.status === "Accepted" || application.status === "Rejected";
-
-//   // const isAdmitted = application.admissionStatus === "Admitted";
+//   const isAdmitted = admissionStatus === "Admitted";
+//   const isRejected = admissionStatus === "Rejected";
+//   const isPending = admissionStatus === "Pending";
 
 //   return (
 //     <div className="flex w-full flex-col gap-5">
@@ -67,37 +87,36 @@
 //           },
 //           {
 //             title: "Application Review",
-//             completed:
-//               application.applicationStatus === "Accepted" ||
-//               application.applicationStatus === "Rejected",
+//             completed: isPending || isAccepted || isRejected,
 //           },
 //           {
-//             title: "Cohort Match",
-//             completed: false,
+//             title: "Admission Decision",
+//             completed: isAccepted || isRejected,
 //           },
 //           {
 //             title: "Payment",
-//             completed: false,
+//             completed: isPaid,
 //           },
 //           {
 //             title: "Admission",
-//             completed: false,
+//             completed: isPaid,
 //           },
 //         ]}
 //       />
 
-//       {application.applicationStatus === "Accepted" ? (
+//       {isAdmitted ? (
 //         <NextSteps
 //           description="Your application has been accepted. Complete your onboarding checklist."
 //           href="/applicant/onboarding-checklist"
 //         />
+//       ) : isRejected ? (
+//         <NextSteps
+//           description="Your application was not accepted."
+//           href="/applicant/application-status"
+//         />
 //       ) : (
 //         <NextSteps
-//           description={
-//             application.applicationStatus === "Rejected"
-//               ? "Your application was not accepted."
-//               : "Your application is currently being reviewed."
-//           }
+//           description="Your application is currently being reviewed."
 //           href="/applicant/application-status"
 //         />
 //       )}
@@ -107,8 +126,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import ApplicationTimeline from "@/src/components/portal/applicant/(application-status)/ApplicationTimeline";
 import NextSteps from "@/src/components/portal/applicant/(application-status)/NextSteps";
+
 import {
   getMyApplicantProfile,
   getMyCohortApplication,
@@ -139,7 +160,11 @@ export default function ApplicationStatusPage() {
   const [application, setApplication] = useState<CohortApplication | null>(
     null,
   );
-  const [admissionStatus, setAdmissionStatus] = useState("Pending");
+
+  const [admissionStatus, setAdmissionStatus] = useState<
+    "Not Applied" | "Pending" | "Admitted" | "Rejected"
+  >("Pending");
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -176,9 +201,25 @@ export default function ApplicationStatusPage() {
     return <div>No application found.</div>;
   }
 
-  const isAdmitted = admissionStatus === "Admitted";
-  const isRejected = admissionStatus === "Rejected";
+  // =========================
+  // APPLICATION STATES
+  // =========================
+
   const isPending = admissionStatus === "Pending";
+
+  const isRejected = admissionStatus === "Rejected";
+
+  // For now, the backend's "Admitted" status means
+  // the admin has accepted the applicant.
+  const isAccepted = admissionStatus === "Admitted";
+
+  // Payment is not yet connected to the backend.
+  // Therefore it must remain incomplete until we have
+  // a real payment status.
+  const isPaid = false;
+
+  // Admission happens AFTER payment.
+  const isAdmitted = isPaid;
 
   return (
     <div className="flex w-full flex-col gap-5">
@@ -193,15 +234,15 @@ export default function ApplicationStatusPage() {
           },
           {
             title: "Application Review",
-            completed: !isPending,
+            completed: isAccepted || isRejected,
           },
           {
-            title: "Cohort Match",
-            completed: isAdmitted,
+            title: "Admission Decision",
+            completed: isAccepted || isRejected,
           },
           {
             title: "Payment",
-            completed: false,
+            completed: isPaid,
           },
           {
             title: "Admission",
@@ -210,19 +251,24 @@ export default function ApplicationStatusPage() {
         ]}
       />
 
-      {isAdmitted ? (
+      {isRejected ? (
         <NextSteps
-          description="Your application has been accepted. Complete your onboarding checklist."
-          href="/applicant/onboarding-checklist"
-        />
-      ) : isRejected ? (
-        <NextSteps
-          description="Your application was not accepted."
+          description="Your application was not accepted. You can review your application status for more details."
           href="/applicant/application-status"
+        />
+      ) : isAccepted && !isPaid ? (
+        <NextSteps
+          description="Your application has been accepted. Complete your payment to proceed with admission."
+          href="/applicant/payment"
+        />
+      ) : isAdmitted ? (
+        <NextSteps
+          description="Your payment has been confirmed and you are now admitted. Complete your profile to continue."
+          href="/applicant/profile/edit"
         />
       ) : (
         <NextSteps
-          description="Your application is currently being reviewed."
+          description="Your application is currently being reviewed. We'll let you know once there's an update."
           href="/applicant/application-status"
         />
       )}

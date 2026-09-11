@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import WelcomeBanner from "./WelcomeBanner";
 import Notifications from "./Notifications";
@@ -13,10 +14,7 @@ import CourseProgress from "./CourseProgress";
 
 import { dashboardData } from "./applicant-dashboard-data";
 import { checkAuth } from "@/src/services/auth";
-import {
-  getMyApplicantProfile,
-  getMyCohortApplication,
-} from "@/src/services/applicants";
+import { getMyApplicantProfile } from "@/src/services/applicants";
 
 type ApplicantState = "not-applied" | "pending" | "rejected" | "admitted";
 
@@ -24,6 +22,7 @@ export default function ApplicantDashboardContent() {
   const [name, setName] = useState("");
   const [applicantState, setApplicantState] =
     useState<ApplicantState>("not-applied");
+  const [loading, setLoading] = useState(true);
 
   const { welcome, notifications } = dashboardData;
 
@@ -32,53 +31,58 @@ export default function ApplicantDashboardContent() {
       try {
         const userResponse = await checkAuth();
 
-        setName(userResponse.user.firstName);
-
-        let applicantResponse;
+        setName(userResponse.user.firstName || "");
 
         try {
-          applicantResponse = await getMyApplicantProfile();
-        } catch (error) {
-          console.log("NO APPLICANT PROFILE YET:", error);
-          setApplicantState("not-applied");
-          return;
-        }
+          const applicantResponse = await getMyApplicantProfile();
+          const applicant = applicantResponse?.applicant;
 
-        const applicant = applicantResponse.applicant;
-
-        if (!applicant) {
-          setApplicantState("not-applied");
-          return;
-        }
-
-        if (applicant.admissionStatus === "Admitted") {
-          setApplicantState("admitted");
-          return;
-        }
-
-        try {
-          const applicationResponse = await getMyCohortApplication();
-          const application = applicationResponse.application;
-          const status = application?.applicationStatus;
-
-          if (status === "Rejected") {
-            setApplicantState("rejected");
-          } else if (status === "Pending") {
-            setApplicantState("pending");
-          } else {
+          if (!applicant) {
             setApplicantState("not-applied");
+            return;
           }
+
+          // Applicant admissionStatus is the source of truth.
+          if (applicant.admissionStatus === "Admitted") {
+            setApplicantState("admitted");
+            return;
+          }
+
+          if (applicant.admissionStatus === "Rejected") {
+            setApplicantState("rejected");
+            return;
+          }
+
+          if (applicant.admissionStatus === "Pending") {
+            setApplicantState("pending");
+            return;
+          }
+
+          setApplicantState("not-applied");
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-          console.log("NO COHORT APPLICATION YET:", error);
+          console.log("NO APPLICANT PROFILE YET");
           setApplicantState("not-applied");
         }
       } catch (error) {
         console.error("FAILED TO GET DASHBOARD DATA:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     getDashboardData();
   }, []);
+
+  // Do not render Apply Now/Application Status
+  // until we know the applicant state.
+  if (loading) {
+    return (
+      <div className="flex min-h-[300px] items-center justify-center">
+        <p className="text-[13px] text-[#5D5D61]">Loading...</p>
+      </div>
+    );
+  }
 
   const progressSummary =
     applicantState === "not-applied"
@@ -90,6 +94,7 @@ export default function ApplicantDashboardContent() {
           : "You're 68% through the Product Design Bootcamp — Cohort 6";
 
   const isAdmitted = applicantState === "admitted";
+
   const hasApplied =
     applicantState === "pending" || applicantState === "rejected";
 
@@ -107,7 +112,7 @@ export default function ApplicantDashboardContent() {
         }
         buttonHref={
           applicantState === "not-applied"
-            ? "/apply"
+            ? "/applicant/apply"
             : isAdmitted
               ? welcome.buttonHref
               : undefined
@@ -129,19 +134,19 @@ export default function ApplicantDashboardContent() {
           </p>
 
           {applicantState === "not-applied" ? (
-            <a
-              href="/apply"
+            <Link
+              href="/applicant/apply"
               className="mt-4 inline-block rounded-[8px] bg-[#00B6CE] px-5 py-2.5 text-[13px] font-semibold text-white"
             >
               Apply Now
-            </a>
+            </Link>
           ) : (
-            <a
+            <Link
               href="/applicant/application-status"
               className="mt-4 inline-block text-[13px] font-semibold text-[#00B6CE]"
             >
               View application status
-            </a>
+            </Link>
           )}
         </div>
       ) : (

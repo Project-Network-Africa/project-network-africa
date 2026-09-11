@@ -1,6 +1,6 @@
 "use client";
 
-type ApplicationStep = 1 | 2 | 3 | 4;
+type ApplicationStep = 1 | 2 | 3;
 
 interface ApplicationStepItem {
   number: ApplicationStep;
@@ -24,10 +24,6 @@ const steps: ApplicationStepItem[] = [
   {
     number: 3,
     title: "Experience & Portfolio",
-  },
-  {
-    number: 4,
-    title: "Review & Payment",
   },
 ];
 export default function ApplicationSteps({

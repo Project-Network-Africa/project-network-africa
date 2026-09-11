@@ -8,6 +8,7 @@ import NotificationPreferences from "@/src/components/portal/applicant/(settings
 import PrivacyData from "@/src/components/portal/applicant/(settings)/PrivacyData";
 
 import { defaultSettings } from "@/src/data/applicant/settings";
+
 import { checkAuth } from "@/src/services/auth";
 import { getMyApplicantProfile } from "@/src/services/applicants";
 
@@ -19,26 +20,38 @@ export default function SettingsPage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const [userResponse, applicantResponse] = await Promise.all([
-          checkAuth(),
-          getMyApplicantProfile(),
-        ]);
+        // Get account information from the logged-in user
+        const userResponse = await checkAuth();
 
         const user = userResponse.user;
-        const applicant = applicantResponse.applicant;
 
-        setAdmissionStatus(applicant.admissionStatus || "");
+        console.log("SETTINGS USER:", user);
 
         setSettings((current) => ({
           ...current,
           account: {
             ...current.account,
-            fullName: `${user.firstName} ${user.lastName}`,
-            email: user.email,
+            fullName: `${user.firstName || ""} ${user.lastName || ""}`.trim(),
+            email: user.email || "",
           },
         }));
+
+        // Applicant profile is optional at this stage
+        try {
+          const applicantResponse = await getMyApplicantProfile();
+
+          const applicant = applicantResponse?.applicant;
+
+          setAdmissionStatus(applicant?.admissionStatus || "");
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          // No applicant profile means the user has not applied yet.
+
+          console.log("NO APPLICANT PROFILE YET");
+          setAdmissionStatus("");
+        }
       } catch (error) {
-        console.error("FAILED TO FETCH SETTINGS:", error);
+        console.error("FAILED TO FETCH USER SETTINGS:", error);
       } finally {
         setLoading(false);
       }
