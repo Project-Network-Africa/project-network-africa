@@ -6,7 +6,7 @@ export default function HeroHeading() {
         <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-[#00B6CE]" />
 
         <span className="text-[12px] font-normal leading-[18px] tracking-[1px] text-[#006D7C] md:text-[14px]  bg-[#E5FAFC] md:font-medium md:leading-[20px] md:tracking-normal md:text-[##008EA1] ">
-          NEXT COHORT • AUGUST 29, 2026
+          NEXT COHORT • SEPTEMBER 14, 2026
         </span>
       </div>
 
