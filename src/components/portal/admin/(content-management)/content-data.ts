@@ -287,167 +287,167 @@ export const contentTypes = Object.keys(contentCategories) as ContentType[];
    SAMPLE CONTENT
 ========================================================= */
 
-export const contentItems: ContentItem[] = [
-  {
-    id: 1,
+// export const contentItems: ContentItem[] = [
+//   {
+//     id: 1,
 
-    title: "Building Your Portfolio",
+//     title: "Building Your Portfolio",
 
-    slug: "building-your-portfolio",
+//     slug: "building-your-portfolio",
 
-    type: "Resource Content",
+//     type: "Resource Content",
 
-    category: "Portfolio Guide",
+//     category: "Portfolio Guide",
 
-    author: "Amina Yusuf",
+//     author: "Amina Yusuf",
 
-    status: "Published",
+//     status: "Published",
 
-    excerpt:
-      "A practical guide to turning your learning journey and project work into a portfolio that attracts employers.",
+//     excerpt:
+//       "A practical guide to turning your learning journey and project work into a portfolio that attracts employers.",
 
-    body: `
-<h2>Turn your projects into proof of ability</h2>
+//     body: `
+// <h2>Turn your projects into proof of ability</h2>
 
-<p>
-A strong portfolio does more than display finished screens.
-It helps employers understand how you think, the decisions you made
-and the value your work created.
-</p>
+// <p>
+// A strong portfolio does more than display finished screens.
+// It helps employers understand how you think, the decisions you made
+// and the value your work created.
+// </p>
 
-<h3>What employers want to see</h3>
+// <h3>What employers want to see</h3>
 
-<ul>
-<li>A clear problem and the people affected</li>
-<li>Evidence from research, testing or data</li>
-<li>Your design decisions and their trade-offs</li>
-<li>Measurable outcomes and lessons learned</li>
-</ul>
+// <ul>
+// <li>A clear problem and the people affected</li>
+// <li>Evidence from research, testing or data</li>
+// <li>Your design decisions and their trade-offs</li>
+// <li>Measurable outcomes and lessons learned</li>
+// </ul>
 
-<p>
-Tip: Show the process behind the work. A thoughtful explanation is
-often more valuable than a polished final screen.
-</p>
-`,
+// <p>
+// Tip: Show the process behind the work. A thoughtful explanation is
+// often more valuable than a polished final screen.
+// </p>
+// `,
 
-    publishDate: "18 Aug 2026",
+//     publishDate: "18 Aug 2026",
 
-    visibility: "Public",
+//     visibility: "Public",
 
-    featuredImage: "/images/portfolio-cover.jpg",
+//     featuredImage: "/images/portfolio-cover.jpg",
 
-    featuredImageName: "portfolio-cover.jpg",
+//     featuredImageName: "portfolio-cover.jpg",
 
-    featuredImageSize: "1600 × 900 • 428 KB",
+//     featuredImageSize: "1600 × 900 • 428 KB",
 
-    altText: "Learner presenting a portfolio case study",
+//     altText: "Learner presenting a portfolio case study",
 
-    searchTitle: "How to Build a Strong Tech Portfolio",
+//     searchTitle: "How to Build a Strong Tech Portfolio",
 
-    metaDescription:
-      "Learn how to present your process, decisions and outcomes in a portfolio employers trust.",
+//     metaDescription:
+//       "Learn how to present your process, decisions and outcomes in a portfolio employers trust.",
 
-    previewUrl: "pnafrica.org/resources/portfolio",
+//     previewUrl: "pnafrica.org/resources/portfolio",
 
-    featured: true,
+//     featured: true,
 
-    updatedAt: "2 min ago",
+//     updatedAt: "2 min ago",
 
-    activities: [
-      {
-        text: "Content updated",
-        time: "2 min ago",
-      },
-      {
-        text: "Featured image replaced",
-        time: "1 day ago",
-      },
-      {
-        text: "SEO metadata updated",
-        time: "3 days ago",
-      },
-      {
-        text: "Content published",
-        time: "18 Aug 2026",
-      },
-    ],
+//     activities: [
+//       {
+//         text: "Content updated",
+//         time: "2 min ago",
+//       },
+//       {
+//         text: "Featured image replaced",
+//         time: "1 day ago",
+//       },
+//       {
+//         text: "SEO metadata updated",
+//         time: "3 days ago",
+//       },
+//       {
+//         text: "Content published",
+//         time: "18 Aug 2026",
+//       },
+//     ],
 
-    versions: [
-      {
-        version: "v3",
-        author: "Femi Cole",
-        date: "18 Aug 2026",
-        action: "Restore",
-      },
-      {
-        version: "v2",
-        author: "Amina Yusuf",
-        date: "15 Aug 2026",
-        action: "Restore",
-      },
-      {
-        version: "v1",
-        author: "Amina Yusuf",
-        date: "10 Aug 2026",
-        action: "Restore",
-      },
-    ],
-  },
+//     versions: [
+//       {
+//         version: "v3",
+//         author: "Femi Cole",
+//         date: "18 Aug 2026",
+//         action: "Restore",
+//       },
+//       {
+//         version: "v2",
+//         author: "Amina Yusuf",
+//         date: "15 Aug 2026",
+//         action: "Restore",
+//       },
+//       {
+//         version: "v1",
+//         author: "Amina Yusuf",
+//         date: "10 Aug 2026",
+//         action: "Restore",
+//       },
+//     ],
+//   },
 
-  {
-    id: 2,
+//   {
+//     id: 2,
 
-    title: "Cohort 6 Project Update",
+//     title: "Cohort 6 Project Update",
 
-    slug: "cohort-6-project-update",
+//     slug: "cohort-6-project-update",
 
-    type: "Program Update",
+//     type: "Program Update",
 
-    category: "Cohort Announcement",
+//     category: "Cohort Announcement",
 
-    author: "Chidi Nwosu",
+//     author: "Chidi Nwosu",
 
-    status: "Draft",
+//     status: "Draft",
 
-    excerpt:
-      "An update for Cohort 6 learners about upcoming project milestones.",
+//     excerpt:
+//       "An update for Cohort 6 learners about upcoming project milestones.",
 
-    body: `
-<h2>Cohort 6 project milestones</h2>
+//     body: `
+// <h2>Cohort 6 project milestones</h2>
 
-<p>
-Learners in Cohort 6 are moving into the project experience phase.
-</p>
+// <p>
+// Learners in Cohort 6 are moving into the project experience phase.
+// </p>
 
-<p>
-Project milestone reviews will take place throughout the programme.
-</p>
-`,
+// <p>
+// Project milestone reviews will take place throughout the programme.
+// </p>
+// `,
 
-    publishDate: "—",
+//     publishDate: "—",
 
-    visibility: "Public",
+//     visibility: "Public",
 
-    altText: "",
+//     altText: "",
 
-    searchTitle: "Cohort 6 Project Update",
+//     searchTitle: "Cohort 6 Project Update",
 
-    metaDescription: "Latest project milestone updates for Cohort 6 learners.",
+//     metaDescription: "Latest project milestone updates for Cohort 6 learners.",
 
-    activities: [
-      {
-        text: "Draft created",
-        time: "Yesterday",
-      },
-      {
-        text: "Content assigned to editor",
-        time: "2 days ago",
-      },
-    ],
+//     activities: [
+//       {
+//         text: "Draft created",
+//         time: "Yesterday",
+//       },
+//       {
+//         text: "Content assigned to editor",
+//         time: "2 days ago",
+//       },
+//     ],
 
-    versions: [],
-  },
-];
+//     versions: [],
+//   },
+// ];
 
 //    CONTENT TYPE NAVIGATION
 

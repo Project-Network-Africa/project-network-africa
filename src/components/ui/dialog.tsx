@@ -6,7 +6,7 @@ import { cn } from "cn";
 
 // import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "./buttons";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
