@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import MentorDashboard from "@/src/components/portal/mentor/(dashboard)/MentorDashboard";
 import { getMyMentorProfile } from "@/src/services/mentors";
 import { checkAuth } from "@/src/services/auth";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 type MentorState = "not-applied" | "pending" | "rejected" | "accepted";
 
@@ -23,12 +24,14 @@ export default function MentorDashboardPage() {
         const response = await getMyMentorProfile();
         const mentor = response?.mentor;
 
+        console.log("MY MENTOR STATUS:", mentor?.status);
+        console.log("MY MENTOR PROFILE:", mentor);
         if (!mentor) {
           setMentorState("not-applied");
           return;
         }
 
-        if (mentor.status === "Pending") {
+        if (mentor.status === "Applied") {
           setMentorState("pending");
           return;
         }
@@ -57,8 +60,8 @@ export default function MentorDashboardPage() {
 
   if (loading) {
     return (
-      <main>
-        <p>Loading...</p>
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
       </main>
     );
   }

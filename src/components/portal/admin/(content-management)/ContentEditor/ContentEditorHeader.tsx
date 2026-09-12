@@ -3,7 +3,7 @@
 import { Button } from "@/src/components/ui";
 
 import { ContentEditorHeaderProps } from "./content-editor.types";
-
+import { updateBlog } from "@/src/services/blogs";
 export default function ContentEditorHeader({
   mode,
   status,

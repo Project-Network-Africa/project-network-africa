@@ -40,7 +40,7 @@ export interface ContentVersion {
 // }
 
 export interface ContentItem {
-  id: number;
+  id: string;
 
   title: string;
 

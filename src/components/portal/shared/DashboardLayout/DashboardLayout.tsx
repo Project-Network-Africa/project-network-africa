@@ -10,7 +10,15 @@ import { DashboardLayoutProps } from "./dashboard-layout";
 import { checkAuth } from "@/src/services/auth";
 import { getMyApplicantProfile } from "@/src/services/applicants";
 import { getMyMentorProfile } from "@/src/services/mentors";
-type ApplicantState = "not-applied" | "pending" | "rejected" | "admitted";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
+
+// type ApplicantState = "not-applied" | "pending" | "rejected" | "admitted";
+type ApplicantState =
+  | "not-applied"
+  | "pending"
+  | "rejected"
+  | "accepted"
+  | "admitted";
 type MentorState = "not-applied" | "pending" | "rejected" | "accepted";
 function getPageTitle(pathname: string, defaultTitle: string) {
   if (pathname === "/applicant/projects") {
@@ -102,14 +110,37 @@ export default function DashboardLayout({
             const applicant = applicantResponse?.applicant;
 
             // No applicant profile means the applicant has not applied yet.
-            if (!applicant) {
-              setApplicantState("not-applied");
+            // if (!applicant) {
+            //   setApplicantState("not-applied");
+            //   return;
+            // }
+
+            // // Use Applicant admissionStatus as the source of truth.
+            // if (applicant.admissionStatus === "Admitted") {
+            //   setApplicantState("admitted");
+            //   return;
+            // }
+
+            // if (applicant.admissionStatus === "Rejected") {
+            //   setApplicantState("rejected");
+            //   return;
+            // }
+
+            // if (applicant.admissionStatus === "Pending") {
+            //   setApplicantState("pending");
+            //   return;
+            // }
+
+            // // If no recognised status exists.
+            // setApplicantState("not-applied");
+
+            if (applicant.admissionStatus === "Admitted") {
+              setApplicantState("admitted");
               return;
             }
 
-            // Use Applicant admissionStatus as the source of truth.
-            if (applicant.admissionStatus === "Admitted") {
-              setApplicantState("admitted");
+            if (applicant.admissionStatus === "Accepted") {
+              setApplicantState("accepted");
               return;
             }
 
@@ -123,8 +154,8 @@ export default function DashboardLayout({
               return;
             }
 
-            // If no recognised status exists.
             setApplicantState("not-applied");
+
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
           } catch (error) {
             console.log("NO APPLICANT PROFILE YET");
@@ -156,7 +187,7 @@ export default function DashboardLayout({
               return;
             }
 
-            if (mentor.status === "Pending") {
+            if (mentor.status === "Applied") {
               setMentorState("pending");
               return;
             }
@@ -188,7 +219,7 @@ export default function DashboardLayout({
   if (checkingAuth) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center bg-[#F8F8F8]">
-        <p className="text-[13px] text-[#5D5D61]">Loading...</p>
+        <LoadingState />
       </div>
     );
   }
@@ -219,6 +250,21 @@ export default function DashboardLayout({
           item.href === "/logout" ||
           item.href === "/applicant/settings/deactivate",
       );
+      // } else if (applicantState === "admitted") {
+      //   visibleNavItems = navItems;
+      // }
+    } else if (applicantState === "accepted") {
+      visibleNavItems = navItems.filter(
+        (item) =>
+          item.href === "/applicant/dashboard" ||
+          item.href === "/applicant/application-status" ||
+          item.href === "/applicant/profile" ||
+          item.href === "/applicant/profile/edit" ||
+          item.href === "/applicant/payments" ||
+          item.href === "/applicant/settings" ||
+          item.href === "/applicant/settings/deactivate" ||
+          item.href === "/logout",
+      );
     } else if (applicantState === "admitted") {
       visibleNavItems = navItems;
     }
@@ -233,6 +279,7 @@ export default function DashboardLayout({
       "/applicant/dashboard",
       "/applicant/settings",
       "/applicant/settings/deactivate",
+      "/applicant/settings/deactivated",
       "/logout",
     ];
 
@@ -253,6 +300,7 @@ export default function DashboardLayout({
       "/applicant/application-status",
       "/applicant/settings",
       "/applicant/settings/deactivate",
+      "/applicant/settings/deactivated",
       "/logout",
     ];
 
@@ -262,6 +310,82 @@ export default function DashboardLayout({
     }
   }
 
+  if (isApplicant && applicantState === "accepted") {
+    const allowedRoutes = [
+      "/applicant/dashboard",
+      "/applicant/application-status",
+      "/applicant/profile",
+      "/applicant/profile/edit",
+      "/applicant/payments",
+      "/applicant/payments/verify",
+      "/applicant/settings",
+      "/applicant/settings/deactivate",
+      "/applicant/settings/deactivated",
+      "/logout",
+    ];
+
+    if (!allowedRoutes.includes(pathname)) {
+      router.replace("/applicant/payments");
+      return null;
+    }
+  } // const isMentor = pathname.startsWith("/mentor");
+
+  // if (isMentor) {
+  //   if (mentorState === "not-applied") {
+  //     visibleNavItems = navItems.filter(
+  //       (item) =>
+  //         item.href === "/mentor/dashboard" ||
+  //         item.href === "/mentor/settings" ||
+  //         item.href === "/logout",
+  //     );
+  //   }
+
+  //   if (mentorState === "pending" || mentorState === "rejected") {
+  //     visibleNavItems = navItems.filter(
+  //       (item) =>
+  //         item.href === "/mentor/dashboard" ||
+  //         item.href === "/mentor/application-status" ||
+  //         item.href === "/mentor/profile" ||
+  //         item.href === "/mentor/settings" ||
+  //         item.href === "/logout",
+  //     );
+  //   }
+  // }
+  // //mentor route protection
+  // if (isMentor) {
+  //   if (mentorState === "not-applied") {
+  //     const allowedRoutes = [
+  //       "/mentor/dashboard",
+  //       "/mentor/settings",
+  //       "/mentor/settings/deactivate",
+  //       "/mentor/settings/deactivated",
+  //       "/logout",
+  //     ];
+
+  //     if (!allowedRoutes.includes(pathname)) {
+  //       router.replace("/mentor/dashboard");
+  //       return null;
+  //     }
+  //   }
+
+  //   if (mentorState === "pending" || mentorState === "rejected") {
+  //     const allowedRoutes = [
+  //       "/mentor/dashboard",
+  //       "/mentor/application-status",
+  //       "/mentor/profile",
+  //       "/mentor/settings",
+  //       "/mentor/settings/deactivate",
+  //       "/mentor/settings/deactivated",
+  //       "/logout",
+  //     ];
+
+  //     if (!allowedRoutes.includes(pathname)) {
+  //       router.replace("/mentor/dashboard");
+  //       return null;
+  //     }
+  //   }
+  // }
+
   const isMentor = pathname.startsWith("/mentor");
 
   if (isMentor) {
@@ -270,18 +394,67 @@ export default function DashboardLayout({
         (item) =>
           item.href === "/mentor/dashboard" ||
           item.href === "/mentor/settings" ||
+          item.href === "/mentor/settings/deactivate" ||
           item.href === "/logout",
       );
     }
+
+    if (mentorState === "pending" || mentorState === "rejected") {
+      visibleNavItems = navItems.filter(
+        (item) =>
+          item.href === "/mentor/dashboard" ||
+          item.href === "/mentor/application-status" ||
+          item.href === "/mentor/profile" ||
+          item.href === "/mentor/settings" ||
+          item.href === "/mentor/settings/deactivate" ||
+          item.href === "/logout",
+      );
+    }
+
+    if (mentorState === "accepted") {
+      visibleNavItems = navItems;
+    }
   }
-  //mentor route protection
+
+  // =========================
+  // MENTOR ROUTE PROTECTION
+  // =========================
+
   if (isMentor && mentorState === "not-applied") {
-    const allowedRoutes = ["/mentor/dashboard", "/mentor/settings", "/logout"];
+    const allowedRoutes = [
+      "/mentor/dashboard",
+      "/mentor/settings",
+      "/mentor/settings/deactivate",
+      "/mentor/settings/deactivated",
+      "/logout",
+    ];
 
     if (!allowedRoutes.includes(pathname)) {
       router.replace("/mentor/dashboard");
       return null;
     }
+  }
+
+  if (isMentor && (mentorState === "pending" || mentorState === "rejected")) {
+    const allowedRoutes = [
+      "/mentor/dashboard",
+      "/mentor/application-status",
+      "/mentor/profile",
+      "/mentor/settings",
+      "/mentor/settings/deactivate",
+      "/mentor/settings/deactivated",
+      "/logout",
+    ];
+
+    if (!allowedRoutes.includes(pathname)) {
+      router.replace("/mentor/dashboard");
+      return null;
+    }
+  }
+
+  // Accepted mentors have access to the full mentor portal.
+  if (isMentor && mentorState === "accepted") {
+    // No route restriction here.
   }
 
   return (

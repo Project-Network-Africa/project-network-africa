@@ -1,9 +1,10 @@
 "use client";
+import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 
-import { useMemo, useState } from "react";
+import { mentorFilters, mentorStats } from "./mentors-data";
 
-import { mentorFilters, mentors, mentorStats } from "./mentors-data";
-
+import { getAdminMentors } from "@/src/services/mentors";
 import { Mentor } from "./mentors.types";
 import StatCards from "../(dashboard)/StatCards";
 import { DataTable } from "../DataTable";
@@ -11,15 +12,42 @@ import { Button } from "@/src/components/ui";
 import { AdminFilters } from "../AdminPage";
 
 export default function Mentors() {
+  const [mentors, setMentors] = useState<Mentor[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
   const [selectedMentors, setSelectedMentors] = useState<Mentor[]>([]);
 
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        setLoading(true);
+
+        const response = await getAdminMentors();
+
+        console.log("ADMIN MENTORS RESPONSE:", response);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error(
+            "FAILED TO FETCH ADMIN MENTORS:",
+            error.response?.data || error.message,
+          );
+        } else {
+          console.error("FAILED TO FETCH ADMIN MENTORS:", error);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMentors();
+  }, []);
   /*
    * Search
    *
    * This filters the complete mentor dataset.
    */
+
   const filteredMentors = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
 
@@ -153,9 +181,12 @@ export default function Mentors() {
         {/* TABLE */}
 
         <section className="mt-4">
+          {/* <DataTable<Mentor>
+            columns={columns}
+            data={filteredMentors} */}
           <DataTable<Mentor>
             columns={columns}
-            data={filteredMentors}
+            data={[]}
             rowKey="id"
             pageSize={5}
             selectable

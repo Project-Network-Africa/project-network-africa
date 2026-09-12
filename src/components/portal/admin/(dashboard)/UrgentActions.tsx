@@ -47,18 +47,6 @@ export default function UrgentActions() {
         </ActionRow>
 
         <ActionRow
-          title="Employer verification"
-          subtitle="2 pending · oldest 2d"
-        >
-          <Button
-            variant="primary"
-            className="h-8 rounded-lg px-5 py-1 text-[12px] font-semibold"
-          >
-            Review
-          </Button>
-        </ActionRow>
-
-        <ActionRow
           title="Overdue project reviews"
           subtitle="2 overdue · oldest 4d"
         >

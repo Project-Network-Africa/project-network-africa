@@ -1,9 +1,13 @@
-export type ApplicantStage =
-  | "Applied"
-  | "Review"
-  | "Interviewing"
-  | "Matched"
-  | "Onboarding";
+// export type ApplicantStage =
+//   | "Applied"
+//   | "Review"
+//   | "Interviewing"
+//   | "Matched"
+//   | "Onboarding"
+//   | "Admitted"
+//   | "Rejected";
+
+export type ApplicantStage = "Applied" | "Accepted" | "Rejected" | "Admitted";
 
 export type PaymentStatus = "Paid" | "Pending" | "Failed";
 
@@ -35,21 +39,27 @@ export interface Applicant {
   applied: string;
   risk: string;
   action: string;
-
   applicationScore: string;
   assessmentScore: string;
-
   location: string;
   education: string;
   experience: string;
   preferredTrack: string;
   documents: string;
-
   submissionSummary: string;
   responses: string;
   assessmentSummary: string;
   assignedMentor: string;
   adminNote: string;
-
   activities: ApplicantActivity[];
+
+  phone: string;
+  country: string;
+  bio: string;
+  skills: string[];
+  portfolioUrl: string;
+  linkedInUrl: string;
+  submittedAt: string;
+  createdAt: string;
+  updatedAt: string;
 }

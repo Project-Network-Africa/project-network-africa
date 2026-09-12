@@ -12,6 +12,7 @@ import {
   getMyCohortApplication,
   getApplicantCohorts,
 } from "@/src/services/applicants";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 interface ApplicantProfile {
   initials: string;
@@ -156,7 +157,12 @@ export default function ProfilePage() {
   }, []);
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <LoadingState />
+      </div>
+    );
   }
 
   return (

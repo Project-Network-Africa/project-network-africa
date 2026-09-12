@@ -1,5 +1,27 @@
 import DashboardCard from "./DashboardCard";
-import { activities } from "./dashboard-data";
+
+const activities = [
+  {
+    text: "New applicant submitted an application",
+    time: "8 min ago",
+  },
+  {
+    text: "Mentor application received",
+    time: "24 min ago",
+  },
+  {
+    text: "Applicant payment received",
+    time: "1 hr ago",
+  },
+  {
+    text: "Applicant admission status updated",
+    time: "2 hrs ago",
+  },
+  {
+    text: "New cohort was published",
+    time: "Yesterday",
+  },
+];
 
 export default function RecentActivity() {
   return (

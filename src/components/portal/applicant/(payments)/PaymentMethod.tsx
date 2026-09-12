@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Button from "@/src/components/ui/Button";
-import { useState } from "react";
 
-type PaymentMethod = "stripe" | "paypal";
+import Button from "@/src/components/ui/Button";
+
+type PaymentMethod = "paystack";
 
 interface PaymentMethodItem {
   id: PaymentMethod;
@@ -15,13 +15,17 @@ interface PaymentMethodItem {
 interface PaymentMethodProps {
   methods: readonly PaymentMethodItem[];
   outstandingAmount: number;
+  onPayment: () => void;
+  loading?: boolean;
 }
 
 export default function PaymentMethod({
   methods,
   outstandingAmount,
+  onPayment,
+  loading = false,
 }: PaymentMethodProps) {
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>("stripe");
+  const selectedMethod: PaymentMethod = "paystack";
 
   const formattedAmount = new Intl.NumberFormat("en-NG").format(
     outstandingAmount,
@@ -41,12 +45,7 @@ export default function PaymentMethod({
             <button
               key={method.id}
               type="button"
-              onClick={() => setSelectedMethod(method.id)}
-              className={`flex h-[68px] items-center gap-[14px] rounded-[10px] bg-white px-[18px] py-[14px] text-left ${
-                isSelected
-                  ? "border-2 border-[#00B6CE]"
-                  : "border border-[#E5E5EB]"
-              }`}
+              className={`flex h-[68px] items-center gap-[14px] rounded-[10px] bg-white px-[18px] py-[14px] text-left ${isSelected ? "border-2 border-[#00B6CE]" : "border border-[#E5E5EB]"}`}
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#F6F6F7]">
                 <Image
@@ -68,10 +67,11 @@ export default function PaymentMethod({
 
       <Button
         variant="dark"
+        onClick={onPayment}
+        disabled={loading}
         className="h-[35px] w-full max-w-[210px] shrink-0 rounded-[8px] px-4 py-[10px] text-[12px] font-semibold"
       >
-        Pay ₦{formattedAmount} with{" "}
-        {selectedMethod === "stripe" ? "Stripe" : "PayPal"}
+        {loading ? "Processing..." : `Pay ₦${formattedAmount} with PayStack`}
       </Button>
     </div>
   );

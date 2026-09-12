@@ -2,27 +2,51 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
 import { Button } from "../ui";
+import { forgotPassword } from "@/src/services/auth";
+import axios, { AxiosError } from "axios";
 
 export default function ForgotPasswordForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setError("");
+
     if (!email.trim()) {
+      setError("Please enter your email address.");
       return;
     }
 
-    console.log("Reset link requested for:", email);
+    try {
+      setLoading(true);
 
-    // Later connect to backend.
-    router.push("/reset-password");
+      const response = await forgotPassword(email);
+
+      console.log("FORGOT PASSWORD RESPONSE:", response);
+
+      router.push("/reset-password");
+    } catch (error: unknown) {
+      console.error("FORGOT PASSWORD ERROR:", error);
+
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.message ||
+            "Unable to send reset link. Please try again.",
+        );
+      } else {
+        setError("Unable to send reset link. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,11 +63,16 @@ export default function ForgotPasswordForm() {
           onChange={setEmail}
         />
 
+        {error && (
+          <p className="-mt-[10px] text-[13px] text-red-500">{error}</p>
+        )}
+
         <Button
           variant="dark"
+          disabled={loading}
           className="h-[45px] w-full rounded-[10px] text-[14px] font-semibold"
         >
-          Send Reset Link
+          {loading ? "Sending..." : "Send Reset Link"}
         </Button>
       </form>
     </AuthCard>

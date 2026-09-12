@@ -1,23 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
+import { useRouter, useSearchParams } from "next/navigation";
 import AuthCard from "./AuthCard";
 import AuthInput from "./AuthInput";
 import { Button } from "../ui";
+import { resetPassword } from "@/src/services/auth";
+import axios from "axios";
 
 export default function ResetPasswordForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const token = searchParams.get("token");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setError("");
+
+    if (!token) {
+      setError("Invalid or missing password reset link.");
+      return;
+    }
 
     if (!password || !confirmPassword) {
       setError("Please fill in both password fields.");
@@ -34,10 +44,28 @@ export default function ResetPasswordForm() {
       return;
     }
 
-    console.log("Password reset");
+    try {
+      setLoading(true);
 
-    // Later connect to backend.
-    router.push("/login");
+      const response = await resetPassword(token, password);
+
+      console.log("RESET PASSWORD RESPONSE:", response);
+
+      router.push("/login");
+    } catch (error: unknown) {
+      console.error("RESET PASSWORD ERROR:", error);
+
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.message ||
+            "Unable to reset password. Please try again.",
+        );
+      } else {
+        setError("Unable to reset password. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -66,9 +94,10 @@ export default function ResetPasswordForm() {
 
         <Button
           variant="dark"
+          disabled={loading}
           className="h-[45px] w-full rounded-[10px] text-[14px] font-semibold"
         >
-          Reset Password
+          {loading ? "Resetting..." : "Reset Password"}
         </Button>
       </form>
     </AuthCard>

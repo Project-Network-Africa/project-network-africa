@@ -27,6 +27,25 @@ function AlertRow({
 }
 
 export default function OperationalAlerts() {
+  const alerts = [
+    {
+      text: "34 applicants waiting for mentor assignment",
+      severity: "High" as const,
+    },
+    {
+      text: "12 overdue mentor feedback reviews",
+      severity: "High" as const,
+    },
+    {
+      text: "21 inactive learners for 7+ days",
+      severity: "Medium" as const,
+    },
+    {
+      text: "Cohort 6 application deadline in 3 days",
+      severity: "Info" as const,
+    },
+  ];
+
   return (
     <DashboardCard className="p-5 font-body">
       <div className="flex items-center justify-between gap-3">
@@ -34,23 +53,19 @@ export default function OperationalAlerts() {
           OPERATIONAL ALERTS
         </h2>
 
-        <span className="text-[12px] font-semibold text-[#00B6CE]">4 open</span>
+        <span className="text-[12px] font-semibold text-[#00B6CE]">
+          {alerts.length} open
+        </span>
       </div>
 
-      <div className="mt-3  text-[12px] space-y-3">
-        <AlertRow
-          text="34 applicants waiting for mentor assignment"
-          severity="High"
-        />
-
-        <AlertRow text="12 overdue mentor feedback reviews" severity="High" />
-
-        <AlertRow text="21 inactive learners for 7+ days" severity="Medium" />
-
-        <AlertRow
-          text="Cohort 6 application deadline in 3 days"
-          severity="Info"
-        />
+      <div className="mt-3 space-y-3 text-[12px]">
+        {alerts.map((alert) => (
+          <AlertRow
+            key={alert.text}
+            text={alert.text}
+            severity={alert.severity}
+          />
+        ))}
       </div>
     </DashboardCard>
   );

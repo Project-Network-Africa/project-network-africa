@@ -1,39 +1,3 @@
-// import ApplicantDetails from "@/src/components/portal/admin/(applicant)/applicant-details";
-// import { applicants } from "@/src/components/portal/admin/(applicant)/applicant-data";
-
-// interface ApplicantDetailsPageProps {
-//   params: Promise<{
-//     id: string;
-//   }>;
-// }
-
-// export default async function ApplicantDetailsPage({
-//   params,
-// }: ApplicantDetailsPageProps) {
-//   const { id } = await params;
-
-//   const applicant = applicants.find((item) => item.id === id);
-
-//   if (!applicant) {
-//     return (
-//       <main className="min-h-screen w-full bg-[#F8F8F8] font-body">
-//         <div className="mx-auto w-full max-w-[1280px] p-5">
-//           <div className="rounded-[14px] border border-[#DDE1E5] bg-white p-8">
-//             <h1 className="text-xl font-bold text-[#1F1F25]">
-//               Applicant not found
-//             </h1>
-
-//             <p className="mt-2 text-sm text-[#737379]">
-//               We could not find this applicant.
-//             </p>
-//           </div>
-//         </div>
-//       </main>
-//     );
-//   }
-
-//   return <ApplicantDetails applicant={applicant} />;
-// }
 "use client";
 
 import { useEffect, useState } from "react";
@@ -41,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Applicant } from "@/src/components/portal/admin/(applicant)/applicants.types";
 import { getAdminApplicantById } from "@/src/services/applicants";
 import ApplicantDetails from "@/src/components/portal/admin/(applicant)/applicant-details";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 export default function ApplicantDetailsPage() {
   const params = useParams();
@@ -53,41 +18,83 @@ export default function ApplicantDetailsPage() {
     const fetchApplicant = async () => {
       try {
         const response = await getAdminApplicantById(id);
-
-        console.log("ADMIN APPLICANT DETAILS:", response);
-
         const data = response.applicant;
 
+        console.log("APPLICANT USER DATA:", data.userId);
         const mappedApplicant: Applicant = {
           id: data._id,
-          name: data.userId?.email || "Applicant",
+
+          name:
+            `${data.userId?.firstName || ""} ${data.userId?.lastName || ""}`.trim() ||
+            data.userId?.email ||
+            "Applicant",
+
           email: data.userId?.email || "-",
+
+          phone: data.phone || "-",
+
+          country: data.country || "-",
+
           programme: data.program || "-",
+
           cohort: "-",
+
           stage:
             data.admissionStatus === "Pending"
               ? "Applied"
               : data.admissionStatus || "-",
+
           payment: "Pending",
+
           mentor: "Unassigned",
+
           applied: data.submittedAt
             ? new Date(data.submittedAt).toLocaleDateString()
             : "-",
+
           risk: "Low",
+
           action: "View",
+
           applicationScore: "-",
+
           assessmentScore: "-",
-          location: "-",
+
+          location: data.country || "-",
+
           education: "-",
+
           experience: "-",
+
           preferredTrack: data.program || "-",
+
           documents: "-",
-          submissionSummary: "-",
+
+          submissionSummary: data.bio || "-",
+
           responses: "-",
+
           assessmentSummary: "-",
+
           assignedMentor: "Unassigned",
+
           adminNote: "-",
+
           activities: [],
+
+          bio: data.bio || "-",
+
+          skills: data.skills || [],
+
+          portfolioUrl: data.portfolioUrl || "",
+
+          linkedInUrl: data.linkedInUrl || "",
+
+          submittedAt: data.submittedAt || "",
+
+          createdAt: data.createdAt || "",
+
+          updatedAt: data.updatedAt || "",
         };
 
         setApplicant(mappedApplicant);
@@ -105,9 +112,9 @@ export default function ApplicantDetailsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center text-sm text-[#5D5D61]">
-        Loading applicant...
-      </div>
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
+      </main>
     );
   }
 

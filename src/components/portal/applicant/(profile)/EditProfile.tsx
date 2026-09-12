@@ -9,6 +9,7 @@ import {
   getMyApplicantProfile,
   updateApplicantProfile,
 } from "@/src/services/applicants";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 interface FormData {
   firstName: string;
@@ -178,7 +179,11 @@ export default function EditProfilePage() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <main className="flex  items-center justify-center">
+        <LoadingState />
+      </main>
+    );
   }
 
   const initials =

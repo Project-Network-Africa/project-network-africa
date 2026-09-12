@@ -1,12 +1,15 @@
 // "use client";
 
 // import { useEffect, useState } from "react";
+
 // import ApplicationTimeline from "@/src/components/portal/applicant/(application-status)/ApplicationTimeline";
 // import NextSteps from "@/src/components/portal/applicant/(application-status)/NextSteps";
+
 // import {
 //   getMyApplicantProfile,
 //   getMyCohortApplication,
 // } from "@/src/services/applicants";
+// import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 // interface CohortApplication {
 //   applicationStatus?: string;
@@ -33,7 +36,11 @@
 //   const [application, setApplication] = useState<CohortApplication | null>(
 //     null,
 //   );
-//   const [admissionStatus, setAdmissionStatus] = useState("Pending");
+
+//   const [admissionStatus, setAdmissionStatus] = useState<
+//     "Not Applied" | "Pending" | "Admitted" | "Rejected"
+//   >("Pending");
+
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
@@ -63,16 +70,36 @@
 //   }, []);
 
 //   if (loading) {
-//     return <div>Loading application status...</div>;
+//     return (
+//       <main className="flex min-h-[500px] items-center justify-center">
+//         <LoadingState />
+//       </main>
+//     );
 //   }
 
 //   if (!application) {
 //     return <div>No application found.</div>;
 //   }
 
-//   const isAdmitted = admissionStatus === "Admitted";
-//   const isRejected = admissionStatus === "Rejected";
+//   // =========================
+//   // APPLICATION STATES
+//   // =========================
+
 //   const isPending = admissionStatus === "Pending";
+
+//   const isRejected = admissionStatus === "Rejected";
+
+//   // For now, the backend's "Admitted" status means
+//   // the admin has accepted the applicant.
+//   const isAccepted = admissionStatus === "Admitted";
+
+//   // Payment is not yet connected to the backend.
+//   // Therefore it must remain incomplete until we have
+//   // a real payment status.
+//   const isPaid = false;
+
+//   // Admission happens AFTER payment.
+//   const isAdmitted = isPaid;
 
 //   return (
 //     <div className="flex w-full flex-col gap-5">
@@ -87,7 +114,7 @@
 //           },
 //           {
 //             title: "Application Review",
-//             completed: isPending || isAccepted || isRejected,
+//             completed: isAccepted || isRejected,
 //           },
 //           {
 //             title: "Admission Decision",
@@ -99,24 +126,29 @@
 //           },
 //           {
 //             title: "Admission",
-//             completed: isPaid,
+//             completed: isAdmitted,
 //           },
 //         ]}
 //       />
 
-//       {isAdmitted ? (
+//       {isRejected ? (
 //         <NextSteps
-//           description="Your application has been accepted. Complete your onboarding checklist."
-//           href="/applicant/onboarding-checklist"
-//         />
-//       ) : isRejected ? (
-//         <NextSteps
-//           description="Your application was not accepted."
+//           description="Your application was not accepted. You can review your application status for more details."
 //           href="/applicant/application-status"
+//         />
+//       ) : isAccepted && !isPaid ? (
+//         <NextSteps
+//           description="Your application has been accepted. Complete your payment to proceed with admission."
+//           href="/applicant/payment"
+//         />
+//       ) : isAdmitted ? (
+//         <NextSteps
+//           description="Your payment has been confirmed and you are now admitted. Complete your profile to continue."
+//           href="/applicant/profile/edit"
 //         />
 //       ) : (
 //         <NextSteps
-//           description="Your application is currently being reviewed."
+//           description="Your application is currently being reviewed. We'll let you know once there's an update."
 //           href="/applicant/application-status"
 //         />
 //       )}
@@ -135,6 +167,8 @@ import {
   getMyCohortApplication,
 } from "@/src/services/applicants";
 
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
+
 interface CohortApplication {
   applicationStatus?: string;
   createdAt?: string;
@@ -152,18 +186,29 @@ interface ApplicantResponse {
   success?: boolean;
   message?: string;
   applicant?: {
-    admissionStatus?: "Not Applied" | "Pending" | "Admitted" | "Rejected";
+    admissionStatus?:
+      | "Not Applied"
+      | "Pending"
+      | "Accepted"
+      | "Rejected"
+      | "Admitted";
   };
 }
+
+type AdmissionStatus =
+  | "Not Applied"
+  | "Pending"
+  | "Accepted"
+  | "Rejected"
+  | "Admitted";
 
 export default function ApplicationStatusPage() {
   const [application, setApplication] = useState<CohortApplication | null>(
     null,
   );
 
-  const [admissionStatus, setAdmissionStatus] = useState<
-    "Not Applied" | "Pending" | "Admitted" | "Rejected"
-  >("Pending");
+  const [admissionStatus, setAdmissionStatus] =
+    useState<AdmissionStatus>("Pending");
 
   const [loading, setLoading] = useState(true);
 
@@ -176,6 +221,7 @@ export default function ApplicationStatusPage() {
         ]);
 
         console.log("MY APPLICATION:", applicationResponse);
+
         console.log("MY APPLICANT PROFILE:", applicantResponse);
 
         setApplication(applicationResponse.application ?? null);
@@ -194,32 +240,26 @@ export default function ApplicationStatusPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading application status...</div>;
+    return (
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
+      </main>
+    );
   }
 
   if (!application) {
     return <div>No application found.</div>;
   }
 
-  // =========================
-  // APPLICATION STATES
-  // =========================
-
-  const isPending = admissionStatus === "Pending";
+  // const isPending = admissionStatus === "Pending";
 
   const isRejected = admissionStatus === "Rejected";
 
-  // For now, the backend's "Admitted" status means
-  // the admin has accepted the applicant.
-  const isAccepted = admissionStatus === "Admitted";
+  const isAccepted = admissionStatus === "Accepted";
 
-  // Payment is not yet connected to the backend.
-  // Therefore it must remain incomplete until we have
-  // a real payment status.
   const isPaid = false;
 
-  // Admission happens AFTER payment.
-  const isAdmitted = isPaid;
+  const isAdmitted = admissionStatus === "Admitted";
 
   return (
     <div className="flex w-full flex-col gap-5">
@@ -232,18 +272,22 @@ export default function ApplicationStatusPage() {
               : "",
             completed: true,
           },
+
           {
             title: "Application Review",
-            completed: isAccepted || isRejected,
+            completed: isAccepted || isRejected || isAdmitted,
           },
+
           {
             title: "Admission Decision",
-            completed: isAccepted || isRejected,
+            completed: isAccepted || isRejected || isAdmitted,
           },
+
           {
             title: "Payment",
-            completed: isPaid,
+            completed: isPaid || isAdmitted,
           },
+
           {
             title: "Admission",
             completed: isAdmitted,
@@ -258,13 +302,13 @@ export default function ApplicationStatusPage() {
         />
       ) : isAccepted && !isPaid ? (
         <NextSteps
-          description="Your application has been accepted. Complete your payment to proceed with admission."
-          href="/applicant/payment"
+          description="Congratulations! Your application has been accepted. Complete your payment to secure your place."
+          href="/applicant/payments"
         />
       ) : isAdmitted ? (
         <NextSteps
-          description="Your payment has been confirmed and you are now admitted. Complete your profile to continue."
-          href="/applicant/profile/edit"
+          description="Congratulations! Your payment has been confirmed and you are now admitted. You can proceed with your programme."
+          href="/applicant/dashboard"
         />
       ) : (
         <NextSteps

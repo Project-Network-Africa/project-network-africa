@@ -81,22 +81,6 @@ export const updateApplicantProfile = async (data: {
   return response.data;
 };
 
-export interface AdminApplicant {
-  _id: string;
-  userId: {
-    _id: string;
-    email: string;
-    firstName?: string;
-    lastName?: string;
-  };
-  program: string;
-  admissionStatus?: string;
-  status?: string;
-  submittedAt?: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
 export const getAdminApplicants = async (): Promise<{
   success: boolean;
   message: string;
@@ -105,17 +89,45 @@ export const getAdminApplicants = async (): Promise<{
   const response = await api.get("/api/admin/applicants");
   return response.data;
 };
-export const getAdminApplicantById = async (id: string) => {
+// export const getAdminApplicantById = async (id: string) => {
+//   const response = await api.get(`/api/admin/applicants/${id}`);
+//   return response.data;
+// };
+
+export const getAdminApplicantById = async (
+  id: string,
+): Promise<{
+  success: boolean;
+  message: string;
+  applicant: AdminApplicant;
+}> => {
   const response = await api.get(`/api/admin/applicants/${id}`);
+
   return response.data;
 };
+// export const updateAdminApplicantStatus = async (
+//   id: string,
+//   admissionStatus: "Pending" | "Not Applied" | "Admitted" | "Rejected",
+// ) => {
+//   const response = await api.patch(`/api/admin/applicants/${id}/status`, {
+//     admissionStatus,
+//   });
+//   return response.data;
+// };
+
 export const updateAdminApplicantStatus = async (
   id: string,
-  admissionStatus: "Pending" | "Not Applied" | "Admitted" | "Rejected",
+  admissionStatus:
+    | "Pending"
+    | "Not Applied"
+    | "Accepted"
+    | "Admitted"
+    | "Rejected",
 ) => {
   const response = await api.patch(`/api/admin/applicants/${id}/status`, {
     admissionStatus,
   });
+
   return response.data;
 };
 export const assignApplicantToCohort = async (
@@ -143,3 +155,24 @@ export const createApplicantProfile = async (data: {
   const response = await api.post("/api/applicants", data);
   return response.data;
 };
+export interface AdminApplicant {
+  _id: string;
+  userId: {
+    _id: string;
+    email: string;
+    firstName?: string;
+    lastName?: string;
+  } | null;
+  phone?: string;
+  country?: string;
+  program: string;
+  portfolioUrl?: string;
+  linkedInUrl?: string;
+  bio?: string;
+  skills?: string[];
+  admissionStatus?: string;
+  status?: string;
+  submittedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}

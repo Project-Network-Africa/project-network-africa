@@ -7,92 +7,100 @@ import { AdminApplicant, getAdminApplicants } from "@/src/services/applicants";
 import { Applicant, ApplicantFilters } from "./applicants.types";
 
 import { AdminFilters } from "../AdminPage";
+
 import StatCards from "../(dashboard)/StatCards";
+
 import { DataTable } from "../DataTable";
 
 import { Button } from "@/src/components/ui";
 
-// const mapAdminApplicant = (applicant: AdminApplicant): Applicant => {
-//   const firstName = applicant.userId.firstName || "";
-//   const lastName = applicant.userId.lastName || "";
-
-//   const name = `${firstName} ${lastName}`.trim() || applicant.userId.email;
-
-//   const status = applicant.admissionStatus || applicant.status || "Pending";
-
-//   return {
-//     id: applicant._id,
-//     name,
-//     email: applicant.userId.email,
-//     programme: applicant.program,
-//     cohort: "-",
-//     stage: status === "Pending" ? "Applied" : status,
-//     payment: "Pending",
-//     mentor: "Unassigned",
-//     applied: applicant.submittedAt
-//       ? new Date(applicant.submittedAt).toLocaleDateString()
-//       : "-",
-//     risk: "Low",
-//     action: "View",
-//     applicationScore: "-",
-//     assessmentScore: "-",
-//     location: "-",
-//     education: "-",
-//     experience: "-",
-//     preferredTrack: applicant.program,
-//     documents: "-",
-//     submissionSummary: "-",
-//     responses: "-",
-//     assessmentSummary: "-",
-//     assignedMentor: "Unassigned",
-//     adminNote: "-",
-//     activities: [],
-//   };
-// };
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 const mapAdminApplicant = (applicant: AdminApplicant): Applicant => {
   const firstName = applicant.userId?.firstName || "";
   const lastName = applicant.userId?.lastName || "";
   const email = applicant.userId?.email || "-";
+
   const name = `${firstName} ${lastName}`.trim() || email;
 
   const status = applicant.admissionStatus || applicant.status || "Pending";
 
   return {
     id: applicant._id,
+
     name,
+
     email,
-    programme: applicant.program,
+
+    phone: applicant.phone || "-",
+
+    country: applicant.country || "-",
+
+    programme: applicant.program || "-",
+
     cohort: "-",
+
     stage: status === "Pending" ? "Applied" : status,
+
     payment: "Pending",
+
     mentor: "Unassigned",
+
     applied: applicant.submittedAt
       ? new Date(applicant.submittedAt).toLocaleDateString()
       : "-",
+
     risk: "Low",
+
     action: "View",
+
     applicationScore: "-",
+
     assessmentScore: "-",
-    location: "-",
+
+    location: applicant.country || "-",
+
     education: "-",
+
     experience: "-",
-    preferredTrack: applicant.program,
+
+    preferredTrack: applicant.program || "-",
+
     documents: "-",
-    submissionSummary: "-",
+
+    submissionSummary: applicant.bio || "-",
+
     responses: "-",
+
     assessmentSummary: "-",
+
     assignedMentor: "Unassigned",
+
     adminNote: "-",
+
     activities: [],
+
+    bio: applicant.bio || "-",
+
+    skills: applicant.skills || [],
+
+    portfolioUrl: applicant.portfolioUrl || "",
+
+    linkedInUrl: applicant.linkedInUrl || "",
+
+    submittedAt: applicant.submittedAt || "",
+
+    createdAt: applicant.createdAt || "",
+
+    updatedAt: applicant.updatedAt || "",
   };
 };
 
 export default function Applicants() {
   const [applicants, setApplicants] = useState<Applicant[]>([]);
+
   const [loading, setLoading] = useState(true);
 
-  // Filters
   const [filters, setFilters] = useState<ApplicantFilters>({
     search: "",
     programme: "All programmes",
@@ -100,15 +108,11 @@ export default function Applicants() {
     stage: "All stages",
   });
 
-  // Fetch applicants
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
         const response = await getAdminApplicants();
 
-        console.log("ADMIN APPLICANTS:", response.applicants);
-
-        // setApplicants(response.applicants || []);
         const mappedApplicants = response.applicants.map(mapAdminApplicant);
 
         setApplicants(mappedApplicants);
@@ -122,29 +126,25 @@ export default function Applicants() {
     fetchApplicants();
   }, []);
 
-  // Filter applicants based on search + filters
   const filteredApplicants = useMemo(() => {
     const search = filters.search.trim().toLowerCase();
 
     return applicants.filter((applicant) => {
-      // Search
       const matchesSearch =
         search === "" ||
         applicant.name.toLowerCase().includes(search) ||
+        applicant.email.toLowerCase().includes(search) ||
         applicant.programme.toLowerCase().includes(search) ||
         applicant.cohort.toLowerCase().includes(search) ||
         applicant.mentor.toLowerCase().includes(search);
 
-      // Programme
       const matchesProgramme =
         filters.programme === "All programmes" ||
         applicant.programme === filters.programme;
 
-      // Cohort
       const matchesCohort =
         filters.cohort === "All cohorts" || applicant.cohort === filters.cohort;
 
-      // Stage
       const matchesStage =
         filters.stage === "All stages" || applicant.stage === filters.stage;
 
@@ -152,62 +152,64 @@ export default function Applicants() {
     });
   }, [applicants, filters]);
 
-  // Statistics
   const stats = [
     {
       label: "Total applicants",
-      value: "1,842",
-      helper: "↑ 12% this month",
-      valueColor: "text-[#00B6CE]",
-      helperColor: "text-[#178C59]",
+      value: String(applicants.length),
+      helper: "Current applicants",
+      helperColor: "text-[#00B6CE]",
     },
+
     {
       label: "Awaiting review",
-      value: "126",
-      helper: "18 overdue",
-      valueColor: "text-[#1F1F25]",
-      helperColor: "text-[#C72E33]",
+      value: String(
+        applicants.filter((applicant) => applicant.stage === "Applied").length,
+      ),
+      helper: "Currently pending",
+      helperColor: "text-[#E56B1A]",
     },
+
     {
       label: "Unassigned",
-      value: "34",
-      helper: "Needs attention",
-      valueColor: "text-[#1F1F25]",
-      helperColor: "text-[#C72E33]",
+      value: "-",
+      helper: "Not available",
+      helperColor: "text-[#85858A]",
     },
+
     {
       label: "High-risk applicants",
-      value: "18",
-      helper: "Review today",
-      valueColor: "text-[#00B6CE]",
-      helperColor: "text-[#00B6CE]",
+      value: "-",
+      helper: "Not available",
+      helperColor: "text-[#85858A]",
     },
   ];
 
-  // Table columns
   const columns = [
     {
       key: "name",
       header: "Applicant",
     },
+
     {
       key: "programme",
       header: "Programme",
     },
+
     {
       key: "cohort",
       header: "Cohort",
     },
+
     {
       key: "stage",
       header: "Stage",
+
       render: (applicant: Applicant) => {
         const styles: Record<string, string> = {
           Applied: "text-[#00B6CE]",
-          Review: "text-[#F59E0B]",
-          Interviewing: "text-[#00B6CE]",
-          Matched: "text-[#008F5A]",
-          Onboarding: "text-[#008F5A]",
+          Accepted: "text-[#008F5A]",
+          Admitted: "text-[#008F5A]",
+          Rejected: "text-[#DC2727]",
         };
 
         return (
@@ -219,9 +221,11 @@ export default function Applicants() {
         );
       },
     },
+
     {
       key: "payment",
       header: "Payment",
+
       render: (applicant: Applicant) => {
         const styles: Record<string, string> = {
           Paid: "text-[#008F5A]",
@@ -238,17 +242,21 @@ export default function Applicants() {
         );
       },
     },
+
     {
       key: "mentor",
       header: "Mentor",
     },
+
     {
       key: "applied",
       header: "Applied",
     },
+
     {
       key: "risk",
       header: "Risk",
+
       render: (applicant: Applicant) => {
         const styles: Record<string, string> = {
           Low: "text-[#008F5A]",
@@ -265,9 +273,11 @@ export default function Applicants() {
         );
       },
     },
+
     {
       key: "action",
       header: "Action",
+
       render: (applicant: Applicant) => (
         <Button
           href={`/admin/applicants/${applicant.id}`}
@@ -280,13 +290,11 @@ export default function Applicants() {
     },
   ];
 
-  // Filter options
   const programmeOptions = [
     "All programmes",
     "Product Design",
-    "Software Eng.",
-    "Data Analytics",
-    "Project Mgmt.",
+    "Backend Engineering",
+    "Full Stack Engineering",
   ];
 
   const cohortOptions = ["All cohorts", "Cohort 4", "Cohort 5", "Cohort 6"];
@@ -294,19 +302,15 @@ export default function Applicants() {
   const stageOptions = [
     "All stages",
     "Applied",
-    "Review",
-    "Interviewing",
-    "Matched",
-    "Onboarding",
+    "Accepted",
+    "Rejected",
+    "Admitted",
   ];
 
-  // Loading state
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#F8F8F8] font-body">
-        <div className="flex min-h-[400px] items-center justify-center text-sm text-[#5D5D61]">
-          Loading applicants...
-        </div>
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
       </main>
     );
   }
@@ -314,7 +318,6 @@ export default function Applicants() {
   return (
     <main className="min-h-screen bg-[#F8F8F8] font-body">
       <div className="mx-auto w-full max-w-[1440px]">
-        {/* Filters */}
         <div className="mb-5">
           <AdminFilters
             searchPlaceholder="Search applicants"
@@ -336,6 +339,7 @@ export default function Applicants() {
                   }));
                 },
               },
+
               {
                 label: filters.cohort,
                 options: cohortOptions,
@@ -346,6 +350,7 @@ export default function Applicants() {
                   }));
                 },
               },
+
               {
                 label: filters.stage,
                 options: stageOptions,
@@ -363,12 +368,10 @@ export default function Applicants() {
           />
         </div>
 
-        {/* Stats */}
         <div className="mb-5 w-full">
           <StatCards stats={stats} />
         </div>
 
-        {/* Table */}
         <DataTable<Applicant>
           columns={columns}
           data={filteredApplicants}

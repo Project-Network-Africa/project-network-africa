@@ -11,6 +11,7 @@ import { defaultSettings } from "@/src/data/applicant/settings";
 
 import { checkAuth } from "@/src/services/auth";
 import { getMyApplicantProfile } from "@/src/services/applicants";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState(defaultSettings);
@@ -79,7 +80,11 @@ export default function SettingsPage() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
+      </main>
+    );
   }
 
   const isAdmitted = admissionStatus === "Admitted";

@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { getJobById } from "@/src/services/employer/job";
 import { Job } from "@/src/types/employer/job";
 import JobDetails from "@/src/components/portal/employer/(job-listings)/JobDetails";
+import LoadingState from "@/src/components/ui/Loading/LoadingState";
 
 export default function JobDetailsPage() {
   const params = useParams();
@@ -25,9 +26,9 @@ export default function JobDetailsPage() {
 
   if (loading) {
     return (
-      <div className="flex w-full items-center justify-center py-20">
-        <p className="text-[13px] text-[#5D5D61]">Loading job...</p>
-      </div>
+      <main className="flex min-h-[500px] items-center justify-center">
+        <LoadingState />
+      </main>
     );
   }
 

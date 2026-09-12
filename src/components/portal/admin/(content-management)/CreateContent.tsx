@@ -1,6 +1,7 @@
 "use client";
-
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createBlog } from "@/src/services/blogs";
 
 import { ContentType, ContentStatus } from "./create-content.types";
 
@@ -13,6 +14,7 @@ import ResourceContentForm from "./ResourceContentForm";
 import ArticleNewsForm from "./ArticleNewsForm";
 import ContentSEO from "./shared/ContentSEO";
 import ContentPublishing from "./shared/ContentPublishing";
+import { toast } from "sonner";
 
 const inputClass =
   "h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none transition focus:border-[#00B6CE] focus:ring-2 focus:ring-[#00B6CE]/10";
@@ -20,6 +22,7 @@ const inputClass =
 const labelClass = "mb-1.5 block text-xs font-medium text-slate-600";
 
 export default function CreateContent() {
+  const router = useRouter();
   const [contentType, setContentType] = useState<ContentType | "">("");
 
   const [title, setTitle] = useState("");
@@ -83,18 +86,44 @@ export default function CreateContent() {
     });
   };
 
-  const handlePublish = () => {
-    console.log("Publishing content", {
-      contentType,
-      title,
-      slug,
-      category,
-      author,
-      status,
-      visibility,
-      publishDate,
-      formData,
-    });
+  const handlePublish = async () => {
+    if (contentType !== "Article / News") {
+      console.log("Publishing content", {
+        contentType,
+        title,
+        slug,
+        category,
+        author,
+        status,
+        visibility,
+        publishDate,
+        formData,
+      });
+      return;
+    }
+
+    try {
+      const response = await createBlog({
+        title: String(formData.title || title),
+        description: String(formData.description || ""),
+        content: String(formData.content || ""),
+        images: Array.isArray(formData.images)
+          ? (formData.images as File[])
+          : [],
+        videos: Array.isArray(formData.videos)
+          ? (formData.videos as File[])
+          : [],
+      });
+
+      console.log("BLOG CREATED:", response);
+
+      toast.success("Blog published successfully!");
+
+      router.push("/admin/content-management");
+    } catch (error) {
+      console.error("FAILED TO CREATE BLOG:", error);
+      toast.error("Failed to publish blog. Please try again.");
+    }
   };
 
   const renderContentForm = () => {

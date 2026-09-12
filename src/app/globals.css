@@ -5,7 +5,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-
   --font-body: var(--font-inter);
   --font-heading: var(--font-crimson);
   --background: oklch(1 0 0);
@@ -121,7 +120,6 @@ html {
 }
 
 .dark {
-
   --background: oklch(0.145 0 0);
 
   --foreground: oklch(0.985 0 0);
@@ -194,5 +192,132 @@ html {
   }
   html {
     @apply font-sans;
+  }
+}
+
+.loading-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  opacity: 0.45;
+  background: #00b6ce;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.loading-dot-1 {
+  animation-name: loading-dot-1;
+}
+
+.loading-dot-2 {
+  background: #36e7fd;
+  animation-name: loading-dot-2;
+}
+
+.loading-dot-3 {
+  animation-name: loading-dot-3;
+}
+
+.loading-dot-4 {
+  background: #b1b8c8;
+  animation-name: loading-dot-4;
+}
+
+@keyframes loading-dot-1 {
+  0% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  5% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.9, 1.15);
+  }
+
+  22.5% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loading-dot-2 {
+  0% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  27.5% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  32.5% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.9, 1.15);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loading-dot-3 {
+  0% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  55% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.9, 1.15);
+  }
+
+  77.5% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loading-dot-4 {
+  0% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  82.5% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  87.5% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.9, 1.15);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
   }
 }

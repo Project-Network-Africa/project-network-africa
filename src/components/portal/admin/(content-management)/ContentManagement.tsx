@@ -1,229 +1,44 @@
-// "use client";
-
-// import { useMemo, useState } from "react";
-
-// import { Button } from "@/src/components/ui";
-
-// import { AdminFilters } from "../AdminPage";
-// import StatCards from "../(dashboard)/StatCards";
-// import { DataTable } from "../DataTable";
-
-// import { contentFilters, contentItems, contentStats } from "./content-data";
-
-// import { ContentItem } from "./content.types";
-
-// export default function ContentManagement() {
-//   const [search, setSearch] = useState("");
-
-//   /*
-//    * Search
-//    */
-//   const filteredContent = useMemo(() => {
-//     const searchValue = search.trim().toLowerCase();
-
-//     if (!searchValue) {
-//       return contentItems;
-//     }
-
-//     return contentItems.filter((content) => {
-//       return (
-//         content.contentItem.toLowerCase().includes(searchValue) ||
-//         content.type.toLowerCase().includes(searchValue) ||
-//         content.category.toLowerCase().includes(searchValue) ||
-//         content.author.toLowerCase().includes(searchValue) ||
-//         content.status.toLowerCase().includes(searchValue)
-//       );
-//     });
-//   }, [search]);
-
-//   /*
-//    * Table columns
-//    */
-//   const columns = [
-//     {
-//       key: "contentItem",
-//       header: "Content item",
-
-//       render: (content: ContentItem) => (
-//         <span className="font-medium text-[#303035]">
-//           {content.contentItem}
-//         </span>
-//       ),
-//     },
-
-//     {
-//       key: "type",
-//       header: "Type",
-//     },
-
-//     {
-//       key: "category",
-//       header: "Category",
-//     },
-
-//     {
-//       key: "author",
-//       header: "Author",
-//     },
-
-//     {
-//       key: "status",
-//       header: "Status",
-
-//       render: (content: ContentItem) => {
-//         const statusClass =
-//           content.status === "Published"
-//             ? "text-[#008F58]"
-//             : content.status === "Draft"
-//               ? "text-[#F26B21]"
-//               : content.status === "Scheduled"
-//                 ? "text-[#F26B21]"
-//                 : "text-[#DC2727]";
-
-//         return (
-//           <span className={`font-semibold ${statusClass}`}>
-//             {content.status}
-//           </span>
-//         );
-//       },
-//     },
-
-//     {
-//       key: "featured",
-//       header: "Featured",
-
-//       render: (content: ContentItem) => (
-//         <span
-//           className={
-//             content.featured === "Yes"
-//               ? "font-semibold text-[#008F58]"
-//               : "font-semibold text-[#00B6CE]"
-//           }
-//         >
-//           {content.featured}
-//         </span>
-//       ),
-//     },
-
-//     {
-//       key: "updated",
-//       header: "Updated",
-//     },
-
-//     {
-//       key: "publishDate",
-//       header: "Publish date",
-//     },
-
-//     {
-//       key: "action",
-//       header: "Action",
-
-//       render: (content: ContentItem) => (
-//         <button
-//           type="button"
-//           className="font-semibold text-[#00B6CE] transition hover:text-[#009CB2]"
-//           onClick={() => {
-//             console.log(`${content.action}:`, content.contentItem);
-//           }}
-//         >
-//           {content.action}
-//         </button>
-//       ),
-//     },
-//   ];
-
-//   return (
-//     <main className="min-h-screen w-full bg-[#F8F8F8] font-body">
-//       <div className="mx-auto w-full max-w-[1280px]">
-//         {/* =====================================================
-//             PAGE HEADER
-//         ====================================================== */}
-
-//         <section className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-//           <h1 className="text-[28px] font-bold leading-tight text-[#1F1F25] md:text-[30px]">
-//             Content Management
-//           </h1>
-
-//           <div className="flex w-full justify-end gap-2 md:w-auto">
-//             <Button
-//               variant="light"
-//               className="h-9 rounded-lg px-4 text-[12px] font-semibold"
-//               onClick={() => {
-//                 console.log("Bulk actions");
-//               }}
-//             >
-//               Bulk actions
-//             </Button>
-
-//             <Button
-//               variant="primary"
-//               className="h-9 rounded-lg px-4 text-[12px] font-semibold"
-//               onClick={() => {
-//                 console.log("Create content");
-//               }}
-//             >
-//               Create content
-//             </Button>
-//           </div>
-//         </section>
-
-//         {/* =====================================================
-//             FILTERS
-//         ====================================================== */}
-
-//         <section className="mt-5">
-//           <AdminFilters
-//             searchPlaceholder="Search content"
-//             filters={contentFilters}
-//             searchValue={search}
-//             onSearchChange={setSearch}
-//           />
-//         </section>
-
-//         {/* =====================================================
-//             STATS
-//         ====================================================== */}
-
-//         <section className="mt-5">
-//           <StatCards stats={contentStats} columns={4} />
-//         </section>
-
-//         {/* =====================================================
-//             TABLE
-//         ====================================================== */}
-
-//         <section className="mt-4">
-//           <DataTable<ContentItem>
-//             columns={columns}
-//             data={filteredContent}
-//             rowKey="id"
-//             pageSize={5}
-//             selectable
-//             totalRecords={filteredContent.length}
-//             onSelectionChange={(selected) => {
-//               console.log("Selected content:", selected);
-//             }}
-//           />
-//         </section>
-//       </div>
-//     </main>
-//   );
-// }
 "use client";
 
-import { useMemo, useState } from "react";
-
+import { useEffect, useMemo, useState } from "react";
+import { getBlogs, deleteBlog } from "@/src/services/blogs";
 import { DataTable } from "../DataTable";
 import { ContentItem, ContentFilters } from "./content.types";
-import { contentItems, contentTypeNavItems } from "./content-data";
+import { contentTypeNavItems } from "./content-data";
 
 import ContentHeader from "./ContentHeader";
 import ContentTypeNav from "./ContentTypeNav";
 import ContentToolbar from "./ContentToolbar";
 import Link from "next/link";
-
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/components/ui/dialog";
+interface AdminBlog {
+  _id: string;
+  admin?: {
+    _id: string;
+    fullName: string;
+    email: string;
+  };
+  title: string;
+  description: string;
+  content: string;
+  images: string[];
+  videos: string[];
+  slug: string;
+  status: "Published" | "Draft" | "Scheduled" | "Needs review";
+  createdAt: string;
+  updatedAt: string;
+}
 export default function ContentManagement() {
+  const [blogs, setBlogs] = useState<ContentItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeType, setActiveType] = useState("All content");
 
   const [search, setSearch] = useState("");
@@ -239,9 +54,52 @@ export default function ContentManagement() {
 
   const [selectedContent, setSelectedContent] = useState<ContentItem[]>([]);
 
-  /* =========================================================
-     FILTER CHANGE
-  ========================================================= */
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+
+        const response = await getBlogs();
+
+        console.log("ADMIN BLOGS RESPONSE:", response);
+        console.log("FIRST BLOG:", response.blogs?.[0]);
+
+        const mappedBlogs: ContentItem[] = (
+          (response.blogs as AdminBlog[]) || []
+        ).map((blog, index) => ({
+          id: blog._id,
+          title: blog.title || "",
+          slug: blog.slug || "",
+          type: "Article / News",
+          category: "PN Africa News",
+          author: blog.admin?.fullName || "Admin",
+          status: blog.status || "Draft",
+          excerpt: blog.description || "",
+          body: blog.content || "",
+          publishDate: blog.createdAt
+            ? new Date(blog.createdAt).toLocaleDateString()
+            : "-",
+          visibility: "Public",
+          featuredImage: blog.images?.[0] || "",
+          altText: "",
+          searchTitle: blog.title || "",
+          metaDescription: blog.description || "",
+          activities: [],
+          updatedAt: blog.updatedAt || "",
+          featured: false,
+        }));
+        setBlogs(mappedBlogs);
+      } catch (error) {
+        console.error("FAILED TO FETCH BLOGS:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  //  FILTER CHANGE
 
   const handleFilterChange = (key: keyof ContentFilters, value: string) => {
     setFilters((previous) => ({
@@ -250,16 +108,12 @@ export default function ContentManagement() {
     }));
   };
 
-  /* =========================================================
-     FILTER CONTENT
-  ========================================================= */
+  //  FILTER CONTENT
 
   const filteredContent = useMemo(() => {
-    let result = [...contentItems];
+    let result = [...blogs];
 
     const searchValue = search.trim().toLowerCase();
-
-    /* Search */
 
     if (searchValue) {
       result = result.filter((item) => {
@@ -272,54 +126,62 @@ export default function ContentManagement() {
       });
     }
 
-    /* Content type filter */
-
     if (filters.contentType !== "all") {
       result = result.filter((item) => item.type === filters.contentType);
     }
-
-    /* Category filter */
 
     if (filters.category !== "all") {
       result = result.filter((item) => item.category === filters.category);
     }
 
-    /* Author filter */
-
     if (filters.author !== "all") {
       result = result.filter((item) => item.author === filters.author);
     }
-
-    /* Publish status */
 
     if (filters.publishStatus !== "all") {
       result = result.filter((item) => item.status === filters.publishStatus);
     }
 
-    /* Content navigation */
+    return result;
+  }, [blogs, search, filters]);
 
-    if (activeType !== "All content") {
-      const navMap: Record<string, string[]> = {
-        "Program updates": ["Blog post"],
-        Bootcamps: ["Success story"],
-        Projects: ["Event"],
-        Payments: ["FAQ"],
-        Resources: ["Resource"],
-      };
+  const [blogToDelete, setBlogToDelete] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
-      const allowedTypes = navMap[activeType];
+  //delete
 
-      if (allowedTypes) {
-        result = result.filter((item) => allowedTypes.includes(item.type));
-      }
+  const handleDelete = async () => {
+    if (!blogToDelete) {
+      return;
     }
 
-    return result;
-  }, [search, filters, activeType]);
+    try {
+      setDeleting(true);
 
-  /* =========================================================
-     TABLE COLUMNS
-  ========================================================= */
+      const response = await deleteBlog(blogToDelete);
+
+      console.log("BLOG DELETED:", response);
+
+      setBlogs((previousBlogs) =>
+        previousBlogs.filter((blog) => blog.id !== blogToDelete),
+      );
+
+      setSelectedContent((previousSelected) =>
+        previousSelected.filter((blog) => blog.id !== blogToDelete),
+      );
+
+      toast.success("Blog deleted successfully.");
+
+      setBlogToDelete(null);
+    } catch (error) {
+      console.error("FAILED TO DELETE BLOG:", error);
+      toast.error("Failed to delete blog. Please try again.");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  //  TABLE COLUMNS
 
   const columns = [
     {
@@ -392,14 +254,23 @@ export default function ContentManagement() {
     {
       key: "action",
       header: "Action",
-
       render: (item: ContentItem) => (
-        <Link
-          href={`/admin/content-management/${item.id}`}
-          className="font-semibold text-[#00B6CE] transition hover:text-[#009CB2]"
-        >
-          View
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href={`/admin/content-management/${item.id}`}
+            className="font-semibold text-[#00B6CE] transition hover:text-[#009CB2]"
+          >
+            View
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setBlogToDelete(item.id)}
+            className="font-semibold text-red-500 transition hover:text-red-600"
+          >
+            Delete
+          </button>
+        </div>
       ),
     },
   ];
@@ -460,6 +331,45 @@ export default function ContentManagement() {
           </div>
         )}
       </div>
+
+      <Dialog
+        open={blogToDelete !== null}
+        onOpenChange={(open) => {
+          if (!open && !deleting) {
+            setBlogToDelete(null);
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete blog?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This blog will be permanently
+              deleted.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <button
+              type="button"
+              onClick={() => setBlogToDelete(null)}
+              disabled={deleting}
+              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={deleting}
+              className="rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

@@ -2,6 +2,8 @@ import { SidebarNavItem } from "../../shared/Sidebar/portalsidebar";
 
 export const mentorNavItems: SidebarNavItem[] = [
   { label: "Dashboard", href: "/mentor/dashboard" },
+  { label: "Application Status", href: "/mentor/application-status" },
+  { label: "Profile", href: "/mentor/profile" },
   { label: "Assigned Mentees", href: "/mentor/assigned-mentees" },
   { label: "Mentee Analytics", href: "/mentor/mentee-analytics" },
   { label: "Reviews", href: "/mentor/reviews" },

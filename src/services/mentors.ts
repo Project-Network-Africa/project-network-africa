@@ -54,3 +54,25 @@ export const getMyMentorProfile = async () => {
   const response = await api.get("/api/mentors/me");
   return response.data;
 };
+export const updateMyMentorProfile = async (data: {
+  phone?: string;
+  currentRole?: string;
+  expertise?: string;
+  yearsOfExperience?: number;
+  hoursPerWeek?: number;
+  timeZone?: string;
+  availableHours?: string;
+  portfolio?: string;
+}) => {
+  const response = await api.put("/api/mentors/me", data);
+  return response.data;
+};
+export const getAdminMentors = async () => {
+  const response = await api.get("/api/admin/mentor");
+  return response.data;
+};
+
+export const getAdminMentorById = async (id: string) => {
+  const response = await api.get(`/api/admin/mentor/${id}`);
+  return response.data;
+};

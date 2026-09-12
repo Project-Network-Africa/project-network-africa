@@ -1,17 +1,34 @@
 "use client";
 
 import { useState } from "react";
+
 import { Button } from "@/src/components/ui";
 
-export default function AccountSettings() {
-  const [fullName, setFullName] = useState("Amara Okafor");
-  const [email, setEmail] = useState("amara@example.com");
+type MentorState = "not-applied" | "pending" | "rejected" | "accepted";
+
+interface AccountSettingsProps {
+  mentorState: MentorState;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+}
+
+export default function AccountSettings({
+  mentorState,
+  firstName = "",
+  lastName = "",
+  email = "",
+}: AccountSettingsProps) {
+  const isAccepted = mentorState === "accepted";
+
+  const [fullName, setFullName] = useState(`${firstName} ${lastName}`.trim());
+
+  const [userEmail, setUserEmail] = useState(email);
 
   const handleSave = () => {
-    // Later this will call the backend API.
     console.log({
       fullName,
-      email,
+      email: userEmail,
     });
   };
 
@@ -36,7 +53,12 @@ export default function AccountSettings() {
             type="text"
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
-            className="mt-[6px] h-[38px] w-full rounded-[8px] border border-[#E5E5EB] bg-white px-[13px] text-[12px] text-[#1F1F25] outline-none transition placeholder:text-[#5D5D61] focus:border-[#00B6CE]"
+            readOnly={!isAccepted}
+            className={`mt-[6px] h-[38px] w-full rounded-[8px] border border-[#E5E5EB] px-[13px] text-[12px] text-[#1F1F25] outline-none transition ${
+              isAccepted
+                ? "bg-white focus:border-[#00B6CE]"
+                : "cursor-not-allowed bg-[#F8F8F8] text-[#5D5D61]"
+            }`}
           />
         </div>
 
@@ -52,20 +74,28 @@ export default function AccountSettings() {
           <input
             id="email"
             type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="mt-[6px] h-[38px] w-full rounded-[8px] border border-[#E5E5EB] bg-white px-[13px] text-[12px] text-[#1F1F25] outline-none transition placeholder:text-[#5D5D61] focus:border-[#00B6CE]"
+            value={userEmail}
+            onChange={(event) => setUserEmail(event.target.value)}
+            readOnly={!isAccepted}
+            className={`mt-[6px] h-[38px] w-full rounded-[8px] border border-[#E5E5EB] px-[13px] text-[12px] text-[#1F1F25] outline-none transition ${
+              isAccepted
+                ? "bg-white focus:border-[#00B6CE]"
+                : "cursor-not-allowed bg-[#F8F8F8] text-[#5D5D61]"
+            }`}
           />
         </div>
       </div>
 
-      <Button
-        variant="dark"
-        onClick={handleSave}
-        className="mt-[14px] h-[35px] rounded-[8px] bg-[#00B6CE] px-[16px] text-[11px] font-semibold text-white hover:opacity-90"
-      >
-        Save Changes
-      </Button>
+      {/* Save button only for accepted mentors */}
+      {isAccepted && (
+        <Button
+          variant="dark"
+          onClick={handleSave}
+          className="mt-[14px] h-[35px] rounded-[8px] bg-[#00B6CE] px-[16px] text-[11px] font-semibold text-white hover:opacity-90"
+        >
+          Save Changes
+        </Button>
+      )}
     </section>
   );
 }
