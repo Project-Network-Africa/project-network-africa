@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import OutstandingBalance from "@/src/components/portal/applicant/(payments)/OutstandingBalance";
 import PaymentHistory from "@/src/components/portal/applicant/(payments)/PaymentHistory";
 import PaymentMethod from "@/src/components/portal/applicant/(payments)/PaymentMethod";
-
-import { createPayment, getMyPayments } from "@/src/services/payments";
-
 import LoadingState from "@/src/components/ui/Loading/LoadingState";
+import { createPayment, getMyPayments } from "@/src/services/payments";
 
 export const paymentMethods = [
   {
@@ -31,6 +29,14 @@ interface PaymentResponse {
   success?: boolean;
   message?: string;
   payments?: BackendPayment[];
+}
+
+interface CreatePaymentResponse {
+  success?: boolean;
+  message?: string;
+  checkout?: {
+    authorization_url?: string;
+  };
 }
 
 export default function PaymentsPage() {
@@ -62,7 +68,7 @@ export default function PaymentsPage() {
       setPaymentLoading(true);
       setPaymentError("");
 
-      const response = await createPayment();
+      const response = (await createPayment()) as CreatePaymentResponse;
 
       console.log("PAYMENT INITIALIZATION:", response);
 
@@ -80,6 +86,14 @@ export default function PaymentsPage() {
     } finally {
       setPaymentLoading(false);
     }
+  };
+
+  const handleDemoPayment = () => {
+    setPaymentError("");
+
+    localStorage.setItem("demoPaymentCompleted", "true");
+
+    window.location.href = "/applicant/payments/verify?demo=true";
   };
 
   if (loading) {
@@ -128,6 +142,16 @@ export default function PaymentsPage() {
         onPayment={handlePayment}
         loading={paymentLoading}
       />
+
+      {process.env.NODE_ENV === "development" && (
+        <button
+          type="button"
+          onClick={handleDemoPayment}
+          className="h-[45px] w-full rounded-[10px] bg-gray-200 text-[14px] font-semibold text-gray-900"
+        >
+          Demo Payment (Testing)
+        </button>
+      )}
 
       <PaymentHistory payments={paymentHistory} />
     </div>

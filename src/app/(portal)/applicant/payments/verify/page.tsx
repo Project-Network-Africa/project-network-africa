@@ -13,18 +13,36 @@ export default function PaymentVerificationPage() {
   const router = useRouter();
 
   const reference = searchParams.get("reference");
+  const isDemoPayment = searchParams.get("demo") === "true";
 
   const [status, setStatus] = useState<PaymentStatus>(
-    reference ? "verifying" : "failed",
+    isDemoPayment || reference ? "verifying" : "failed",
   );
 
   const [message, setMessage] = useState(
-    reference
-      ? "Please wait while we verify your payment."
-      : "Payment reference was not found.",
+    isDemoPayment
+      ? "Please wait while we confirm your demo payment."
+      : reference
+        ? "Please wait while we verify your payment."
+        : "Payment reference was not found.",
   );
 
   useEffect(() => {
+    if (isDemoPayment) {
+      const completeDemoPayment = () => {
+        console.log("DEMO PAYMENT: Successful");
+
+        localStorage.setItem("demoPaymentCompleted", "true");
+
+        setStatus("success");
+        setMessage("Your payment has been successfully confirmed.");
+      };
+
+      const timer = setTimeout(completeDemoPayment, 1000);
+
+      return () => clearTimeout(timer);
+    }
+
     if (!reference) {
       return;
     }
@@ -55,7 +73,7 @@ export default function PaymentVerificationPage() {
     };
 
     verify();
-  }, [reference]);
+  }, [isDemoPayment, reference]);
 
   if (status === "verifying") {
     return (
