@@ -1,3 +1,4 @@
+
 "use client";
 
 import { BlogCategory } from "../blog.types";
@@ -13,8 +14,8 @@ const categories: BlogCategoryFilter[] = [
   "All",
   "Career Tips",
   "Alumni Stories",
-  "Community",
   "Product",
+  "Community",
   "Events",
 ];
 
@@ -23,7 +24,7 @@ export default function BlogCategories({
   onCategoryChange,
 }: BlogCategoriesProps) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
       {categories.map((category) => {
         const active = selectedCategory === category;
 
@@ -32,10 +33,10 @@ export default function BlogCategories({
             key={category}
             type="button"
             onClick={() => onCategoryChange(category)}
-            className={`rounded-[20px] px-[18px] py-[10px] text-[14px] font-medium leading-[100%] transition ${
+            className={`min-h-[42px] rounded-[13px] px-4 py-2.5 text-[13px] font-medium transition sm:min-h-[46px] sm:px-5 sm:text-[14px] ${
               active
                 ? "bg-[#1F1F25] text-white"
-                : "border border-[#E5E1DC] bg-white text-[#1F1F25] hover:bg-[#F6F6F6]"
+                : "border border-[#E5E0DB] bg-white text-[#1F1F25] hover:bg-[#F5F5F5]"
             }`}
           >
             {category}

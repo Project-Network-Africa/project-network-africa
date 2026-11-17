@@ -1,89 +1,62 @@
+
 import Image from "next/image";
 import Link from "next/link";
+import { BlogPost } from "../blog.types";
 
-export interface FeaturedBlogPostProps {
-  slug: string;
-  image: string;
-  category: string;
-  title: string;
-  excerpt: string;
-  initials: string;
-  author: string;
-  date: string;
-  readTime: string;
-  avatarBg?: string;
+interface FeaturedBlogPostProps {
+  post: BlogPost;
 }
 
 export default function FeaturedBlogPost({
-  slug,
-  image,
-  category,
-  title,
-  excerpt,
-  initials,
-  author,
-  date,
-  readTime,
-  avatarBg = "#1F1F25",
+  post,
 }: FeaturedBlogPostProps) {
   return (
-    <section className="w-full bg-white px-5 py-[50px] pb-[150px] sm:px-8 lg:px-20">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-        {/* Image */}
-        <Link
-          href={`/blog/${slug}`}
-          className="relative block h-[310px] w-full overflow-hidden rounded-[20px] lg:w-[628px]"
-        >
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover transition-transform duration-300 hover:scale-[1.02]"
-            sizes="(max-width: 1024px) 100vw, 628px"
-          />
-        </Link>
+    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-[#EAEAEA] bg-white md:flex-row">
+      {/* Article image */}
+      <Link
+        href={`/blog/${post.slug}`}
+     className="relative min-h-[220px] w-full shrink-0 overflow-hidden md:min-h-[250px] md:w-[46%]"
+      >
+        <Image
+          src={post.image}
+          alt={post.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 46vw"
+          className="object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </Link>
 
-        {/* Content */}
-        <div className="flex w-full flex-col gap-[26px] p-[10px] lg:w-[560px]">
-          {/* Category */}
-          <div className="w-fit rounded-[12px] bg-[#E0F8FA] px-3 py-[5px]">
-            <span className="text-[12px] font-semibold text-[#006D7C]">
-              {category}
-            </span>
-          </div>
+      {/* Article details */}
+      <div className="flex flex-1 flex-col justify-center gap-3 p-4 sm:p-5">
+        <span className="w-fit rounded-full bg-[#E0F8FA] px-3 py-1 text-[10px] font-semibold text-[#006D7C]">
+          {post.category}
+        </span>
 
-          {/* Title + excerpt */}
-          <div className="flex flex-col gap-[19px]">
-            <Link href={`/blog/${slug}`}>
-              <h2 className="text-[28px] font-bold leading-[122%] text-[#1F1F25] transition-colors hover:text-[#00B6CE]">
-                {title}
-              </h2>
-            </Link>
+        <div>
+          <Link href={`/blog/${post.slug}`}>
+            <h3 className="text-[18px] font-bold leading-[1.3] text-[#1F1F25] transition-colors   sm:text-[24px] hover:text-[#00B6CE]">
+              {post.title}
+            </h3>
+          </Link>
 
-            <p className="text-base leading-[150%] text-[#5D5D61]">{excerpt}</p>
-          </div>
+          <p className="mt-3 text-sm leading-[1.6] text-[#77777D]">
+            {post.excerpt}
+          </p>
+        </div>
 
-          {/* Author */}
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-[37px] w-[41px] items-center justify-center rounded-full px-[10px] py-[10px] text-[14px] font-semibold text-white"
-              style={{ backgroundColor: avatarBg }}
-            >
-              {initials}
-            </div>
+        <div>
+          <p className="text-xs text-[#77777D]">
+            {post.author.name} · {post.date} · {post.readTime}
+          </p>
 
-            <div className="flex flex-col gap-[2px]">
-              <p className="text-[14px] font-semibold leading-[100%] text-[#1F1F25]">
-                {author}
-              </p>
-
-              <p className="text-[13px] font-normal leading-[100%] text-[#5D5D61]">
-                {date} · {readTime}
-              </p>
-            </div>
-          </div>
+          <Link
+            href={`/blog/${post.slug}`}
+            className="mt-3 inline-block text-xs] font-semibold text-[#008B9D] hover:underline"
+          >
+            Read featured article →
+          </Link>
         </div>
       </div>
-    </section>
+    </article>
   );
 }
