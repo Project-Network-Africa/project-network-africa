@@ -19,3 +19,9 @@ export interface FAQProps {
   viewAllLabel?: string;
   viewAllHref?: string;
 }
+
+export interface FAQCategory {
+  eyebrow: string;
+  title: string;
+  items: FAQItem[];
+}
