@@ -30,7 +30,7 @@ export default function HowItWorks() {
       <div className="mx-auto flex max-w-[1280px] flex-col gap-8 lg:gap-[29px]">
         <SectionHeader
           label="HOW IT WORKS"
-          title="Your journey from application to employment"
+          title="Your journey from application to employment opportunity"
         />
 
         <div className="grid grid-cols-1 gap-8 rounded-2xl md:bg-white md:p-6 sm:grid-cols-2 lg:grid-cols-4 lg:p-10">

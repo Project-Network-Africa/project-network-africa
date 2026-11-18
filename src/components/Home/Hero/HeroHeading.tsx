@@ -6,14 +6,14 @@ export default function HeroHeading() {
         <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-[#00B6CE]" />
 
         <span className="text-[12px] font-normal leading-[18px] tracking-[1px] text-[#006D7C] md:text-[14px]  bg-[#E5FAFC] md:font-medium md:leading-[20px] md:tracking-normal md:text-[##008EA1] ">
-          NEXT COHORT • SEPTEMBER 14, 2026
+          NEXT COHORT • November 19, 2026
         </span>
       </div>
 
       {/* Heading */}
       <div className="max-w-[936px]">
-        <h1 className="w-full text-center font-heading text-[30px] font-semibold leading-[38px] tracking-normal text-[#1F1F25] lg:w-[936px] lg:text-[64px] lg:font-bold lg:leading-[72px] lg:tracking-[-2px]">
-          Build Real Tech Experience — With Teams, Mentors and Proof of Work
+        <h1 className="w-full text-center font-heading text-[24px] font-semibold leading-[38px] tracking-normal text-[#1F1F25] lg:w-[936px] lg:text-[48px] lg:font-bold lg:leading-[72px] lg:tracking-[-2px]">
+         Build Real-World Tech Experience by Collaborating with other Tech Professionals to Build & Launch Tech Products
         </h1>
       </div>
 

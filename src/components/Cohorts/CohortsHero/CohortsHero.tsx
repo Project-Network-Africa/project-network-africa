@@ -2,7 +2,7 @@ import Button from "../../ui/Button";
 import { CohortsHeroProps } from "./CohortsHero.types";
 
 export default function CohortsHero({
-  eyebrow = "NEXT COHORT • SEPTEMBER 14, 2026",
+  eyebrow = "NEXT COHORT • NOVEMBER 19, 2026",
   title = "Gain real experience with a team that builds together",
   description = "Join a structured product-building experience, work in a multidisciplinary team, receive mentor feedback and produce credible proof of work.",
   primaryText = "Explore Open Cohorts",
@@ -11,7 +11,7 @@ export default function CohortsHero({
   secondaryHref = "#how-cohorts-work",
   stats = [],
   availabilityLabel = "NEXT COHORT",
-  availabilityDate = "Begins september 14, 2026",
+  availabilityDate = "Begins November 19, 2026",
   availabilityDescription = "Select a programme, join a cross-functional team and prepare to build, review and deliver together.",
   availabilityItems = [],
   backgroundClassName = "bg-[#F8F8F8]",
