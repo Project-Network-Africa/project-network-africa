@@ -17,7 +17,7 @@ export const whyPNAfricaData: FeatureCardProps[] = [
     icon: "◈",
     iconBg: "#00B6CE",
     title: "Bootcamps",
-    description: "Structured, cohort-based curriculum across disciplines.",
+    description: "Collective / Collaborative Review: A group meeting or milestone check",
   },
   // {
   //   icon: "▶",

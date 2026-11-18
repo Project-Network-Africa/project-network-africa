@@ -27,9 +27,11 @@ export default function RealProjectExperience() {
           </Button>
         </div>
 
+    
+
         <FeatureVisual>
           <Image
-            src="/images/realprojectexperience/real-project-example.jpg"
+            src="/images/realprojectexperience/sprintBoard.jpg"
             alt="Real project experience"
             fill
             className="object-cover"

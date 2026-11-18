@@ -7,7 +7,7 @@ const paths = [
     title: "I'm an Applicant",
     subtitle: "Start your tech career",
     description:
-      "Join a bootcamp, get matched with a mentor, and build real projects.",
+      "Join a development eco-system, get matched with a team, feedback from mentor, and build real products.",
     linkText: "Explore Program →",
     href: "/programs",
   },
@@ -16,7 +16,7 @@ const paths = [
     title: "I'm a Mentor",
     subtitle: "Guide the next generation",
     description:
-      "Guide the next generation of tech talent through 1:1 mentorship.",
+      "Share your experience through mentoring tech talent, feedback, and project reviews.",
     linkText: "Become a Mentor →",
     href: "/mentorship",
   },

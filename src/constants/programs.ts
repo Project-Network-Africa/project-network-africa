@@ -68,7 +68,7 @@ export const programs = [
   {
     id: 4,
     slug: "data-analytics",
-    title: "Data Analytics ",
+    title: "Business Analysis ",
     category: "Design",
     image: "/images/programs/product-design.jpg",
     description:

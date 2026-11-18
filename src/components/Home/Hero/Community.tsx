@@ -9,7 +9,7 @@ const avatars = [
 
 export default function Community() {
   return (
-    <div className="flex max-w-[380px] flex-row items-center lg:gap-3  text-center sm:flex-row sm:text-left ">
+    <div className="flex max-w-[450px] flex-row items-center lg:gap-3  text-center sm:flex-row sm:text-left ">
       <div className="flex -space-x-2">
         {avatars.map((avatar, index) => (
           <div
@@ -27,8 +27,8 @@ export default function Community() {
         ))}
       </div>
 
-      <p className="text-[10px]  lg: text-[14px]  font-medium text-[#5D5D61] sm:text-sm">
-        Joined by 2,400+ graduates across Africa
+      <p className="text-[10px]  lg: text-[12px]  font-medium text-[#5D5D61] sm:text-sm">
+        Built for emerging professionals ready to learn by doing
       </p>
     </div>
   );
